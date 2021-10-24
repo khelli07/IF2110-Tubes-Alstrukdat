@@ -1,6 +1,5 @@
-/* File : stack.h */
-/* Definisi ADT Stack dengan representasi array secara eksplisit dan alokasi statik */
-/* TOP adalah alamat elemen puncak */
+/* File : stack.c */
+/* Implementasi header stack */
 
 
 #include "../utilities/boolean.h"
