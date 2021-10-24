@@ -5,7 +5,7 @@
 #define QUEUEPESANAN_H
 
 #include "queuepesanan.h"
-#include "pesanan.h"
+#include "../pesanan/pesanan.h"
 
 #define IDX_UNDEF -1
 #define QUEUE_CAPACITY 100

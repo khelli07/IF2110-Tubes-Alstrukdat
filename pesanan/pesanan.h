@@ -1,7 +1,7 @@
 #ifndef PESANAN_H
 #define PESANAN_H
 
-#include "boolean.h"
+#include "../boolean.h"
 typedef enum JenisItemEnum {NORMAL, HEAVY, PERISHABLE, VIP} JenisItem;
 
 typedef struct {
