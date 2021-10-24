@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "adt_mesin/locmachine.c"
-#include "adt_point/location.h"
+#include "adt_mesin/locmachine.h"
 
 int main()
 {
@@ -11,5 +10,9 @@ int main()
         printf("\n");
         advReadLoc();
     }
+
+    char c;
+    printf("Press enter to exit\n");
+    scanf("%c", &c);
     return 0;
 }

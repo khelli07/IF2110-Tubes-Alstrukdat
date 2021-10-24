@@ -8,7 +8,7 @@ Created at: 17/10/2019
 #include <stdio.h>
 #include "pcolor.h"
 
-int main()
+int main_color()
 {
     print_red('R');
     print_green('G');
