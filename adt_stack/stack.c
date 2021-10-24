@@ -1,10 +1,3 @@
-/* 
-NIM: 13520118
-Nama: Mohamad Daffa Argakoesoemah
-Tanggal: 21 Oktober 2021
-Deskripsi: File implementasi header stack
-*/
-
 /* File : stack.h */
 /* Definisi ADT Stack dengan representasi array secara eksplisit dan alokasi statik */
 /* TOP adalah alamat elemen puncak */
