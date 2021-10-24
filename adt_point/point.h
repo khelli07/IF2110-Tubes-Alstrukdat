@@ -4,7 +4,7 @@
 
 #include "../utilities/boolean.h"
 
-typedef struct 
+typedef struct
 {
     int x;
     int y;

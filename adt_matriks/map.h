@@ -1,8 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "boolean.h"
-#include "location.h"
+#include "../utilities/boolean.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define ROW_CAP 100
@@ -12,9 +11,9 @@ typedef int Index; /* Index baris, kolom */
 typedef int ElType;
 typedef struct
 {
-   ElType contents[ROW_CAP][COL_CAP];
-   int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
-   int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
+    ElType contents[ROW_CAP][COL_CAP];
+    int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
+    int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } Matrix;
 /* rowEff >= 1 dan colEff >= 1 */
 /* Indeks matriks yang digunakan: [0..ROW_CAP-1][0..COL_CAP-1] */

@@ -1,7 +1,7 @@
 #ifndef ADJMAT_H
 #define ADJMAT_H
 
-#include "boolean.h"
+#include "../utilities/boolean.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define ROW_CAP 100

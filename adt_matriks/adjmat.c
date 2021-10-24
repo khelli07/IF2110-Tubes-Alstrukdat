@@ -1,7 +1,6 @@
 /* IMPORTS */
 #include <stdio.h>
-#include "boolean.h"
-#include "map.h"
+#include "adjmat.h"
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Matrix *** */

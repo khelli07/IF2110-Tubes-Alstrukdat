@@ -7,7 +7,6 @@ void CreateLocation(Location *loc, int x, int y, char c)
 {
     Point p;
     CreatePoint(&p, x, y);
-
     TITIK(*loc) = p;
     NAMA_BANGUNAN(*loc) = c;
 }

@@ -1,6 +1,5 @@
 /* IMPORTS */
 #include <stdio.h>
-#include "boolean.h"
 #include "map.h"
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
