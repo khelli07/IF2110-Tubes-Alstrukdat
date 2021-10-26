@@ -15,7 +15,7 @@ extern int readLocCounter;
 extern boolean endReadLoc;
 extern Location currentLoc;
 
-/* COMMAND */
+/* MACHINE PROGRAM */
 void ignoreBlank();
 
 void startReadLoc();
@@ -23,5 +23,9 @@ void startReadLoc();
 void advReadLoc();
 
 void copyCurrentLoc();
+
+/* SUPPORTING FUNCTIONS */
+int charToInt(char cc);
+int readInt();
 
 #endif

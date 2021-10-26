@@ -38,6 +38,14 @@ void CreateMap(Map *m, int row, int col)
     }
 }
 
+/* ********** SETTER ********** */
+void setBuilding(Map *m, Location loc)
+{
+    int row = loc.point.x;
+    int col = loc.point.y;
+    MAP(*m, row, col) = loc;
+}
+
 /* ********** KELOMPOK BACA/TULIS ********** */
 void displayMap(Map m)
 {
@@ -49,11 +57,4 @@ void displayMap(Map m)
         }
         printf("\n");
     }
-}
-
-void setBangunan(Map *m, Location loc)
-{
-    int row = loc.point.x;
-    int col = loc.point.y;
-    MAP(*m, row, col) = loc;
 }

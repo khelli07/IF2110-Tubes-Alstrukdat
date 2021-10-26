@@ -3,13 +3,9 @@
 #include <stdlib.h>
 
 /* ********** KONSTRUKTOR ********** */
-/* Konstruktor : create list kosong  */
-/* I.S. l sembarang, capacity > 0 */
-/* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity + 1 */
-// Kapasistas ditambah 1 supaya lebih aman saat free memory
 void CreateDynamicList(DynamicList *l, int capacity)
 {
-    BUFFER(*l) = (ElType *)malloc((capacity + 1) * sizeof(ElType));
+    BUFFER(*l) = (ElType *)malloc((capacity + 2) * sizeof(ElType));
     if (BUFFER(*l) != NULL)
     {
         NEFF(*l) = 0;
@@ -17,8 +13,6 @@ void CreateDynamicList(DynamicList *l, int capacity)
     }
 }
 
-/* I.S. l terdefinisi; */
-/* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
 void dealocate(DynamicList *l)
 {
     if (BUFFER(*l) != NULL)
@@ -29,7 +23,7 @@ void dealocate(DynamicList *l)
     }
 }
 
-/* OUTPUT LIST LOCATION */
+/* I/O LIST LOCATION */
 void displayLocList(DynamicList l)
 {
     for (int i = 0; i < NEFF(l); i++)
@@ -49,43 +43,102 @@ void displayLocList(DynamicList l)
 }
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
-/* *** Menambahkan elemen terakhir *** */
-/* Proses: Menambahkan location sebagai elemen terakhir list */
-/* I.S. List l boleh kosong, tetapi tidak penuh */
-/* F.S. val adalah elemen terakhir l yang baru */
 void insertLoc(DynamicList *l, ElType loc)
 {
     LOC(*l, NEFF(*l)) = loc;
     NEFF(*l) += 1;
 }
 
-/* ********** MENGHAPUS ELEMEN ********** */
-/* Proses : Menghapus elemen terakhir list */
-/* I.S. List tidak kosong */
-/* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
-/*      Banyaknya elemen list berkurang satu */
-/*      List l mungkin menjadi kosong */
 void deleteLoc(DynamicList *l, ElType *val)
 {
     *val = LOC(*l, NEFF(*l) - 1);
     NEFF(*l) -= 1;
 }
 
-/* FUNGSI TAMBAHAN */
-/* Mengembalikan jumlah banyaknya bangunan yang terdefinisi */
-int countBangunan(DynamicList l)
+/* ********** GETTER ********** */
+int getLocIndex(DynamicList l, Location loc)
 {
-    return NEFF(l);
+    int i = 0;
+    boolean found = false;
+    while (i < NEFF(l) && !found)
+    {
+        if (isLocEqual(LOC(l, i), loc))
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+
+    if (found)
+    {
+        return i;
+    }
+    else
+    {
+        return -1;
+    }
 }
 
-/* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
+DynamicList getAccLoc(AdjMatrix m, DynamicList l, Location lstart)
+{
+    int idx;
+    DynamicList ltemp;
+
+    CreateDynamicList(&ltemp, CAPACITY(l));
+    idx = getLocIndex(l, lstart);
+    for (int j = 0; j < SIZE(m); j++)
+    {
+        if (ADJ(m, idx, j) == 1)
+        {
+            insertLoc(&ltemp, LOC(l, j));
+        }
+    }
+
+    return ltemp;
+}
+
+void displayAccLoc(AdjMatrix m, DynamicList l, Location lstart)
+{
+    DynamicList ltemp = getAccLoc(m, l, lstart);
+    displayLocList(ltemp);
+    dealocate(&ltemp);
+}
+
+boolean isAccLoc(AdjMatrix m, DynamicList l, Location lstart, Location ldest)
+{
+    DynamicList ltemp = getAccLoc(m, l, lstart);
+    int i = 0;
+    boolean found = false;
+    while (i < NEFF(ltemp))
+    {
+        if (isLocEqual(ldest, LOC(ltemp, i)))
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    dealocate(&ltemp);
+    return found;
+}
+
+/* ********** FUNGSI TAMBAHAN *********** */
 boolean isEmpty(DynamicList l)
 {
     return (NEFF(l) == 0);
 }
 
-/* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 boolean isFull(DynamicList l)
 {
     return (NEFF(l) == CAPACITY(l) - 1);
+}
+
+int countBuilding(DynamicList l)
+{
+    return NEFF(l);
 }

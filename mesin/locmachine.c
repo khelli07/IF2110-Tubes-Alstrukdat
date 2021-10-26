@@ -36,7 +36,7 @@ void ignoreBlank()
 
 void startReadLoc()
 {
-    start();
+    // start();
     ignoreBlank();
     readLocCounter = readInt();
     if (readLocCounter <= 0)

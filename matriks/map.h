@@ -26,9 +26,18 @@ typedef struct
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Map *** */
 void CreateMap(Map *m, int row, int col);
+/* I.S. m sembarang */
+/* F.S. terbentuk map: matriks dengan row x col */
+
+/* ********** SETTER ********** */
+void setBuilding(Map *m, Location loc);
+/* I.S. m terdefinisi */
+/* F.S. lokasi pada titik ke x, y akan diletakkan pada matriks
+        ke-x, y pada map. Jika sudah ada bangunan, akan dioverwrite */
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void setBangunan(Map *m, Location loc);
 void displayMap(Map m);
+/* I.S. m terdefinisi */
+/* F.S. menampilkan map */
 
 #endif

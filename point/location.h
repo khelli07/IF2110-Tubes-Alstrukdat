@@ -30,4 +30,7 @@ void setLocationColor(Location *loc, Color c);
 void displayLoc(Location loc);
 void displayColoredLoc(Location loc);
 
+/* FUNGSI TAMBAHAN */
+boolean isLocEqual(Location l1, Location l2);
+
 #endif
