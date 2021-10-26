@@ -30,9 +30,5 @@ int main()
     displayMap(m);
 
     dealocate(&locList);
-
-    printf("%d", NEFF(locList));
-    printf(" %d\n", CAPACITY(locList));
-    displayMap(m);
     return 0;
 }

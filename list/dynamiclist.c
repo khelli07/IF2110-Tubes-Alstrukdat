@@ -5,14 +5,15 @@
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */
 /* I.S. l sembarang, capacity > 0 */
-/* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
+/* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity + 1 */
+// Kapasistas ditambah 1 supaya lebih aman saat free memory
 void CreateDynamicList(DynamicList *l, int capacity)
 {
-    BUFFER(*l) = (ElType *)malloc(capacity * sizeof(ElType));
+    BUFFER(*l) = (ElType *)malloc((capacity + 1) * sizeof(ElType));
     if (BUFFER(*l) != NULL)
     {
         NEFF(*l) = 0;
-        CAPACITY(*l) = capacity;
+        CAPACITY(*l) = capacity + 1;
     }
 }
 
@@ -22,10 +23,9 @@ void dealocate(DynamicList *l)
 {
     if (BUFFER(*l) != NULL)
     {
-        ElType *p = BUFFER(*l);
+        free(BUFFER(*l));
         CAPACITY(*l) = 0;
         NEFF(*l) = 0;
-        free(p);
     }
 }
 
@@ -87,5 +87,5 @@ boolean isEmpty(DynamicList l)
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 boolean isFull(DynamicList l)
 {
-    return (NEFF(l) == CAPACITY(l));
+    return (NEFF(l) == CAPACITY(l) - 1);
 }
