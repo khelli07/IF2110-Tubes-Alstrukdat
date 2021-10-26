@@ -1,0 +1,7 @@
+CC = gcc
+
+SUBDIR = node location pesanan point adt_linked_list_to_do adt_linked_list_in_progress adt_stack adt_wordmachine utilities 
+SRCS = $(wildcard *.c $(foreach fd, $(SUBDIR), $(fd)/*.c))
+
+output: $(SRCS)
+	$(CC) $(SRCS) -o output
