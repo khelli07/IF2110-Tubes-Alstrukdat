@@ -15,26 +15,9 @@ int main(){
     scanf(" %d", &waktuIn);
 
     char jenis;
-    JenisItem jenisItem;
     scanf(" %c", &jenis);
-    switch (jenis)
-    {
-    case 'N':
-        jenisItem = NORMAL;
-        break;
-    case 'H':
-        jenisItem = HEAVY;
-        break;
-    case 'P':
-        jenisItem = PERISHABLE;
-        break;
-    case 'V':
-        jenisItem = VIP;
-        break;
-    default:
-        jenisItem = UNKNOWN;
-        break;
-    }
+    JenisItem jenisItem = charToJenisItem(jenis);
+
     Pesanan p;
     if(jenisItem == PERISHABLE){
         int timeout;
@@ -43,5 +26,6 @@ int main(){
     } else{
         CreatePesanan(&p, jenisItem, pick, drop, waktuIn);
     }
+    
     displayPesanan(p);
 }

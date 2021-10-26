@@ -28,17 +28,21 @@ typedef struct {
 void CreatePesanan(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn);
 // Create Pesanan, untuk Perishable (dengan timeout)
 void CreatePesananPerish(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn, int timeout);
+// Mengubah karakter kode jenis item ke enum JenisItem
+JenisItem charToJenisItem(char c);
+
 // Mendapatkan tipe Pesanan dalam string (bukan angka enum)
 char* getJenisItemString(Pesanan p);
-// Menampilkan pesanan
+// Mendapatkan tipe Pesanan dalam char
+char getJenisItemChar(Pesanan p);
+// Menampilkan Pesanan, ditambah \n baris baru pada akhir. Format: waktuIn pickup dropoff jenisItem harga+Yen [Timout perishable]
 void displayPesanan(Pesanan p);
 
 // Apakah pesanan sudah masuk waktu sehingga muncul di To Do
 boolean isPesananMasukWaktu(Pesanan p, int waktu);
 // Return true jika timout item sudah habis (khusus Perishable)
 boolean isPesananExpired(Pesanan p);
-
-boolean isPesananEqual(Pesanan p1, Pesanan p2);
 // Return true jika p1 sama dengan p2
+boolean isPesananEqual(Pesanan p1, Pesanan p2);
 
 #endif

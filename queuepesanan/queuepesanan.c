@@ -4,29 +4,29 @@
 
 
 /* *** Kreator *** */
-void CreateQueue(Queue *q){
+void CreateQueue(QueuePesanan *q){
     IDX_HEADQUEUE(*q) = IDX_UNDEF;
     IDX_TAILQUEUE(*q) = IDX_UNDEF;
 }
 
 
-boolean isQueueEmpty(Queue q){
+boolean isQueueEmpty(QueuePesanan q){
     if(IDX_HEADQUEUE(q) == IDX_UNDEF && IDX_TAILQUEUE(q) == IDX_UNDEF) return true;
     return false;
 }
 
-boolean isQueueFull(Queue q){
+boolean isQueueFull(QueuePesanan q){
     if(IDX_HEADQUEUE(q) == 0 && IDX_TAILQUEUE(q) == QUEUE_CAPACITY-1) return true;
     return false;
 }
 
-int lengthQueue(Queue q){
+int lengthQueue(QueuePesanan q){
     if(isQueueEmpty(q)) return 0;
     else return (IDX_TAILQUEUE(q) - IDX_HEADQUEUE(q) + 1);
 }
 
 
-void enqueue(Queue *q, Pesanan val){
+void enqueue(QueuePesanan *q, Pesanan val){
     if(isQueueEmpty(*q)){
         IDX_HEADQUEUE(*q) = 0;
         IDX_TAILQUEUE(*q) = 0;
@@ -45,7 +45,7 @@ void enqueue(Queue *q, Pesanan val){
     TAILQUEUE(*q) = val;
 }
 
-void dequeue(Queue *q, Pesanan *val){
+void dequeue(QueuePesanan *q, Pesanan *val){
     *val = HEADQUEUE(*q);
     IDX_HEADQUEUE(*q)++;
     if(IDX_HEADQUEUE(*q) > IDX_TAILQUEUE(*q)){
@@ -55,26 +55,38 @@ void dequeue(Queue *q, Pesanan *val){
 }
 
 
-void displayQueue(Queue q){
+void displayQueue(QueuePesanan q){
     while(!isQueueEmpty(q)){
         Pesanan p;
         dequeue(&q, &p);
-        printf("%d ", WaktuIn(p));
-        switch (JenisItem(p))
-        {
-        case NORMAL:
-            printf("Normal 200 Yen");
-            break;
-        case HEAVY:
-            printf("Heavy 400 Yen");
-            break;
-        case PERISHABLE:
-            printf("Perishable 400 Yen Timeout: %d", TimeoutPerish(p));
-            break;
-        case VIP:
-            printf("VIP 600 Yen");
-            break;
+        displayPesanan(p);
+    }
+}
+
+void sortQueue(QueuePesanan* q){
+    int i, j, n;
+    Pesanan temp;
+
+    n = lengthQueue(*q);
+    Pesanan arr[QUEUE_CAPACITY];
+    for(i = 0; i < n; i++){
+        dequeue(q, &temp);
+        arr[i] = temp;
+    }
+
+    for(i = 0; i < n-1; i++){
+        for(j = i+1; j > 0; j--){
+            if(WaktuIn(arr[j]) < WaktuIn(arr[j-1])){
+                temp = arr[j];
+                arr[j] = arr[j-1];
+                arr[j-1] = temp;
+            } else{
+                break;
+            }
         }
-        printf("\n");
+    }
+
+    for(i = 0; i < n; i++){
+        enqueue(q, arr[i]);
     }
 }
