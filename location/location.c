@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "location.h"
+#include "../point/point.h"
 
 /* SELEKTOR */
 // POINT(L) -> L.point (POINT)

@@ -1,6 +1,8 @@
+#include <stdio.h>
 #include "pesanan.h"
+#include "../location/location.h"
 
-void CreatePesanan(Pesanan *p, JenisItem jenisItem, Lokasi pickUp, Lokasi dropOff, int waktuIn){
+void CreatePesanan(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn){
     JenisItem(*p) = jenisItem;
     LokasiPickUp(*p) = pickUp;
     LokasiDropOff(*p) = dropOff;
@@ -29,8 +31,8 @@ void CreatePesanan(Pesanan *p, JenisItem jenisItem, Lokasi pickUp, Lokasi dropOf
         }
     Price(*p) = harga;
 }
-// Create Pesanan, untuk Perishable (dengan timeout)
-void CreatePesananPerish(Pesanan *p, JenisItem jenisItem, Lokasi pickUp, Lokasi dropOff, int waktuIn, int timeout){
+
+void CreatePesananPerish(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn, int timeout){
     JenisItem(*p) = jenisItem;
     LokasiPickUp(*p) = pickUp;
     LokasiDropOff(*p) = dropOff;
@@ -60,11 +62,38 @@ void CreatePesananPerish(Pesanan *p, JenisItem jenisItem, Lokasi pickUp, Lokasi 
     Price(*p) = harga;
 }
 
-// Apakah pesanan sudah masuk waktu sehingga muncul di To Do
+char* getJenisItemString(Pesanan p){
+    switch (JenisItem(p))
+        {
+        case NORMAL:
+            return "NORMAL";
+            break;
+        case HEAVY:
+            return "HEAVY";
+            break;
+        case PERISHABLE:
+            return "PERISHABLE";
+            break;
+        case VIP:
+            return "VIP";
+            break;
+        default:
+            return "UNKNOWN";
+            break;
+        }
+}
+
+void displayPesanan(Pesanan p){
+    printf("%d %c %c %s %d Yen", WaktuIn(p), NAME(LokasiPickUp(p)), NAME(LokasiDropOff(p)), getJenisItemString(p), Price(p));
+    if(JenisItem(p) == PERISHABLE)
+        printf(" timeout: %d", TimeoutPerish(p));
+    printf("\n");
+}
+
 boolean isPesananMasukWaktu(Pesanan p, int waktu){
     return waktu >= WaktuIn(p);
 }
-// Return true jika timout item sudah habis (khusus Perishable)
+
 boolean isPesananExpired(Pesanan p){
     return TimeoutPerish(p) <= 0;
 }

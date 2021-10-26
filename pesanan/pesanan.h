@@ -2,11 +2,13 @@
 #define PESANAN_H
 
 #include "../boolean.h"
-typedef enum JenisItemEnum {NORMAL, HEAVY, PERISHABLE, VIP} JenisItem;
+#include "../location/location.h"
+
+typedef enum JenisItemEnum {NORMAL, HEAVY, PERISHABLE, VIP, UNKNOWN} JenisItem;
 
 typedef struct {
-    Lokasi pickUp;
-    Lokasi dropOff;
+    Location pickUp;
+    Location dropOff;
     int waktuIn;
     int price;
     int timeout; // waktu expired, khusus Perishable
@@ -23,9 +25,13 @@ typedef struct {
 #define TimeoutPerishInitial(p) (p).timeout
 
 // Create Pesanan, harga item otomatis disimpulkan dari JenisItem
-void CreatePesanan(Pesanan *p, JenisItem jenisItem, Lokasi pickUp, Lokasi dropOff, int waktuIn);
+void CreatePesanan(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn);
 // Create Pesanan, untuk Perishable (dengan timeout)
-void CreatePesananPerish(Pesanan *p, JenisItem jenisItem, Lokasi pickUp, Lokasi dropOff, int waktuIn, int timeout);
+void CreatePesananPerish(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn, int timeout);
+// Mendapatkan tipe Pesanan dalam string (bukan angka enum)
+char* getJenisItemString(Pesanan p);
+// Menampilkan pesanan
+void displayPesanan(Pesanan p);
 
 // Apakah pesanan sudah masuk waktu sehingga muncul di To Do
 boolean isPesananMasukWaktu(Pesanan p, int waktu);
