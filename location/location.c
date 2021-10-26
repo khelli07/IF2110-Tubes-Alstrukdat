@@ -18,7 +18,3 @@ void DisplayLocation(Location loc){
 	//prints {name (x,y)} without newline
 	printf("%c (%d,%d)",NAME(loc),ABSIS(POINT(loc)),ORDINAT(POINT(loc)));
 }
-
-int main(){
-	printf("haha");
-}
