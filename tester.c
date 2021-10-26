@@ -1,18 +1,38 @@
 #include <stdio.h>
-#include "adt_mesin/locmachine.h"
+#include "mesin/locmachine.h"
+#include "list/dynamiclist.h"
+#include "matriks/map.h"
 
 int main()
 {
+    /* KAMUS LOKAL */
+    DynamicList locList;
+    Map m;
+
+    /* ALGORITMA */
+    CreateMap(&m, 10, 15);
+
     startReadLoc();
+    CreateDynamicList(&locList, readLocCounter);
     while (!endReadLoc)
     {
-        displayLocation(currentLoc);
+        displayLoc(currentLoc);
+        insertLoc(&locList, currentLoc);
+        setBangunan(&m, currentLoc);
         printf("\n");
         advReadLoc();
     }
 
-    char c;
-    printf("Press enter to exit\n");
-    scanf("%c", &c);
+    printf("\nBanyaknya bangunan: %d\n", countBangunan(locList));
+    displayLocList(locList);
+
+    printf("\n");
+    displayMap(m);
+
+    dealocate(&locList);
+
+    printf("%d", NEFF(locList));
+    printf(" %d\n", CAPACITY(locList));
+    displayMap(m);
     return 0;
 }

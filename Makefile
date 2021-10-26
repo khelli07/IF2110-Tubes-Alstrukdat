@@ -1,6 +1,6 @@
 CC = gcc
 
-SUBDIR = adt_mesin adt_point 
+SUBDIR = list matriks mesin point utilities
 SRCS = $(wildcard *.c $(foreach fd, $(SUBDIR), $(fd)/*.c))
 
 output: $(SRCS)

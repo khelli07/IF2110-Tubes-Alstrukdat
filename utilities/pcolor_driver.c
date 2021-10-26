@@ -17,5 +17,9 @@ int main_color()
     print_yellow('Y');
     print_blue('B');
     printf("\n");
+
+    char c;
+    printf("Press enter to exit\n");
+    scanf("%c", &c);
     return 0;
 }

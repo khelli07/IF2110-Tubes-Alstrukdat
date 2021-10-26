@@ -1,5 +1,5 @@
 #include "locmachine.h"
-#include "../adt_point/location.h"
+#include "../point/location.h"
 #include <stdio.h>
 
 int readLocCounter = -1;

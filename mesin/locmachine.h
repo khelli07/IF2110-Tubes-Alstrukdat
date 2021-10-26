@@ -3,7 +3,7 @@
 #define LOCMACHINE_H
 
 #include "../utilities/boolean.h"
-#include "../adt_point/location.h"
+#include "../point/location.h"
 #include "charmachine.h"
 
 #define BLANK ' '
