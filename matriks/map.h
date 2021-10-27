@@ -3,6 +3,7 @@
 
 #include "../utilities/boolean.h"
 #include "../utilities/pcolor.h"
+#include "../list/dynamiclist.h"
 #include "../point/location.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
@@ -34,6 +35,11 @@ void setBuilding(Map *m, Location loc);
 /* I.S. m terdefinisi */
 /* F.S. lokasi pada titik ke x, y akan diletakkan pada matriks
         ke-x, y pada map. Jika sudah ada bangunan, akan dioverwrite */
+
+/* SETTER */
+void setLocationColor(Map *m, DynamicList *locList, Location loc, Color cc);
+/* I.S. m terdefinisi, loc dijamin ada */
+/* F.S. overwrite loc color di map dan update data di list */
 
 /* ********** KELOMPOK BACA/TULIS ********** */
 void displayMap(Map m);

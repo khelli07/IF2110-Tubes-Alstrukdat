@@ -1,6 +1,3 @@
-/* File: charmachine.h */
-/* Definisi Character Engine */
-
 #ifndef CHAR_ENGINE_H
 #define CHAR_ENGINE_H
 

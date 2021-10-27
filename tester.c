@@ -63,6 +63,10 @@ int main()
     CreateLocation(&locHQ, 1, 1, '8');
     displayAccLoc(adjMat, locList, locHQ);
 
+    printf("\n=====\n");
+    setLocationColor(&map, &locList, locHQ, R);
+    displayMap(map);
+
     dealocate(&locList);
     return 0;
 }

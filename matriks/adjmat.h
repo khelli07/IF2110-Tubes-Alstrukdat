@@ -2,7 +2,6 @@
 #define ADJMAT_H
 
 #include "../utilities/boolean.h"
-#include "map.h"
 
 #define ADJ_CAP 100
 

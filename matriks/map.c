@@ -1,7 +1,6 @@
 /* IMPORTS */
 #include <stdio.h>
 #include "map.h"
-#include "../point/location.h"
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Map *** */
@@ -44,6 +43,18 @@ void setBuilding(Map *m, Location loc)
     int row = loc.point.x;
     int col = loc.point.y;
     MAP(*m, row, col) = loc;
+}
+
+void setLocationColor(Map *m, DynamicList *locList, Location loc, Color cc)
+{
+    int i = getLocIndex(*locList, loc);
+    // Ubah yang ada di daftar list bangunan
+    LOC(*locList, i).color = cc;
+    // Ubah yang ada di map
+    Point p = POINT(LOC(*locList, i));
+    int row = p.x;
+    int col = p.y;
+    MAP(*m, row, col).color = cc;
 }
 
 /* ********** KELOMPOK BACA/TULIS ********** */

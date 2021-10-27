@@ -17,18 +17,15 @@ typedef struct
 
 /* SELEKTOR */
 #define POINT(p) (p).point
-#define BUILD_NAME(p) (p).buildingName
+#define NAME(p) (p).buildingName
 #define COLOR(p) (p).color
 
 /* KONSTRUKTOR */
 void CreateLocation(Location *loc, int x, int y, char c);
 
-/* SETTER */
-void setLocationColor(Location *loc, Color c);
-
 /* I/O */
-void displayLoc(Location loc);
-void displayColoredLoc(Location loc);
+void displayLoc(Location loc); // lokasi + titik
+void displayColoredLoc(Location loc); // nama lokasi saja
 
 /* FUNGSI TAMBAHAN */
 boolean isLocEqual(Location l1, Location l2);

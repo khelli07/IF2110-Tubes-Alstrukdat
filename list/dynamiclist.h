@@ -55,7 +55,7 @@ void deleteLoc(DynamicList *l, ElType *loc);
 
 /* ********** GETTER ********** */
 int getLocIndex(DynamicList l, Location loc);
-/* Mengembalikan indeks lstart di list l */
+/* Mengembalikan indeks loc di list l */
 DynamicList getAccLoc(AdjMatrix m, DynamicList l, Location lstart);
 /* Mengembalikan lokasi yang aksesibel dari lstart*/
 void displayAccLoc(AdjMatrix m, DynamicList l, Location lstart);
