@@ -2,6 +2,7 @@
 #define ADJMAT_H
 
 #include "../utilities/boolean.h"
+#include "../mesin/locmachine.h"
 
 #define ADJ_CAP 100
 
@@ -34,14 +35,5 @@ void displayAdjMatrix(AdjMatrix m);
 /* F.S. Nilai m(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
    dipisahkan sebuah spasi */
 /* Proses: Menulis nilai setiap elemen m ke layar dengan traversal per baris dan per kolom */
-
-/* FUNGSI TAMBAHAN */
-boolean isSymmetric(AdjMatrix m);
-/* Mengirimkan true jika m adalah matriks simetri untuk setiap elemen m, m(i,j)=m(j,i).
-Prekondisi: matriks dijamin square */
-
-void transpose(AdjMatrix *m);
-/* I.S. m terdefinisi dan isSquare(m) */
-/* F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
 
 #endif
