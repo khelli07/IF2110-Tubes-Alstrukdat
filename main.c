@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "utilities/boolean.h"
-#include "adt_linked_list_to_do/linked_list_to_do.h"
-#include "adt_linked_list_in_progress/linked_list_in_progress.h"
+#include "boolean.h"
+#include "to_do_list/linked_list_to_do.h"
+#include "in_progress_list/linked_list_in_progress.h"
 
 int main() {
     // KAMUS 

@@ -5,7 +5,7 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include "../utilities/boolean.h"
+#include "../boolean.h"
 #include "../pesanan/pesanan.h"
 
 #define IDX_UNDEF -1

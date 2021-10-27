@@ -1,7 +1,7 @@
 #ifndef PESANAN_H
 #define PESANAN_H
 
-#include "../utilities/boolean.h"
+#include "../boolean.h"
 #include "../location/location.h"
 #include "../point/point.h"
 

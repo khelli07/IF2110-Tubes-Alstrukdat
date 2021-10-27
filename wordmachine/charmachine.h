@@ -4,7 +4,7 @@
 #ifndef CHAR_ENGINE_H
 #define CHAR_ENGINE_H
 
-#include "../utilities/boolean.h"
+#include "../boolean.h"
 #define MARK '.'
 /* Char Engine State */
 extern char currentChar;

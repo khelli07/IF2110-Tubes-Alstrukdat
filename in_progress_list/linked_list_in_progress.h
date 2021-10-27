@@ -6,7 +6,7 @@
 #ifndef INPROGRESSLIST_H
 #define INPROGRESSLIST_H
 
-#include "../utilities/boolean.h"
+#include "../boolean.h"
 #include "../node/node.h"
 #include "../pesanan/pesanan.h"
 #include "../location/location.h"

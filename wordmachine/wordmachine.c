@@ -2,7 +2,6 @@
 /* Implementasi Word Engine */
 
 #include <stdio.h>
-#include "../utilities/boolean.h"
 #include "wordmachine.h"
 
 /* Word Engine State */

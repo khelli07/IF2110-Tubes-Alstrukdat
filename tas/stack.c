@@ -1,8 +1,5 @@
 /* File : stack.c */
 /* Implementasi header stack */
-
-
-#include "../utilities/boolean.h"
 #include "stack.h"
 
 /* *** Konstruktor/Kreator *** */
