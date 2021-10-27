@@ -13,7 +13,7 @@ int charToInt(char cc)
 
 int readInt()
 {
-    ignoreBlank();
+    ignoreWhiteSpace();
     int i = 0;
     int value = 0;
     while (currentChar >= 48 && currentChar <= 48 + 9 && i < NUM_CAP)
@@ -26,9 +26,9 @@ int readInt()
     return value;
 }
 
-void ignoreBlank()
+void ignoreWhiteSpace()
 {
-    while (currentChar == BLANK || currentChar == NEWLINE)
+    while (currentChar == BLANK || currentChar == NEWLINE || currentChar == TAB)
     {
         adv();
     }
@@ -37,7 +37,7 @@ void ignoreBlank()
 void startReadLoc()
 {
     // start();
-    ignoreBlank();
+    ignoreWhiteSpace();
     readLocCounter = readInt();
     if (readLocCounter <= 0)
     {
@@ -46,7 +46,7 @@ void startReadLoc()
     else
     {
         endReadLoc = false;
-        ignoreBlank();
+        ignoreWhiteSpace();
         copyCurrentLoc();
     }
 }
@@ -59,7 +59,7 @@ void advReadLoc()
     }
     else
     {
-        ignoreBlank();
+        ignoreWhiteSpace();
         copyCurrentLoc();
     }
 }

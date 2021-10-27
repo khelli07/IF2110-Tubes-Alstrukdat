@@ -8,6 +8,7 @@
 
 #define BLANK ' '
 #define NEWLINE '\n'
+#define TAB '\t'
 #define NUM_CAP 50
 
 /* STATE MACHINE */
@@ -16,16 +17,17 @@ extern boolean endReadLoc;
 extern Location currentLoc;
 
 /* MACHINE PROGRAM */
-void ignoreBlank();
-
+void ignoreWhiteSpace(); 
+/* Mengabaikan BLANK, NEWLINE, dan TAB */
 void startReadLoc();
-
+/* Mulai readloc, inisialisasi readLocCounter dan endReadLoc */
 void advReadLoc();
-
+/* Baca lokasi selanjutnya, selesai jika counter <= 0 */
 void copyCurrentLoc();
+/* Menyalin lokasi ke currentLoc */
 
 /* SUPPORTING FUNCTIONS */
-int charToInt(char cc);
-int readInt();
+int charToInt(char cc); // convert char to integer
+int readInt(); // baca char >= 2 digit, langsung jadi integer
 
 #endif
