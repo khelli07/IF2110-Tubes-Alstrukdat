@@ -8,7 +8,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This program built for i386-pc-mingw32
  
 
-# Make data base, printed on Wed Oct 27 17:26:40 2021
+# Make data base, printed on Wed Oct 27 20:38:17 2021
 
 # Variables
 
@@ -57,12 +57,11 @@ PROGRAMW6432 = C:\Program Files
 # environment
 PROGRAMDATA = C:\ProgramData
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-8d2bf2dd-c1f7-4845-a957-2208919db4c8-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-575c3450-88ea-475d-baf9-5caab1ced3c4-sock
 # environment
 VSCODE_CWD = C:\Users\Argakoesoemah\AppData\Local\Programs\Microsoft VS Code
 # environment
-PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\Eclipse Foundation\jdk-11.0.12.7-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\MinGW\bin;C:\Program Files\Java\jdk-17;C:\Program Files (x86)\GnuWin32\bin;C:\Users\Argakoesoemah\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Argakoesoemah\AppData\Local\Programs\Python\Python39\;C:\Users\Argakoesoemah\AppData\Local\Microsoft\WindowsApps;C:\Users\Argakoesoemah\AppData\Local\Programs\Microsof 
-t VS Code\bin;C:\Users\Argakoesoemah\AppData\Roaming\npm;C:\Development\flutter\bin;C:\Development\flutter\bin\cache\dart-sdk\bin;
+PATH = C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\Eclipse Foundation\jdk-11.0.12.7-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\MinGW\bin;C:\Program Files\Java\jdk-17;C:\Program Files (x86)\GnuWin32\bin;C:\Users\Argakoesoemah\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Argakoesoemah\AppData\Local\Programs\Python\Python39\;C:\Users\Argakoesoemah\AppData\Local\Microsoft\WindowsApps;C:\Users\Argakoesoemah\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Argakoesoemah\AppData\Roaming\npm;C:\Development\flutter\bin;C:\Development\flutter\bin\cache\dart-sdk\bin;
 # environment
 ONLINESERVICES = Online Services
 # environment
@@ -78,7 +77,7 @@ USERPROFILE = C:\Users\Argakoesoemah
 # environment
 ALLUSERSPROFILE = C:\ProgramData
 # makefile (from `makefile', line 3)
-SUBDIR = node location pesanan point adt_linked_list_to_do adt_linked_list_in_progress adt_stack adt_wordmachine utilities 
+SUBDIR = node location pesanan point to_do_list in_progress_list tas wordmachine utilities 
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -90,7 +89,7 @@ ELECTRON_RUN_AS_NODE = 1
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_1280_OLQTLFEHSBPQTXTF
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_12604_TDMHTMWJXQXPZBVO
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -195,8 +194,7 @@ SUFFIXES :=
 SYSTEMDRIVE = C:
 # environment
 SESSIONNAME = Console
-# environment 
-
+# environment
 PROCESSOR_REVISION = 8c01
 # environment
 MAKELEVEL := 0
@@ -207,7 +205,7 @@ PROCESSOR_LEVEL = 6
 # environment
 FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
 # environment
-VSCODE_PID = 1280
+VSCODE_PID = 12604
 # environment
 USERDOMAIN_ROAMINGPROFILE = LAPTOP-5P9LFIRM
 # variable set hash-table stats:
@@ -221,34 +219,32 @@ USERDOMAIN_ROAMINGPROFILE = LAPTOP-5P9LFIRM
 
 # C:\Program Files\Common Files\Oracle\Java\javapath (key C:/Program Files/Common Files/Oracle/Java/javapath, mtime 1632891655): 6 files, no impossibilities.
 # C:\Development\flutter\bin\cache\dart-sdk\bin (key C:/Development/flutter/bin/cache/dart-sdk/bin, mtime 1633044852): 15 files, no impossibilities.
-# adt_linked_list_in_progress (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/adt_linked_list_in_progress, mtime 1635261601): 4 files, no impossibilities.
 # C:\Users\Argakoesoemah\AppData\Local\Programs\Python\Python39\ (key C:/Users/Argakoesoemah/AppData/Local/Programs/Python/Python39/, mtime 1634364528): 19 files, no impossibilities.
-# C:\Users\Argakoesoemah\AppData\Local\Microsoft\WindowsApps (key C:/Users/Argakoesoemah/AppData/Local/Microsoft/WindowsApps, mtime 1635310832): 30 files, no impossibilities.
+# C:\Users\Argakoesoemah\AppData\Local\Microsoft\WindowsApps (key C:/Users/Argakoesoemah/AppData/Local/Microsoft/WindowsApps, mtime 1635339745): 30 files, no impossibilities.
 # C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1622898672): 30 files, no impossibilities.
 # C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1634921707): 155 files, no impossibilities.
-# . (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat, mtime 1635263341): 17 files, no impossibilities.
+# . (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat, mtime 1635331710): 18 files, no impossibilities.
 # C:\Development\flutter\bin (key C:/Development/flutter/bin, mtime 1633044841): 9 files, no impossibilities.
 # C:\Users\Argakoesoemah\AppData\Local\Programs\Python\Python39\Scripts\ (key C:/Users/Argakoesoemah/AppData/Local/Programs/Python/Python39/Scripts/, mtime 1634364530): 39 files, no impossibilities.
-# C:\ProgramData\chocolatey\bin (key C:/ProgramData/chocolatey/bin, mtime 1628424690): 13 files, no impos 
-sibilities.
+# C:\ProgramData\chocolatey\bin (key C:/ProgramData/chocolatey/bin, mtime 1628424690): 13 files, no impossibilities.
 # C:\Program Files\nodejs\ (key C:/Program Files/nodejs/, mtime 1628424645): 11 files, no impossibilities.
 # point (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/point, mtime 1635216845): 4 files, no impossibilities.
 # pesanan (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/pesanan, mtime 1635216845): 4 files, no impossibilities.
 # C:\MinGW\bin (key C:/MinGW/bin, mtime 1629818275): 59 files, no impossibilities.
+# tas (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/tas, mtime 1635091404): 4 files, no impossibilities.
 # C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
-# C:\WINDOWS (key C:/WINDOWS, mtime 1635310564): 120 files, no impossibilities.
+# in_progress_list (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/in_progress_list, mtime 1635261601): 4 files, no impossibilities.
+# C:\WINDOWS (key C:/WINDOWS, mtime 1635335507): 120 files, no impossibilities.
 # C:\Program Files\Eclipse Foundation\jdk-11.0.12.7-hotspot\bin (key C:/Program Files/Eclipse Foundation/jdk-11.0.12.7-hotspot/bin, mtime 1631871285): 127 files, no impossibilities.
-# utilities (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/utilities, mtime 1635082685): 3 files, no impossibilities.
+# utilities (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/utilities, mtime 1635331510): 2 files, no impossibilities.
 # node (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/node, mtime 1635260847): 4 files, no impossibilities.
-# adt_wordmachine (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/adt_wordmachine, mtime 1635091327): 6 files, no impossibilities.
 # location (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/location, mtime 1635216884): 4 files, no impossibilities.
-# adt_linked_list_to_do (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/adt_linked_list_to_do, mtime 1635261028): 4 files, no impossibilities.
-# adt_stack (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/adt_stack, mtime 1635091404): 4 files, no impossibilities.
 # C:\Users\Argakoesoemah\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/Argakoesoemah/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1634789991): 4 files, no impossibilities.
 # C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1628421879): 8 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1635259048): 2846 files, no impossibilities.
-# C:\Program Files\Java\jdk-17 (key C:/Program Files/Java/jdk-17, mtime 1632891655): 10 files, no impossib 
-ilities.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1635338391): 2846 files, no impossibilities.
+# to_do_list (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/to_do_list, mtime 1635261028): 4 files, no impossibilities.
+# C:\Program Files\Java\jdk-17 (key C:/Program Files/Java/jdk-17, mtime 1632891655): 10 files, no impossibilities.
+# wordmachine (key c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat/wordmachine, mtime 1635091327): 6 files, no impossibilities.
 # C:\Users\Argakoesoemah\AppData\Roaming\npm (key C:/Users/Argakoesoemah/AppData/Roaming/npm, mtime 1628563682): 6 files, no impossibilities.
 # C:\Program Files (x86)\GnuWin32\bin (key C:/Program Files (x86)/GnuWin32/bin, mtime 1635093921): 5 files, no impossibilities.
 
@@ -261,7 +257,13 @@ ilities.
 # Files
 
 # Not a target:
-adt_wordmachine/wordmachine.c:
+to_do_list/linked_list_to_do.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+wordmachine/wordmachine.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -294,7 +296,7 @@ node/node.c:
 #  File has not been updated.
 
 # Not a target:
-adt_stack/stack.c:
+in_progress_list/linked_list_in_progress.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -302,7 +304,7 @@ adt_stack/stack.c:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-26 22:41:40
+#  Last modified 2021-10-27 17:48:23
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -315,7 +317,7 @@ makefile:
 #  File has not been updated.
 
 # Not a target:
-adt_linked_list_to_do/linked_list_to_do.c:
+tas/stack.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -327,18 +329,12 @@ location/location.c:
 #  File has not been updated.
 
 # Not a target:
-adt_wordmachine/charmachine.c:
+wordmachine/charmachine.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-adt_linked_list_in_progress/linked_list_in_progress.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-output: main.c node/node.c location/location.c pesanan/pesanan.c point/point.c adt_linked_list_to_do/linked_list_to_do.c adt_linked_list_in_progress/linked_list_in_progress.c adt_stack/stack.c adt_wordmachine/charmachine.c adt_wordmachine/wordmachine.c
+output: main.c node/node.c location/location.c pesanan/pesanan.c point/point.c to_do_list/linked_list_to_do.c in_progress_list/linked_list_in_progress.c tas/stack.c wordmachine/charmachine.c wordmachine/wordmachine.c
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -371,7 +367,7 @@ pesanan/pesanan.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Oct 27 17:26:40 2021
+# Finished Make data base on Wed Oct 27 20:38:17 2021
 
  
 make.exe: *** No rule to make target `all'.  Stop.

@@ -1,5 +1,5 @@
 make.exe --dry-run --always-make --keep-going --print-directory
 make.exe: Entering directory `c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat'
-gcc main.c node/node.c location/location.c pesanan/pesanan.c point/point.c adt_linked_list_to_do/linked_list_to_do.c adt_linked_list_in_progress/linked_list_in_progress.c adt_stack/stack.c adt_wordmachine/charmachine.c adt_wordmachine/wordmachine.c -o output
+gcc main.c node/node.c location/location.c pesanan/pesanan.c point/point.c to_do_list/linked_list_to_do.c in_progress_list/linked_list_in_progress.c tas/stack.c wordmachine/charmachine.c wordmachine/wordmachine.c -o output
 make.exe: Leaving directory `c:/Kuliah/Alstrukdat/Tubes/IF2110-Tubes-Alstrukdat'
  
