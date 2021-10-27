@@ -3,7 +3,8 @@
 #ifndef MOBITA_H
 #define MOBITA_H
 
-#include "../location/location.h"
+#include "../utilities/boolean.h"
+#include "../point/location.h"
 //#include "../ability/ability.h"
 //#include "../linkedlist/linkedlist.h"
 //#include "../staticlist/staticlist.h"

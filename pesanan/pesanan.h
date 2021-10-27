@@ -1,8 +1,8 @@
 #ifndef PESANAN_H
 #define PESANAN_H
 
-#include "../boolean.h"
-#include "../location/location.h"
+#include "../utilities/boolean.h"
+#include "../point/location.h"
 
 typedef enum JenisItemEnum {NORMAL, HEAVY, PERISHABLE, VIP, UNKNOWN} JenisItem;
 
