@@ -8,8 +8,8 @@ int main(){
 	CreateGadgetList(&g);
 	DisplayShop(&g);
 	DisplayInventory(&g);
-	UpdateItem(&g,1);
-	UpdateItem(&g,4);
+	UpdateItem(&g,1,1);
+	UpdateItem(&g,4,2);
 	DisplayShop(&g);
 	DisplayInventory(&g);
 }

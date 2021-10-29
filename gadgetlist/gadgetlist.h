@@ -6,7 +6,7 @@
 typedef struct{
 	char* name;
 	int price;
-	boolean owned; //0 if buyable, 1 if owned
+	int owned; //num of gadgets i owned
 }GadgetList[5];
 
 /* SELEKTOR */
@@ -17,13 +17,14 @@ typedef struct{
 /* KONSTRUKTOR */
 void CreateGadgetList(GadgetList *g);
 
+/* STATUS */
+int InventorySize(GadgetList *g);
+
 /* OPERANDS */
 void DisplayShop(GadgetList *g);
 
 void DisplayInventory(GadgetList *g);
 
-boolean isOwned(GadgetList *g, int idx);
-
-void UpdateItem(GadgetList *g, int idx);
+void UpdateItem(GadgetList *g, int idx, int change); //change= +1 or -1
 
 #endif

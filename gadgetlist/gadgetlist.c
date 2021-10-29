@@ -32,27 +32,38 @@ void CreateGadgetList(GadgetList *g){
 	OWNED(*g,4)=0;
 }
 
+/* STATUS */
+int InventorySize(GadgetList *g){
+	int ret=0;
+	int i=0;
+	for(;i<5;i++)ret+=(OWNED(*g,i));
+}
+
 /* OPERANDS */
 void DisplayShop(GadgetList *g){
 	int i=0;
 	for(;i<5;i++){
-		if(!isOwned(g,i))printf("%d. %s (%d yen)\n",i+1,NAME(*g,i),PRICE(*g,i));
-		else printf("%d. - \n",i+1);
+		printf("%d. %s (%d yen)\n",i+1,NAME(*g,i),PRICE(*g,i));
 	}
 }
 
 void DisplayInventory(GadgetList *g){
+	if(InventorySize(g)==0){
+		printf("Inventory Kosong\n");
+		return;
+	}
 	int i=0;
-	for(;i<5;i++){
-		if(isOwned(g,i))printf("%d. %s\n",i+1,NAME(*g,i));
-		else printf("%d. - \n",i+1);
+	int cnt=0;
+	while(i<5){
+		int j=0;
+		for(;j<OWNED(*g,i);j++){
+			printf("%d. %s\n",cnt+1,NAME(*g,i));
+			cnt++;
+		}
+		i++;
 	}
 }
 
-boolean isOwned(GadgetList *g, int idx){
-	return OWNED(*g,idx);
-}
-
-void UpdateItem(GadgetList *g, int idx){
-	OWNED(*g,idx)^=1;
+void UpdateItem(GadgetList *g, int idx, int change){
+	OWNED(*g,idx)+=change;
 }
