@@ -10,9 +10,9 @@ typedef struct{
 }GadgetList[5];
 
 /* SELEKTOR */
-#define NAME(g,i) ((g)[i]).name
-#define PRICE(g,i) ((g)[i]).price
-#define OWNED(g,i) ((g)[i]).owned
+#define GADGETNAME(g,i) ((g)[i]).name
+#define GADGETPRICE(g,i) ((g)[i]).price
+#define GADGETOWNED(g,i) ((g)[i]).owned
 
 /* KONSTRUKTOR */
 void CreateGadgetList(GadgetList *g);
