@@ -61,12 +61,14 @@ void CommandInProgress(Mobita* m);
 // displays in progress list (picked up items)
 
 void CommandBuy(Mobita* m);
-// buys gadget, parameters still unclear
+// buys gadget
 
 void CommandInventory(Mobita* m);
-// displays inventory
+// displays inventory, may use a gadget
 
 /* INTERNAL COMMANDS */
+
+/* GADGET USE */
 boolean UseKainWaktu(Mobita *m);
 
 boolean UseSenterPembesar(Mobita *m);

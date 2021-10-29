@@ -35,7 +35,36 @@ void CreateMobita(Mobita *m)
 /* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
 
 void CommandBuy(Mobita* m){
-	
+	//if not in HQ, return
+	printf("Uang anda sekarang: %d yen\n",BALANCE(*m));
+	printf("Mobita HQ Shop:\n");
+	DisplayShop(&INVENTORY(*m));
+	printf("Gadget mana yang ingin dibeli? (ketik 0 untuk kembali)\n\n");
+	printf("ENTER COMMAND: ");
+	int cmd; scanf("%d",&cmd);
+	switch(cmd){
+		case 0:
+			return;
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+			if(InventorySize(&INVENTORY(*m))==5){
+				printf("Inventory anda penuh\n");
+				return;
+			}
+			if(BALANCE(*m)>=GADGETPRICE(INVENTORY(*m),cmd-1)){
+				UpdateItem(&INVENTORY(*m),cmd-1,1);
+				BALANCE(*m)-=GADGETPRICE(INVENTORY(*m),cmd-1);
+				printf("Transaksi berhasil. Uang anda sekarang adalah %d yen\n",BALANCE(*m));
+			}else{
+				printf("Uang anda tidak mencukupi\n");
+			}
+			break;
+		default:
+			printf("Command tidak valid\n");
+	}
 }
 
 void CommandInventory(Mobita* m){

@@ -14,6 +14,9 @@
 int main(){
 	Mobita m;
 	CreateMobita(&m);
-	UpdateItem(&INVENTORY(m),2,3);
+	UpdateItem(&INVENTORY(m),2,5);
+	CommandInventory(&m);
+	BALANCE(m)=2002;
+	CommandBuy(&m);
 	CommandInventory(&m);
 }
