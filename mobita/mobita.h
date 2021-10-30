@@ -7,7 +7,7 @@
 #include "../point/location.h"
 //#include "../ability/ability.h"
 //#include "../linkedlist/linkedlist.h"
-#include "../gadgetlist/gadgetlist.h"
+#include "../list_biasa/gadgetlist.h"
 //#include "../dynamiclist/dynamiclist.h"
 //#include "../adjmat/adjmat.h"
 //#include "../map/map.h"

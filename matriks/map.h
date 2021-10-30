@@ -3,7 +3,7 @@
 
 #include "../utilities/boolean.h"
 #include "../utilities/pcolor.h"
-#include "../list/dynamiclist.h"
+#include "../list_biasa/dynamiclist.h"
 #include "../point/location.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */

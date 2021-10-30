@@ -128,16 +128,6 @@ boolean isAccLoc(AdjMatrix m, DynamicList l, Location lstart, Location ldest)
 }
 
 /* ********** FUNGSI TAMBAHAN *********** */
-boolean isEmpty(DynamicList l)
-{
-    return (NEFF(l) == 0);
-}
-
-boolean isFull(DynamicList l)
-{
-    return (NEFF(l) == LIST_CAP(l) - 1);
-}
-
 int countBuilding(DynamicList l)
 {
     return NEFF(l);

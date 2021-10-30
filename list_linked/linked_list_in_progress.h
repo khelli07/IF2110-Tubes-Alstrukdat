@@ -1,15 +1,15 @@
-/* File : linked_list_to_do.h */
-/* ADT Linked List untuk command TO_DO */
+/* File : linked_list_in_progress.h */
+/* ADT Linked List untuk command IN_PROGRESS */
 /* Representasi Address dengan pointer */
 /* ElType adalah Pesanan */
 
-#ifndef TODOLIST_H
-#define TODOLIST_H
+#ifndef INPROGRESSLIST_H
+#define INPROGRESSLIST_H
 
 #include "../utilities/boolean.h"
-#include "../node/node.h"
 #include "../pesanan/pesanan.h"
 #include "../point/location.h"
+#include "node.h"
 
 typedef Address List;
 
@@ -23,24 +23,24 @@ typedef Address List;
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateToDoList(List *l);
+void CreateInProgressList(List *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
 /****************** TEST LIST KOSONG ******************/
-boolean isToDoEmpty(List l);
+boolean isInProgressEmpty(List l);
 /* Mengirim true jika list kosong */
 
 /****************** GETTER SETTER ******************/
-ElType getPesananToDo(List l, int idx);
+ElType getPesananInProgress(List l, int idx);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 
-void setPesananToDo(List *l, int idx, ElType val);
+void setPesananInProgress(List *l, int idx, ElType val);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 
-int indexOfPesananToDo(List l, ElType val);
+int indexOfPesananInProgress(List l, ElType val);
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
@@ -48,42 +48,41 @@ int indexOfPesananToDo(List l, ElType val);
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirstToDo(List *l, ElType val);
+void insertFirstInProgress(List *l, ElType val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
 /* Jika alokasi gagal: I.S.= F.S. */
 
-void insertLastToDo(List *l, ElType val);
+void insertLastInProgress(List *l, ElType val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
-void insertAtToDo(List *l, ElType val, int idx);
+void insertAtInProgress(List *l, ElType val, int idx);
 /* I.S. l tidak mungkin kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menyisipkan elemen dalam list pada indeks ke-idx (bukan menimpa elemen di i) */
 /* yang bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirstToDo(List *l, ElType *val);
+void deleteFirstInProgress(List *l, ElType *val);
 /* I.S. List l tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen pertama di-dealokasi */
-void deleteLastToDo(List *l, ElType *val);
+void deleteLastInProgress(List *l, ElType *val);
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen terakhir di-dealokasi */
 
-void deleteAtToDo(List *l, int idx, ElType *val);
+void deleteAtInProgress(List *l, int idx, ElType *val);
 /* I.S. list tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
-
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayToDoList(List l);
+void displayInProgressList(List l);
 // void printInfo(List l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
@@ -91,11 +90,11 @@ void displayToDoList(List l);
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 
-int lengthToDo(List l);
+int lengthInProgress(List l);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
 /****************** PROSES TERHADAP LIST ******************/
-List concatToDo(List l1, List l2) ;
+List concatInProgress(List l1, List l2);
 /* I.S. l1 dan l2 sembarang */
 /* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
 /* Konkatenasi dua buah list : l1 dan l2    */

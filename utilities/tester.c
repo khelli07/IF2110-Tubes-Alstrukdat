@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../mesin/locmachine.h"
 #include "../mesin/charmachine.h"
-#include "../list/dynamiclist.h"
+#include "../list_biasa/dynamiclist.h"
 #include "../matriks/adjmat.h"
 #include "../matriks/map.h"
 

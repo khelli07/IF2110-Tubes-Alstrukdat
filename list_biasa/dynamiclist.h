@@ -65,10 +65,6 @@ boolean isAccLoc(AdjMatrix m, DynamicList l, Location lstart, Location ldest);
 /* Mengembalikan nilai benar jika ldest bisa diakses dari lstart */
 
 /* ********** FUNGSI TAMBAHAN *********** */
-boolean isEmpty(DynamicList l);
-/* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
-boolean isFull(DynamicList l);
-/* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 int countBuilding(DynamicList l);
 /* Mengembalikan jumlah banyaknya bangunan yang terdefinisi */
 
