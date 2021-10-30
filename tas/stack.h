@@ -46,4 +46,7 @@ void pop(Stack *s, Pesanan *val);
 /* I.S. s tidak mungkin kosong */
 /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */
 
+int sizeStack(Stack s);
+/* Mengirim ukuran Stack s saat ini */
+
 #endif
