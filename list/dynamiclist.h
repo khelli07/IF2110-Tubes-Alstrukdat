@@ -19,7 +19,7 @@ typedef struct
 #define NEFF(l) (l).nEff
 #define BUFFER(l) (l).buffer
 #define LOC(l, i) (l).buffer[i] // akses elemen
-#define CAPACITY(l) (l).capacity
+#define LIST_CAP(l) (l).capacity
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */

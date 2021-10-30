@@ -9,7 +9,7 @@ void CreateDynamicList(DynamicList *l, int capacity)
     if (BUFFER(*l) != NULL)
     {
         NEFF(*l) = 0;
-        CAPACITY(*l) = capacity + 1;
+        LIST_CAP(*l) = capacity + 1;
     }
 }
 
@@ -18,7 +18,7 @@ void dealocate(DynamicList *l)
     if (BUFFER(*l) != NULL)
     {
         free(BUFFER(*l));
-        CAPACITY(*l) = 0;
+        LIST_CAP(*l) = 0;
         NEFF(*l) = 0;
     }
 }
@@ -87,7 +87,7 @@ DynamicList getAccLoc(AdjMatrix m, DynamicList l, Location lstart)
     int idx;
     DynamicList ltemp;
 
-    CreateDynamicList(&ltemp, CAPACITY(l));
+    CreateDynamicList(&ltemp, LIST_CAP(l));
     idx = getLocIndex(l, lstart);
     for (int j = 0; j < SIZE(m); j++)
     {
@@ -135,7 +135,7 @@ boolean isEmpty(DynamicList l)
 
 boolean isFull(DynamicList l)
 {
-    return (NEFF(l) == CAPACITY(l) - 1);
+    return (NEFF(l) == LIST_CAP(l) - 1);
 }
 
 int countBuilding(DynamicList l)
