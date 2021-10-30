@@ -1,0 +1,5 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory `c:/Kuliah/Alstrukdat/Tubes/Main/IF2110-Tubes-Alstrukdat'
+gcc main.c list/dynamiclist.c matriks/adjmat.c matriks/map.c mesin/charmachine.c mesin/locmachine.c pesanan/pesanan.c point/location.c point/point.c queuepesanan/queuepesanan.c utilities/pcolor.c utilities/tester.c -o main
+make.exe: Leaving directory `c:/Kuliah/Alstrukdat/Tubes/Main/IF2110-Tubes-Alstrukdat'
+ 
