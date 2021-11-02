@@ -10,7 +10,7 @@ boolean eot;
 static FILE *tape;
 static int retval;
 
-void start()
+void start(char *filename)
 {
     /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
@@ -20,7 +20,7 @@ void start()
           Jika currentChar = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
-    tape = stdin;
+    tape = fopen(filename, "r");
     adv();
 }
 
@@ -39,4 +39,9 @@ void adv()
     {
         fclose(tape);
     }
+}
+
+void end()
+{
+    fclose(tape);
 }

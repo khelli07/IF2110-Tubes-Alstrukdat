@@ -1,6 +1,7 @@
 #include "dynamiclist.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /* ********** KONSTRUKTOR ********** */
 void CreateDynamicList(DynamicList *l, int capacity)
@@ -80,6 +81,25 @@ int getLocIndex(DynamicList l, Location loc)
     {
         return -1;
     }
+}
+
+Location getLoc(DynamicList l, char cc)
+/* DIJAMIN ADA BANGUNAN BERNAMA CC */
+{
+    int i = 0;
+    boolean found = false;
+    while (i < NEFF(l) && !found)
+    {
+        if (LOC(l, i).buildingName == toupper(cc))
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return LOC(l, i);
 }
 
 DynamicList getAccLoc(AdjMatrix m, DynamicList l, Location lstart)

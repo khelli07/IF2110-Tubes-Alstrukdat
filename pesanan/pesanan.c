@@ -113,9 +113,12 @@ char *getJenisItemString(Pesanan p)
 
 void displayPesanan(Pesanan p)
 {
-    printf("%d %c %c %s %d Yen", WaktuIn(p), NAME(LokasiPickUp(p)), NAME(LokasiDropOff(p)), getJenisItemString(p), Price(p));
+    printf("%c -> %c (%s ITEM), Price: %d Yen, Entry Time: %d",
+           NAME(LokasiPickUp(p)), NAME(LokasiDropOff(p)),
+           getJenisItemString(p), Price(p), WaktuIn(p));
+
     if (JenisItem(p) == PERISHABLE)
-        printf(" timeout: %d", TimeoutPerish(p));
+        printf(", Timeout: %d", TimeoutPerish(p));
     printf("\n");
 }
 

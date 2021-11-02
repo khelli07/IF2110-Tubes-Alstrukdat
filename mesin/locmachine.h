@@ -4,6 +4,8 @@
 
 #include "../utilities/boolean.h"
 #include "../point/location.h"
+#include "../pesanan/pesanan.h"
+#include "../pesanan/queuepesanan.h"
 #include "charmachine.h"
 
 #define BLANK ' '
@@ -17,7 +19,7 @@ extern boolean endReadLoc;
 extern Location currentLoc;
 
 /* MACHINE PROGRAM */
-void ignoreWhiteSpace(); 
+void ignoreWhiteSpace();
 /* Mengabaikan BLANK, NEWLINE, dan TAB */
 void startReadLoc();
 /* Mulai readloc, inisialisasi readLocCounter dan endReadLoc */
@@ -28,6 +30,6 @@ void copyCurrentLoc();
 
 /* SUPPORTING FUNCTIONS */
 int charToInt(char cc); // convert char to integer
-int readInt(); // baca char >= 2 digit, langsung jadi integer
+int readInt();          // baca char >= 2 digit, langsung jadi integer
 
 #endif

@@ -9,11 +9,11 @@
 #include "locmachine.h"
 
 #define CAPACITY_WORD 50
-#define BLANK ' '
 
-typedef struct {
-   char contents[CAPACITY_WORD]; /* container penyimpan kata, indeks yang dipakai [0..CAPACITY-1] */
-   int length;
+typedef struct
+{
+    char contents[CAPACITY_WORD]; /* container penyimpan kata, indeks yang dipakai [0..CAPACITY-1] */
+    int length;
 } Word;
 
 /* Word Engine State */

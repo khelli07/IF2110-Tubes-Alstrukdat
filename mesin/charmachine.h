@@ -22,5 +22,5 @@ void adv();
    F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama, 
           currentChar mungkin = MARK
           Jika  currentChar = MARK maka EOP akan menyala (true) */
-
+void end();
 #endif

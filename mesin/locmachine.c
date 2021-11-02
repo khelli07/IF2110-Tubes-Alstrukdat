@@ -1,5 +1,4 @@
 #include "locmachine.h"
-#include "../point/location.h"
 #include <stdio.h>
 
 int readLocCounter = -1;
@@ -36,7 +35,6 @@ void ignoreWhiteSpace()
 
 void startReadLoc()
 {
-    // start();
     ignoreWhiteSpace();
     readLocCounter = readInt();
     if (readLocCounter <= 0)

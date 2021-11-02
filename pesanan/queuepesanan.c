@@ -69,11 +69,14 @@ void dequeue(QueuePesanan *q, Pesanan *val)
 
 void displayQueue(QueuePesanan q)
 {
+    int i = 1;
     while (!isQueueEmpty(q))
     {
         Pesanan p;
         dequeue(&q, &p);
+        printf("%d. ", i);
         displayPesanan(p);
+        i++;
     }
 }
 
