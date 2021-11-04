@@ -1,42 +1,46 @@
-// TEMPORARY SUMMARY OF MOBITA DS; SUBJECT TO CHANGe
+// TEMPORARY SUMMARY OF MOBITA DS; SUBJECT TO CHANGE
 
 #ifndef MOBITA_H
 #define MOBITA_H
 
 #include "../utilities/boolean.h"
 #include "../point/location.h"
-//#include "../ability/ability.h"
 //#include "../linkedlist/linkedlist.h"
 #include "../list_biasa/gadgetlist.h"
-//#include "../dynamiclist/dynamiclist.h"
-//#include "../adjmat/adjmat.h"
+#include "../list_biasa/dynamiclist.h"
+#include "../matriks/adjmat.h"
 //#include "../map/map.h"
 
 //extras
 #include "../pesanan/pesanan.h"
 
+/*
+extern int globalTime;
+extern int abilityHeavy;
+extern int abilitySpeed;
+extern int abilityRet
+*/
+
 typedef struct{
 	int balance;
     Location curLoc;
-    //Ability curAbility;
     //LinkedList toDoList;
     //LinkedList inProgressList;
     GadgetList inventory;
-    //DynamicList buildingList;
-    //Adjmat adjMatrix;
+    DynamicList buildingList;
+    AdjMatrix adjMatrix;
     //Map map;
 } Mobita;
 
 /* SELEKTOR */
 #define BALANCE(m) (m).balance
 #define LOCATION(m) (m).curLoc
-//#define ABILITY(m) (m).curAbility
 //#define TODO(m) (m).toDoList
 //#define INPROGRESS(m) (m).inProgressList
 #define INVENTORY(m) (m).inventory
-//#define BUILDINGLIST(m) (m).buildingList
-//#define ADJMAT(m) (m).adjMatrix
-//#define MAP(m) (m).map
+#define BUILDINGLIST(m) (m).buildingList
+#define ADJMAT(m) (m).adjMatrix
+//#define PETA(m) (m).map //MAP sudah ada di file lain ....
 
 /* KONSTRUKTOR */
 void CreateMobita(Mobita* m);
@@ -65,6 +69,12 @@ void CommandBuy(Mobita* m);
 
 void CommandInventory(Mobita* m);
 // displays inventory, may use a gadget
+
+void CommandSave(Mobita* m);
+// saves to file.mob
+
+void CommandLoad(Mobita* m);
+// loads file.mob
 
 /* INTERNAL COMMANDS */
 

@@ -1,15 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "mobita.h"
 #include "../utilities/boolean.h"
 #include "../mesin/charmachine.h"
 #include "../point/location.h"
-//#include "../ability/ability.h"
 //#include "../linkedlist/linkedlist.h"
 #include "../list_biasa/gadgetlist.h"
-//#include "../dynamiclist/dynamiclist.h"
-//#include "../adjmat/adjmat.h"
+#include "../list_biasa/dynamiclist.h"
+#include "../matriks/adjmat.h"
 //#include "../map/map.h"
+
+/* VARIABLES */
+/*
+int globalTime;
+int abilityHeavy;
+int abilitySpeed;
+int abilityReturn;
+*/
 
 /* KONSTRUKTOR */
 void CreateMobita(Mobita *m)
@@ -17,19 +25,12 @@ void CreateMobita(Mobita *m)
     //Creates base mobita
     BALANCE(*m) = 0;
     //LOCATION(*m) = {1, 1}; //will be switched to hq coords
-    //ABILITY(*m) = 0;       //will be switched to default ability
     //TODO(*m) = NULL;       //empty linked list
     //INPROGRESS(*m) = NULL; //empty linked list
     CreateGadgetList(&INVENTORY(*m));
-    //DynamicList d;
-    //CreateDynamicList(&d);
-    //BUILDINGLIST(*m) = d;
-    //Adjmat adj;
+    CreateDynamicList(&BUILDINGLIST(*m),30);
     //CreateAdjMat(&adj);
-    //ADJMAT(*m) = adj;
-    //Map map;
     //CreateMap(&map);
-    //MAP(*m) = map;
 }
 
 /* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
@@ -96,6 +97,104 @@ void CommandInventory(Mobita* m){
 			printf("Command tidak valid\n");
 	}
 	
+}
+
+void CommandSave(Mobita *m){
+	/* Get File Name*/
+	char* in=malloc(50*sizeof(char));
+	printf("Masukkan nama file: ");
+	scanf("%s",&in);
+	char* filename=malloc(50*sizeof(char));
+	strcpy(filename,"Savefiles/");
+	strcat(filename,in);
+	strcat(filename,".mob");
+	FILE* fp;
+	fp=fopen(filename,"w");
+	
+	/* Normal Config File */
+	// Map Size
+	fprintf(fp,"%d %d\n",ROWS(MAP(*m)),COLS(MAP(*m)));
+	// HQ Coords
+	// TBD
+	// Locations
+	int n=NEFF(BUILDINGLIST(*m));
+	fprintf(fp,"%d\n",n);
+	int i;
+	for(i=0;i<n;i++){
+		Location temp=LOC(BUILDINGLIST(*m),i);
+		fprintf(fp,"%c %d %d\n",NAME(temp),POINT(temp).x,POINT(temp).y);
+	}
+	// AdjMat
+	int j;
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			fprintf(fp,"%d ",ADJ(ADJMAT(*m),i,j));
+		}
+		fprintf(fp,"\n");
+	}
+	// Pesanan
+	// TBD
+	
+	/* EXTRAS */
+	// Time
+	// TBD
+	// Ability Status
+	// TBD
+	// Balance
+	fprintf(fp,"%d\n",BALANCE(*m));
+	// Location (Building Name, X, Y)
+	Location temp=LOCATION(*m);
+	fprintf(fp,"%c %d %d\n",NAME(temp),POINT(temp).x,POINT(temp).y);
+	// To Do list
+	// TBD
+	// In Progress List
+	// TBD
+	// Inventory
+	for(i=0;i<5;i++){
+		fprintf(fp,"%d ",GADGETOWNED(INVENTORY(*m),i));
+	}
+	fprintf(fp,"\n");
+	fclose(fp);
+}
+
+void CommandLoad(Mobita *m){
+	/* Get File Name */
+	char* in=malloc(50*sizeof(char));
+	printf("Masukkan nama file: ");
+	scanf("%s",&in);
+	char* filename=malloc(50*sizeof(char));
+	strcpy(filename,"Savefiles/");
+	strcat(filename,in);
+	strcat(filename,".mob");
+	FILE* fp;
+	if(access(filename,R_OK)==0){
+    	fp=fopen(filename,"r");
+	}else{
+    	printf("Savefile doesn't exist\n");
+    	return;
+	}	
+	/* Normal File */
+	// CommandNewGame(m);
+	
+	/* Extras */
+	// Time
+	// TBD
+	// Ability Status
+	// TBD
+	// Balance
+	fscanf(fp,"%d",&BALANCE(*m));
+	// Location (Building Name, X, Y)
+	fscanf(fp,"%c %d %d",&NAME(LOCATION(*m)),&POINT(LOCATION(*m)).x,&POINT(LOCATION(*m)).y);
+	// To Do list
+	// TBD
+	// In Progress List
+	// TBD
+	// Inventory
+	int i;
+	for(i=0;i<5;i++){
+		fscanf(fp,"%d",&GADGETOWNED(INVENTORY(*m),i));
+	}
+	fclose(fp);
 }
 
 /* INTERNAL COMMANDS */
