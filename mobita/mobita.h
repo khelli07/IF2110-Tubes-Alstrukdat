@@ -5,7 +5,8 @@
 
 #include "../utilities/boolean.h"
 #include "../point/location.h"
-//#include "../linkedlist/linkedlist.h"
+#include "../list_linked/linked_list_to_do.h"
+#include "../list_linked/linked_list_in_progress.h"
 #include "../list_biasa/gadgetlist.h"
 #include "../list_biasa/dynamiclist.h"
 #include "../matriks/adjmat.h"
@@ -24,8 +25,8 @@ extern int abilityRet
 typedef struct{
 	int balance;
     Location curLoc;
-    //LinkedList toDoList;
-    //LinkedList inProgressList;
+    List toDoList;
+    List inProgressList;
     GadgetList inventory;
     DynamicList buildingList;
     AdjMatrix adjMatrix;

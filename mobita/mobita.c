@@ -5,7 +5,8 @@
 #include "../utilities/boolean.h"
 #include "../mesin/charmachine.h"
 #include "../point/location.h"
-//#include "../linkedlist/linkedlist.h"
+#include "../list_linked/linked_list_to_do.h"
+#include "../list_linked/linked_list_in_progress.h"
 #include "../list_biasa/gadgetlist.h"
 #include "../list_biasa/dynamiclist.h"
 #include "../matriks/adjmat.h"
@@ -25,8 +26,8 @@ void CreateMobita(Mobita *m)
     //Creates base mobita
     BALANCE(*m) = 0;
     //LOCATION(*m) = {1, 1}; //will be switched to hq coords
-    //TODO(*m) = NULL;       //empty linked list
-    //INPROGRESS(*m) = NULL; //empty linked list
+    CreateToDoList(&TODO(*m));       //empty linked list
+    CreateInProgressList(&INPROGRESS(*m)); //empty linked list
     CreateGadgetList(&INVENTORY(*m));
     CreateDynamicList(&BUILDINGLIST(*m),30);
     //CreateAdjMat(&adj);
