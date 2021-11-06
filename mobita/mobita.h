@@ -21,7 +21,6 @@ extern int globalTime;
 
 typedef struct{
 	int balance;
-    int scoreTime;
     int tasCapacity;
     Location curLoc;
     List toDoList;
@@ -40,11 +39,10 @@ typedef struct{
 
 /* SELEKTOR */
 #define BALANCE(m) (m).balance
-#define SCORETIME(m) (m).scoreTime
 #define TASCAPACITY(m) (m).tasCapacity
 #define LOCATION(m) (m).curLoc
-//#define TODO(m) (m).toDoList
-//#define INPROGRESS(m) (m).inProgressList
+#define TODO(m) (m).toDoList
+#define INPROGRESS(m) (m).inProgressList
 #define QUEUEPESANAN(m) (m).notYetQueue
 #define TAS(m) (m).tas
 #define INVENTORY(m) (m).inventory

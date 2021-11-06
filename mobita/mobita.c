@@ -58,12 +58,11 @@ void CommandMove(Mobita* m){
 		m->speedBoostAbility = -1;
 	} else if(m->speedBoostAbility > 0){
 		if(m->speedBoostAbility % 2 == 1){
-			globalTime++;
-			SCORETIME(*m)++;
+			globalTime += 1;
 		}
 		m->speedBoostAbility -= 1;
 	} else{
-		globalTime++;
+		globalTime += 1;
 	}
 
 	printf("Mobita sekarang berada di titik ");
@@ -84,6 +83,43 @@ int getInputCommand(char msg[], int n){
 		scanf("%d", &command);
 	}
 	return command;
+}
+
+void CommandPickup(Mobita* m){
+	Location currentLoc = LOCATION(*m);
+	int todolength = lengthToDo(TODO(*m));
+	List todoPesanan = TODO(*m);
+	List pesananInLocation;
+	CreateToDoList(&pesananInLocation);
+	for(int i = 0; i < todolength; i++){
+		if(isLocEqual(currentLoc, LokasiPickUp(getPesananToDo(todoPesanan, i)))){
+			insertFirstToDo(&pesananInLocation, getPesananToDo(todoPesanan, i));
+		}
+	}
+	if(isToDoEmpty(pesananInLocation)){
+		printf("Pesanan tidak ditemukan!\n");
+	} else{
+		// Mencari Pesanan yang masuk paling dulu
+		int inloclength = lengthToDo(pesananInLocation);
+		Pesanan firstPesanan = getPesananToDo(pesananInLocation, 0);
+		for(int i=1; i<inloclength; i++){
+			if(WaktuIn(getPesananToDo(pesananInLocation, i)) < WaktuIn(firstPesanan))
+				firstPesanan = getPesananToDo(pesananInLocation, i);
+		}
+		// Menghapus Pesanan dari To Do (sudah dimasukkan ke In Progress dan Tas)
+		int i, n;
+		n = lengthToDo(todoPesanan);
+		for(i=0; i<n; i++){
+			if(isPesananEqual(firstPesanan, getPesananToDo(todoPesanan, i)))
+				break;
+		}
+		insertFirstInProgress(&INPROGRESS(*m), firstPesanan);
+		push(&TAS(*m), firstPesanan);
+		Pesanan temp;
+		deleteAtToDo(&TODO(*m), i, &temp);
+		printf("Pesanan berupa %s Item berhasil diambil!\n", getJenisItemString(firstPesanan));
+		printf("Tujuan Pesanan: %c\n", NAME(LokasiDropOff(firstPesanan)));
+	}
 }
 
 void CommandBuy(Mobita* m){

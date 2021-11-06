@@ -30,7 +30,7 @@ boolean isToDoEmpty(List l) {
 
 
 /****************** GETTER SETTER ******************/
-ElType getPesananToDo(List l, int idx) {
+Pesanan getPesananToDo(List l, int idx) {
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -49,7 +49,7 @@ ElType getPesananToDo(List l, int idx) {
 }
 
 
-void setPesananToDo(List *l, int idx, ElType val) {
+void setPesananToDo(List *l, int idx, Pesanan val) {
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -67,7 +67,7 @@ void setPesananToDo(List *l, int idx, ElType val) {
     /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 }
 
-int indexOfPesananToDo(List l, ElType val) {
+int indexOfPesananToDo(List l, Pesanan val) {
     // KAMUS LOKAL
     int idx;
     Address p;
@@ -100,7 +100,7 @@ int indexOfPesananToDo(List l, ElType val) {
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirstToDo(List *l, ElType val) {
+void insertFirstToDo(List *l, Pesanan val) {
     // KAMUS LOKAL
     Address p;
 
@@ -117,7 +117,7 @@ void insertFirstToDo(List *l, ElType val) {
 }
 
 
-void insertLastToDo(List *l, ElType val) {
+void insertLastToDo(List *l, Pesanan val) {
     // KAMUS LOKAL
     Address p, last;
 
@@ -142,7 +142,7 @@ void insertLastToDo(List *l, ElType val) {
 }
 
 
-void insertAtToDo(List *l, ElType val, int idx) {
+void insertAtToDo(List *l, Pesanan val, int idx) {
     // KAMUS LOKAL
     int ctr;
     Address p, loc;
@@ -171,7 +171,7 @@ void insertAtToDo(List *l, ElType val, int idx) {
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirstToDo(List *l, ElType *val) {
+void deleteFirstToDo(List *l, Pesanan *val) {
     // KAMUS LOKAL
     Address p;
 
@@ -186,7 +186,7 @@ void deleteFirstToDo(List *l, ElType *val) {
     /*      dan alamat elemen pertama di-dealokasi */
 }
 
-void deleteLastToDo(List *l, ElType *val) {
+void deleteLastToDo(List *l, Pesanan *val) {
     // KAMUS LOKAL
     Address p, loc;
 
@@ -211,7 +211,7 @@ void deleteLastToDo(List *l, ElType *val) {
 }
 
 
-void deleteAtToDo(List *l, int idx, ElType *val) {
+void deleteAtToDo(List *l, int idx, Pesanan *val) {
     // KAMUS LOKAL
     int ctr;
     Address p, loc;

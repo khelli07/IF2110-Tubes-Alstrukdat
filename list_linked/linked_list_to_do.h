@@ -32,15 +32,15 @@ boolean isToDoEmpty(List l);
 /* Mengirim true jika list kosong */
 
 /****************** GETTER SETTER ******************/
-ElType getPesananToDo(List l, int idx);
+Pesanan getPesananToDo(List l, int idx);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 
-void setPesananToDo(List *l, int idx, ElType val);
+void setPesananToDo(List *l, int idx, Pesanan val);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 
-int indexOfPesananToDo(List l, ElType val);
+int indexOfPesananToDo(List l, Pesanan val);
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
@@ -48,35 +48,35 @@ int indexOfPesananToDo(List l, ElType val);
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirstToDo(List *l, ElType val);
+void insertFirstToDo(List *l, Pesanan val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
 /* Jika alokasi gagal: I.S.= F.S. */
 
-void insertLastToDo(List *l, ElType val);
+void insertLastToDo(List *l, Pesanan val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
-void insertAtToDo(List *l, ElType val, int idx);
+void insertAtToDo(List *l, Pesanan val, int idx);
 /* I.S. l tidak mungkin kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menyisipkan elemen dalam list pada indeks ke-idx (bukan menimpa elemen di i) */
 /* yang bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirstToDo(List *l, ElType *val);
+void deleteFirstToDo(List *l, Pesanan *val);
 /* I.S. List l tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen pertama di-dealokasi */
-void deleteLastToDo(List *l, ElType *val);
+void deleteLastToDo(List *l, Pesanan *val);
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen terakhir di-dealokasi */
 
-void deleteAtToDo(List *l, int idx, ElType *val);
+void deleteAtToDo(List *l, int idx, Pesanan *val);
 /* I.S. list tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */

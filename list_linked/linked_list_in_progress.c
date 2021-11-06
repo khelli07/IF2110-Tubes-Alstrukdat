@@ -30,7 +30,7 @@ boolean isInProgressEmpty(List l) {
 
 
 /****************** GETTER SETTER ******************/
-ElType getPesananInProgress(List l, int idx) {
+Pesanan getPesananInProgress(List l, int idx) {
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -49,7 +49,7 @@ ElType getPesananInProgress(List l, int idx) {
 }
 
 
-void setPesananInProgress(List *l, int idx, ElType val) {
+void setPesananInProgress(List *l, int idx, Pesanan val) {
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -67,7 +67,7 @@ void setPesananInProgress(List *l, int idx, ElType val) {
     /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 }
 
-int indexOfPesananInProgress(List l, ElType val) {
+int indexOfPesananInProgress(List l, Pesanan val) {
     // KAMUS LOKAL
     int idx;
     Address p;
@@ -100,7 +100,7 @@ int indexOfPesananInProgress(List l, ElType val) {
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirstInProgress(List *l, ElType val) {
+void insertFirstInProgress(List *l, Pesanan val) {
     // KAMUS LOKAL
     Address p;
 
@@ -117,7 +117,7 @@ void insertFirstInProgress(List *l, ElType val) {
 }
 
 
-void insertLastInProgress(List *l, ElType val) {
+void insertLastInProgress(List *l, Pesanan val) {
     // KAMUS LOKAL
     Address p, last;
 
@@ -142,7 +142,7 @@ void insertLastInProgress(List *l, ElType val) {
 }
 
 
-void insertAtInProgress(List *l, ElType val, int idx) {
+void insertAtInProgress(List *l, Pesanan val, int idx) {
     // KAMUS LOKAL
     int ctr;
     Address p, loc;
@@ -171,7 +171,7 @@ void insertAtInProgress(List *l, ElType val, int idx) {
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirstInProgress(List *l, ElType *val) {
+void deleteFirstInProgress(List *l, Pesanan *val) {
     // KAMUS LOKAL
     Address p;
 
@@ -186,7 +186,7 @@ void deleteFirstInProgress(List *l, ElType *val) {
     /*      dan alamat elemen pertama di-dealokasi */
 }
 
-void deleteLastInProgress(List *l, ElType *val) {
+void deleteLastInProgress(List *l, Pesanan *val) {
     // KAMUS LOKAL
     Address p, loc;
 
@@ -211,7 +211,7 @@ void deleteLastInProgress(List *l, ElType *val) {
 }
 
 
-void deleteAtInProgress(List *l, int idx, ElType *val) {
+void deleteAtInProgress(List *l, int idx, Pesanan *val) {
     // KAMUS LOKAL
     int ctr;
     Address p, loc;
