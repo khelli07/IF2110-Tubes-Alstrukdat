@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "location.h": "c",
+        "boolean.h": "c"
+    }
+}

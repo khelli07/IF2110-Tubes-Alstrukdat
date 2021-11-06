@@ -5,6 +5,7 @@
 #include "../point/location.h"
 
 typedef enum JenisItemEnum {NORMAL, HEAVY, PERISHABLE, VIP, UNKNOWN} JenisItem;
+#define JENISITEMCOUNT 5
 
 typedef struct {
     Location pickUp;

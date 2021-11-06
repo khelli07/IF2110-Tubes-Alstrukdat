@@ -53,3 +53,13 @@ int sizeStack(Stack s) {
 
     /* Mengirim ukuran Stack s saat ini */
 }
+
+void countStackByJenisItem(Stack tas, int result[JENISITEMCOUNT]){
+    for(int i=0; i<JENISITEMCOUNT; i++)
+        result[i] = 0;
+    while(!isEmpty(tas)){
+        Pesanan val;
+        pop(&tas, &val);
+        result[JenisItem(val)] += 1;
+    }
+}

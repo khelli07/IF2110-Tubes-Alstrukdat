@@ -12,6 +12,7 @@
 //#include "../map/map.h"
 
 int main(){
+	globalTime = 0;
 	Mobita m;
 	CreateMobita(&m);
 	UpdateItem(&INVENTORY(m),2,5);

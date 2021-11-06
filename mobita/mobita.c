@@ -10,12 +10,13 @@
 #include "../list_biasa/gadgetlist.h"
 #include "../list_biasa/dynamiclist.h"
 #include "../matriks/adjmat.h"
-//#include "../map/map.h"
+#include "../matriks/map.h"
+#include "../tas/stack.h"
 
 /* VARIABLES */
-/*
+
 int globalTime;
-int abilityHeavy;
+/*int abilityHeavy;
 int abilitySpeed;
 int abilityReturn;
 */
@@ -35,6 +36,55 @@ void CreateMobita(Mobita *m)
 }
 
 /* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
+void CommandMove(Mobita* m){
+	//printf("Waktu: %d\n", SCORETIME(*m));
+	//printf("Current Location: "); displayLoc(LOCATION(*m)); printf("\n");
+	DynamicList accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
+	printf("Posisi yang dapat dicapai:\n");
+	displayLocList(accesibleloc);
+	printf("\n");
+
+	int command = getInputCommand("Posisi yang dipilih?", NEFF(accesibleloc));
+	if(command == 0){
+		printf("Dibatalkan!\n");
+		return;
+	}
+	
+	LOCATION(*m) = LOC(accesibleloc, command - 1);
+	int itemcounts[JENISITEMCOUNT];
+	countStackByJenisItem(TAS(*m), itemcounts);
+	if(itemcounts[HEAVY] > 0){
+		globalTime += (1 + itemcounts[HEAVY]);
+		m->speedBoostAbility = -1;
+	} else if(m->speedBoostAbility > 0){
+		if(m->speedBoostAbility % 2 == 1){
+			globalTime++;
+			SCORETIME(*m)++;
+		}
+		m->speedBoostAbility -= 1;
+	} else{
+		globalTime++;
+	}
+
+	printf("Mobita sekarang berada di titik ");
+	displayLoc(LOCATION(*m));
+	printf("\n");
+	printf("Waktu: %d\n", SCORETIME(*m));
+}
+
+int getInputCommand(char msg[], int n){
+	printf(msg);
+	printf(" (ketik 0 jika ingin kembali)\n");
+	printf("Enter COMMAND: ");
+	int command;
+	scanf("%d", &command);
+	while(command < 0 || command > n){
+		printf("Input Salah! Coba Lagi (ketik 0 jika ingin kembali)\n");
+		printf("Enter Command: ");
+		scanf("%d", &command);
+	}
+	return command;
+}
 
 void CommandBuy(Mobita* m){
 	//if not in HQ, return

@@ -49,4 +49,9 @@ void pop(Stack *s, Pesanan *val);
 int sizeStack(Stack s);
 /* Mengirim ukuran Stack s saat ini */
 
+/* Menghitung rincian bawaan yang dibawa
+ * I.S.: result sembarang, tas terdefinisi
+ * F.S.: result berisi rincian jumlah barang dari tiap JenisItem */
+void countStackByJenisItem(Stack tas, int result[JENISITEMCOUNT]);
+
 #endif
