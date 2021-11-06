@@ -82,9 +82,11 @@ void CommandMove(Mobita* m){
 		deleteFirstInProgress(&INPROGRESS(*m), &temp);
 		i++;
 	}
+	if(!isEmpty(TAS(*m)))
+		updateLocationColor(m, LokasiDropOff(TOP(TAS(*m))));	// Update warna lokasi drop off selanjutnya
 	updateTodoFromQueue(m);
 
-	// Mengupdate warna sekarang lokasi yang aksesibel menjadi hijau
+	// Mengupdate warna lokasi yang aksesibel menjadi hijau
 	accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
 	for(int i = 0; i < NEFF(accesibleloc); i++){
 		if(COLOR(LOC(accesibleloc, i)) == HI)
