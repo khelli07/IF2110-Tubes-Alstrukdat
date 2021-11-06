@@ -198,6 +198,9 @@ void CommandDropoff(Mobita* m){
 	deleteFirstInProgress(&INPROGRESS(*m), &toppesanan);
 	pop(&TAS(*m), &toppesanan);
 	BALANCE(*m) += Price(toppesanan);
+	if(!isEmpty(TAS(*m)))
+		updateLocationColor(m, LokasiDropOff(TOP(TAS(*m))));	// Update warna lokasi drop off selanjutnya
+
 	switch (JenisItem(toppesanan)){
 	case PERISHABLE:
 		TASCAPACITY(*m) += 1;
