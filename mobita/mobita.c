@@ -126,6 +126,7 @@ void updateTodoFromQueue(Mobita* m){
 		Pesanan pesanan;
 		dequeue(&QUEUEPESANAN(*m), &pesanan);
 		insertLastToDo(&TODO(*m), pesanan);
+		updateLocationColor(m, LokasiPickUp(pesanan));
 	}
 }
 
