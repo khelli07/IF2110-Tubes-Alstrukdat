@@ -124,6 +124,18 @@ void CommandPickup(Mobita* m){
 	}
 }
 
+void CommandToDo(Mobita* m) {
+	List l;
+	l = TODO(*m);
+	displayToDoList(l);
+}
+
+void CommandInProgress(Mobita *m) {
+	List l;
+	l = INPROGRESS(*m);
+	displayInProgressList(l);
+}
+
 void CommandBuy(Mobita* m){
 	//if not in HQ, return
 	printf("Uang anda sekarang: %d yen\n",BALANCE(*m));
