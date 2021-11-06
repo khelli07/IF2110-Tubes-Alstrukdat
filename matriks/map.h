@@ -9,10 +9,9 @@
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define MAP_CAP 100
 
-typedef Location ElType;
 typedef struct
 {
-    ElType contents[MAP_CAP][MAP_CAP];
+    Location contents[MAP_CAP][MAP_CAP];
     int rowEff;
     int colEff;
 } Map;

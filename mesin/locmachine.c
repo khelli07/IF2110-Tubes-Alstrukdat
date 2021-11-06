@@ -33,6 +33,14 @@ void ignoreWhiteSpace()
     }
 }
 
+void ignoreBlank()
+{
+    while (currentChar == BLANK || currentChar == TAB)
+    {
+        adv();
+    }
+}
+
 void startReadLoc()
 {
     ignoreWhiteSpace();

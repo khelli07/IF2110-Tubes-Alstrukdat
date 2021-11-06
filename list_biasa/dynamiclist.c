@@ -6,7 +6,7 @@
 /* ********** KONSTRUKTOR ********** */
 void CreateDynamicList(DynamicList *l, int capacity)
 {
-    BUFFER(*l) = (ElType *)malloc((capacity + 2) * sizeof(ElType));
+    BUFFER(*l) = (Location *)malloc((capacity + 2) * sizeof(Location));
     if (BUFFER(*l) != NULL)
     {
         NEFF(*l) = 0;
@@ -44,13 +44,13 @@ void displayLocList(DynamicList l)
 }
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
-void insertLoc(DynamicList *l, ElType loc)
+void insertLoc(DynamicList *l, Location loc)
 {
     LOC(*l, NEFF(*l)) = loc;
     NEFF(*l) += 1;
 }
 
-void deleteLoc(DynamicList *l, ElType *val)
+void deleteLoc(DynamicList *l, Location *val)
 {
     *val = LOC(*l, NEFF(*l) - 1);
     NEFF(*l) -= 1;

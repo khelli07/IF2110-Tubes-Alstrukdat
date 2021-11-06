@@ -1,7 +1,6 @@
 /* File : linked_list_in_progress.h */
 /* ADT Linked List untuk command IN_PROGRESS */
 /* Representasi Address dengan pointer */
-/* ElType adalah Pesanan */
 
 #ifndef INPROGRESSLIST_H
 #define INPROGRESSLIST_H
@@ -13,7 +12,6 @@
 
 typedef Address List;
 
-#define IDX_UNDEF (-1)
 #define FIRST(l) (l)
 
 /* Definisi List : */
@@ -44,7 +42,7 @@ int indexOfPesananInProgress(List l, Pesanan val);
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
-/* Mengembalikan IDX_UNDEF jika tidak ditemukan */
+/* Mengembalikan -1 jika tidak ditemukan */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/

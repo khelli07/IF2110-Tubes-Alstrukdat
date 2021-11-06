@@ -7,7 +7,8 @@
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateInProgressList(List *l) {
+void CreateInProgressList(List *l)
+{
     // KAMUS LOKAL
 
     // ALGORITMA
@@ -17,9 +18,9 @@ void CreateInProgressList(List *l) {
     /* F.S. Terbentuk list kosong */
 }
 
-
 /****************** TEST LIST KOSONG ******************/
-boolean isInProgressEmpty(List l) {
+boolean isInProgressEmpty(List l)
+{
     // KAMUS LOKAL
 
     // ALGORITMA
@@ -28,9 +29,9 @@ boolean isInProgressEmpty(List l) {
     /* Mengirim true jika list kosong */
 }
 
-
 /****************** GETTER SETTER ******************/
-Pesanan getPesananInProgress(List l, int idx) {
+Pesanan getPesananInProgress(List l, int idx)
+{
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -38,8 +39,9 @@ Pesanan getPesananInProgress(List l, int idx) {
     // ALGORITMA
     ctr = 0;
     p = FIRST(l);
-    while (ctr < idx) {
-        ctr ++;
+    while (ctr < idx)
+    {
+        ctr++;
         p = NEXT(p);
     }
     return INFO(p);
@@ -48,8 +50,8 @@ Pesanan getPesananInProgress(List l, int idx) {
     /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 }
 
-
-void setPesananInProgress(List *l, int idx, Pesanan val) {
+void setPesananInProgress(List *l, int idx, Pesanan val)
+{
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -57,8 +59,9 @@ void setPesananInProgress(List *l, int idx, Pesanan val) {
     // ALGORITMA
     ctr = 0;
     p = FIRST(*l);
-    while (ctr < idx) {
-        ctr ++;
+    while (ctr < idx)
+    {
+        ctr++;
         p = NEXT(p);
     }
     INFO(p) = val;
@@ -67,7 +70,8 @@ void setPesananInProgress(List *l, int idx, Pesanan val) {
     /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 }
 
-int indexOfPesananInProgress(List l, Pesanan val) {
+int indexOfPesananInProgress(List l, Pesanan val)
+{
     // KAMUS LOKAL
     int idx;
     Address p;
@@ -77,36 +81,44 @@ int indexOfPesananInProgress(List l, Pesanan val) {
     p = FIRST(l);
     found = false;
     idx = 0;
-    while (p != NULL && !found) {
-        if (isPesananEqual(INFO(p), val)) {
+    while (p != NULL && !found)
+    {
+        if (isPesananEqual(INFO(p), val))
+        {
             found = true;
-        } else {
-            idx ++;
+        }
+        else
+        {
+            idx++;
             p = NEXT(p);
         }
     }
-    if (found) {
+    if (found)
+    {
         return idx;
-    } else {
-        return IDX_UNDEF;
+    }
+    else
+    {
+        return -1;
     }
 
     /* I.S. l, val terdefinisi */
     /* F.S. Mencari apakah ada elemen list l yang bernilai val */
     /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
-    /* Mengembalikan IDX_UNDEF jika tidak ditemukan */
+    /* Mengembalikan -1 jika tidak ditemukan */
 }
-
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirstInProgress(List *l, Pesanan val) {
+void insertFirstInProgress(List *l, Pesanan val)
+{
     // KAMUS LOKAL
     Address p;
 
     // ALGORITMA
     p = newNode(val);
-    if (p != NULL) {
+    if (p != NULL)
+    {
         NEXT(p) = FIRST(*l);
         FIRST(*l) = p;
     }
@@ -116,47 +128,57 @@ void insertFirstInProgress(List *l, Pesanan val) {
     /* Jika alokasi gagal: I.S.= F.S. */
 }
 
-
-void insertLastInProgress(List *l, Pesanan val) {
+void insertLastInProgress(List *l, Pesanan val)
+{
     // KAMUS LOKAL
     Address p, last;
 
     // ALGORITMA
-    if (isInProgressEmpty(*l)) {
+    if (isInProgressEmpty(*l))
+    {
         insertFirstInProgress(l, val);
-    } else {
+    }
+    else
+    {
         p = newNode(val);
-        if (p != NULL) {
+        if (p != NULL)
+        {
             last = FIRST(*l);
-            while (NEXT(last) != NULL) {
+            while (NEXT(last) != NULL)
+            {
                 last = NEXT(last);
             }
             NEXT(last) = p;
         }
     }
-    
+
     /* I.S. l mungkin kosong */
     /* F.S. Melakukan alokasi sebuah elemen dan */
     /* menambahkan elemen list di akhir: elemen terakhir yang baru */
     /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 }
 
-
-void insertAtInProgress(List *l, Pesanan val, int idx) {
+void insertAtInProgress(List *l, Pesanan val, int idx)
+{
     // KAMUS LOKAL
     int ctr;
     Address p, loc;
 
     // ALGORITMA
-    if (idx == 0) {
+    if (idx == 0)
+    {
         insertFirstInProgress(l, val);
-    } else {
+    }
+    else
+    {
         p = newNode(val);
-        if (p != NULL) {
+        if (p != NULL)
+        {
             ctr = 0;
             loc = FIRST(*l);
-            while (ctr < idx - 1) {
-                ctr ++;
+            while (ctr < idx - 1)
+            {
+                ctr++;
                 loc = NEXT(loc);
             }
             NEXT(p) = NEXT(loc);
@@ -171,7 +193,8 @@ void insertAtInProgress(List *l, Pesanan val, int idx) {
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirstInProgress(List *l, Pesanan *val) {
+void deleteFirstInProgress(List *l, Pesanan *val)
+{
     // KAMUS LOKAL
     Address p;
 
@@ -186,20 +209,25 @@ void deleteFirstInProgress(List *l, Pesanan *val) {
     /*      dan alamat elemen pertama di-dealokasi */
 }
 
-void deleteLastInProgress(List *l, Pesanan *val) {
+void deleteLastInProgress(List *l, Pesanan *val)
+{
     // KAMUS LOKAL
     Address p, loc;
 
     // ALGORITMA
     p = FIRST(*l);
     loc = NULL;
-    while (NEXT(p) != NULL) {
+    while (NEXT(p) != NULL)
+    {
         loc = p;
         p = NEXT(p);
     }
-    if (loc == NULL) {
+    if (loc == NULL)
+    {
         FIRST(*l) = NULL;
-    } else {
+    }
+    else
+    {
         NEXT(loc) = NULL;
     }
     *val = INFO(p);
@@ -210,20 +238,24 @@ void deleteLastInProgress(List *l, Pesanan *val) {
     /*      dan alamat elemen terakhir di-dealokasi */
 }
 
-
-void deleteAtInProgress(List *l, int idx, Pesanan *val) {
+void deleteAtInProgress(List *l, int idx, Pesanan *val)
+{
     // KAMUS LOKAL
     int ctr;
     Address p, loc;
 
     // ALGORITMA
-    if (idx == 0) {
+    if (idx == 0)
+    {
         deleteFirstInProgress(l, val);
-    } else {
+    }
+    else
+    {
         ctr = 0;
         loc = FIRST(*l);
-        while (ctr < idx - 1) {
-            ctr ++;
+        while (ctr < idx - 1)
+        {
+            ctr++;
             loc = NEXT(loc);
         }
         p = NEXT(loc);
@@ -235,44 +267,60 @@ void deleteAtInProgress(List *l, int idx, Pesanan *val) {
     /* I.S. list tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
     /* F.S. val diset dengan elemen l pada indeks ke-idx. */
     /*      Elemen l pada indeks ke-idx dihapus dari l */
-
 }
 
-
-
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayInProgressList(List l) {
+void displayInProgressList(List l)
+{
     // KAMUS LOKAL
     int ctr;
     Address p;
 
     // ALGORITMA
-    if (isInProgressEmpty(l)) {
+    if (isInProgressEmpty(l))
+    {
         printf("Tidak ada pesanan yang sedang diantarkan!\n");
-    } else {
+    }
+    else
+    {
         printf("Pesanan yang sedang diantarkan:\n");
         ctr = 1;
         p = FIRST(l);
-        if (JenisItem(INFO(p)) == NORMAL) {
+        if (JenisItem(INFO(p)) == NORMAL)
+        {
             printf("%d. Normal Item ", ctr);
-        } else if (JenisItem(INFO(p)) == HEAVY) {
+        }
+        else if (JenisItem(INFO(p)) == HEAVY)
+        {
             printf("%d. Heavy Item ", ctr);
-        } else if (JenisItem(INFO(p)) == PERISHABLE) {
+        }
+        else if (JenisItem(INFO(p)) == PERISHABLE)
+        {
             printf("%d. Perishable Item ", ctr);
-        } else if (JenisItem(INFO(p)) == VIP) {
+        }
+        else if (JenisItem(INFO(p)) == VIP)
+        {
             printf("%d. VIP Item", ctr);
         }
         printf("(Tujuan: %c)\n", NAME(LokasiDropOff(INFO(p))));
-        while (NEXT(p) != NULL) {
+        while (NEXT(p) != NULL)
+        {
             p = NEXT(p);
-            ctr ++;
-            if (JenisItem(INFO(p)) == NORMAL) {
+            ctr++;
+            if (JenisItem(INFO(p)) == NORMAL)
+            {
                 printf("%d. Normal Item ", ctr);
-            } else if (JenisItem(INFO(p)) == HEAVY) {
+            }
+            else if (JenisItem(INFO(p)) == HEAVY)
+            {
                 printf("%d. Heavy Item ", ctr);
-            } else if (JenisItem(INFO(p)) == PERISHABLE) {
+            }
+            else if (JenisItem(INFO(p)) == PERISHABLE)
+            {
                 printf("%d. Perishable Item ", ctr);
-            } else if (JenisItem(INFO(p)) == VIP) {
+            }
+            else if (JenisItem(INFO(p)) == VIP)
+            {
                 printf("%d. VIP Item", ctr);
             }
             printf("(Tujuan: %c)\n", NAME(LokasiDropOff(INFO(p))));
@@ -286,11 +334,10 @@ void displayInProgressList(List l) {
         2. D -> H (Normal Item)
     */
     /* Jika list kosong dituliskan keterangan bahwa To Do List kosong */
-        
 }
 
-
-int lengthInProgress(List l) {
+int lengthInProgress(List l)
+{
     // KAMUS LOKAL
     int ctr;
     Address p;
@@ -298,8 +345,9 @@ int lengthInProgress(List l) {
     // ALGORITMA
     ctr = 0;
     p = FIRST(l);
-    while (p != NULL) {
-        ctr ++;
+    while (p != NULL)
+    {
+        ctr++;
         p = NEXT(p);
     }
     return ctr;
@@ -307,7 +355,8 @@ int lengthInProgress(List l) {
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
 /****************** PROSES TERHADAP LIST ******************/
-List concatInProgress(List l1, List l2)  {
+List concatInProgress(List l1, List l2)
+{
     // KAMUS LOKAL
     Address p;
     List l3;
@@ -315,17 +364,19 @@ List concatInProgress(List l1, List l2)  {
     // ALGORITMA
     CreateInProgressList(&l3);
     p = FIRST(l1);
-    while (p != NULL) {
+    while (p != NULL)
+    {
         insertLastInProgress(&l3, INFO(p));
         p = NEXT(p);
     }
     p = FIRST(l2);
-    while (p != NULL) {
+    while (p != NULL)
+    {
         insertLastInProgress(&l3, INFO(p));
         p = NEXT(p);
     }
     return l3;
-    
+
     /* I.S. l1 dan l2 sembarang */
     /* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
     /* Konkatenasi dua buah list : l1 dan l2    */

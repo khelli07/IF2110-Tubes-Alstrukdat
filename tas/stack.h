@@ -7,8 +7,6 @@
 
 #include "../utilities/boolean.h"
 #include "../pesanan/pesanan.h"
-
-#define IDX_UNDEF -1
 #define CAPACITY_TAS 100
 
 typedef struct {
@@ -25,7 +23,7 @@ typedef struct {
 void CreateStack(Stack *s);
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S kosong dengan kondisi sbb: */
-/* - Index top bernilai IDX_UNDEF */
+/* - Index top bernilai -1 */
 /* Proses : Melakukan alokasi, membuat sebuah s kosong */
 
 /* ************ Prototype ************ */

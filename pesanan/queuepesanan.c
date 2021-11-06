@@ -5,13 +5,13 @@
 /* *** Kreator *** */
 void CreateQueue(QueuePesanan *q)
 {
-    IDX_HEADQUEUE(*q) = IDX_UNDEF;
-    IDX_TAILQUEUE(*q) = IDX_UNDEF;
+    IDX_HEADQUEUE(*q) = -1;
+    IDX_TAILQUEUE(*q) = -1;
 }
 
 boolean isQueueEmpty(QueuePesanan q)
 {
-    if (IDX_HEADQUEUE(q) == IDX_UNDEF && IDX_TAILQUEUE(q) == IDX_UNDEF)
+    if (IDX_HEADQUEUE(q) == -1 && IDX_TAILQUEUE(q) == -1)
         return true;
     return false;
 }
@@ -62,8 +62,8 @@ void dequeue(QueuePesanan *q, Pesanan *val)
     ++;
     if (IDX_HEADQUEUE(*q) > IDX_TAILQUEUE(*q))
     {
-        IDX_HEADQUEUE(*q) = IDX_UNDEF;
-        IDX_TAILQUEUE(*q) = IDX_UNDEF;
+        IDX_HEADQUEUE(*q) = -1;
+        IDX_TAILQUEUE(*q) = -1;
     }
 }
 

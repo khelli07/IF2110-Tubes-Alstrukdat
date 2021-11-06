@@ -1,7 +1,6 @@
 /* File : linked_list_to_do.h */
 /* ADT Linked List untuk command TO_DO */
 /* Representasi Address dengan pointer */
-/* ElType adalah Pesanan */
 
 #ifndef TODOLIST_H
 #define TODOLIST_H
@@ -12,8 +11,6 @@
 #include "node.h"
 
 typedef Address List;
-
-#define IDX_UNDEF (-1)
 #define FIRST(l) (l)
 
 /* Definisi List : */
@@ -44,7 +41,7 @@ int indexOfPesananToDo(List l, Pesanan val);
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
-/* Mengembalikan IDX_UNDEF jika tidak ditemukan */
+/* Mengembalikan -1 jika tidak ditemukan */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/

@@ -6,7 +6,6 @@
 #include "queuepesanan.h"
 #include "pesanan.h"
 
-#define IDX_UNDEF -1
 #define QUEUE_CAPACITY 100
 
 /* Definisi elemen dan address */
@@ -28,8 +27,8 @@ typedef struct {
 void CreateQueue(QueuePesanan *q);
 /* I.S. sembarang */
 /* F.S. Sebuah q kosong terbentuk dengan kondisi sbb: */
-/* - Index head bernilai IDX_UNDEF */
-/* - Index tail bernilai IDX_UNDEF */
+/* - Index head bernilai -1 */
+/* - Index tail bernilai -1 */
 /* Proses : Melakukan alokasi, membuat sebuah q kosong */
 
 /* ********* Prototype ********* */

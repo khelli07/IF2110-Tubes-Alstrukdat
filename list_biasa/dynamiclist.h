@@ -6,11 +6,10 @@
 #include "../matriks/adjmat.h"
 
 /* Definisi elemen dan koleksi objek */
-typedef Location ElType; /* type elemen list */
 typedef int IdxType;
 typedef struct
 {
-    ElType *buffer; /* memori tempat penyimpan elemen (container) */
+    Location *buffer; /* memori tempat penyimpan elemen (container) */
     int nEff;       /* >=0, banyaknya elemen efektif */
     int capacity;   /* ukuran elemen */
 } DynamicList;
@@ -40,13 +39,13 @@ void displayLocList(DynamicList l);
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLoc(DynamicList *l, ElType loc);
+void insertLoc(DynamicList *l, Location loc);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. loc adalah elemen terakhir l yang baru */
 
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLoc(DynamicList *l, ElType *loc);
+void deleteLoc(DynamicList *l, Location *loc);
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */
 /* F.S. loc adalah nilai elemen terakhir l sebelum penghapusan, 

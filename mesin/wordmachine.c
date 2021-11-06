@@ -5,15 +5,19 @@
 boolean endWord;
 Word currentWord;
 
-void startWord() {
+void startWord()
+{
     /* KAMUS LOKAL */
-    
+
     /* ALGORITMA */
     start();
     ignoreWhiteSpace();
-    if (currentChar == MARK) {
+    if (currentChar == MARK)
+    {
         endWord = true;
-    } else {
+    }
+    else
+    {
         endWord = false;
         copyWord();
     }
@@ -23,15 +27,18 @@ void startWord() {
           currentChar karakter pertama sesudah karakter terakhir kata */
 }
 
-
-void advWord() {
+void advWord()
+{
     /* KAMUS LOKAL */
-   
+
     /* ALGORITMA */
     ignoreWhiteSpace();
-    if (currentChar == MARK) {
+    if (currentChar == MARK)
+    {
         endWord = true;
-    } else {
+    }
+    else
+    {
         copyWord();
     }
 
@@ -42,25 +49,29 @@ void advWord() {
     Proses : Akuisisi kata menggunakan procedure copyWord */
 }
 
-
-void copyWord() {
+void copyWord()
+{
     /* KAMUS LOKAL */
     int i;
     /* ALGORITMA */
     i = 0;
-    while ((currentChar != MARK) && (currentChar != BLANK)) {
-        if (i < CAPACITY_WORD) {
+    while ((currentChar != MARK) && (currentChar != BLANK))
+    {
+        if (i < CAPACITY_WORD)
+        {
             currentWord.contents[i] = currentChar;
         }
         adv();
-        i ++;
+        i++;
     }
-    if (i > CAPACITY_WORD) {
+    if (i > CAPACITY_WORD)
+    {
         currentWord.length = CAPACITY_WORD;
-    } else {
+    }
+    else
+    {
         currentWord.length = i;
     }
-    
 
     /* Mengakuisisi kata, menyimpan dalam currentWord
     I.S. : currentChar adalah karakter pertama dari kata
@@ -68,4 +79,33 @@ void copyWord() {
           currentChar = BLANK atau currentChar = MARK; 
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
+}
+
+Word readLine()
+{
+    /* KAMUS LOKAL */
+    Word kata;
+    int i;
+
+    /* ALGORITMA */
+    i = 0;
+    while ((currentChar != NEWLINE) && (currentChar != BLANK))
+    {
+        if (i < CAPACITY_WORD)
+        {
+            kata.contents[i] = currentChar;
+        }
+        adv();
+        i++;
+    }
+    if (i > CAPACITY_WORD)
+    {
+        kata.length = CAPACITY_WORD;
+    }
+    else
+    {
+        kata.length = i;
+    }
+
+    return kata;
 }

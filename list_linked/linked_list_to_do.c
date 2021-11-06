@@ -88,13 +88,13 @@ int indexOfPesananToDo(List l, Pesanan val) {
     if (found) {
         return idx;
     } else {
-        return IDX_UNDEF;
+        return -1;
     }
 
     /* I.S. l, val terdefinisi */
     /* F.S. Mencari apakah ada elemen list l yang bernilai val */
     /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
-    /* Mengembalikan IDX_UNDEF jika tidak ditemukan */
+    /* Mengembalikan -1 jika tidak ditemukan */
 }
 
 
