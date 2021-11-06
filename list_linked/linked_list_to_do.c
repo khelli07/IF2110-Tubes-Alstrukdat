@@ -354,3 +354,27 @@ List concatToDo(List l1, List l2)  {
     /* menghasilkan l3 yang baru (dengan elemen list l1 dan l2 secara beurutan). */
     /* Tidak ada alokasi/dealokasi pada prosedur ini */
 }
+
+boolean isLocationHasToDo(List l, Location loc){
+    int idx;
+    Address p;
+    boolean found;
+
+    // ALGORITMA
+    p = FIRST(l);
+    found = false;
+    idx = 0;
+    while (p != NULL && !found) {
+        if (isLocEqual(LokasiPickUp(INFO(p)), loc)) {
+            found = true;
+        } else {
+            idx ++;
+            p = NEXT(p);
+        }
+    }
+    if (found) {
+        return true;
+    } else {
+        return false;
+    }
+}

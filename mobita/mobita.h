@@ -18,12 +18,11 @@
 
 
 extern int globalTime;
-extern int bagCapacity;
+// Tas capacity sudah ada di Mobita
 extern List daftarPesanan;
 
 typedef struct{
 	int balance;
-    int scoreTime;
     int tasCapacity;
     Location curLoc;
     List toDoList;
@@ -42,7 +41,6 @@ typedef struct{
 
 /* SELEKTOR */
 #define BALANCE(m) (m).balance
-#define SCORETIME(m) (m).scoreTime
 #define TASCAPACITY(m) (m).tasCapacity
 #define LOCATION(m) (m).curLoc
 #define TODO(m) (m).toDoList
@@ -57,23 +55,20 @@ typedef struct{
 /* KONSTRUKTOR */
 void CreateMobita(Mobita* m);
 
+
+/* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
 /* Command move, menampilkan lokasi aksesibel terlebih dahulu
  * I.S.: Mobita m terdefinisi
  * F.S.: Tertampilkan accesible location, dan lokasi m berpindah ke tujuan, atau dibatalkan */
 void CommandMove(Mobita* m);
 
-/* Mendapatkan input command, dengan menampilkan pesan msg dulu. Return masukan yang valid 0-n */
-int getInputCommand(char msg[], int n);
-
-/* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
-void CommandMove(Mobita *m);
-// moves mobita to loc (updates LOCATION(m))
-
+/* moves P from toDoList to inProgressList and tas
+ * I.S.: Mobita terdefinisi
+ * F.S.: Pesanan berpindah ke inProgressList dan tas jika memenuhi kondisi, pesan kesalahan jika tidak */
 void CommandPickUp(Mobita *m);
-// moves P from toDoList to inProgressList
 
-void CommandDropOff(Mobita *m);
 // deletes P from inProgressList, adds balance
+void CommandDropOff(Mobita *m);
 
 void CommandMap(Mobita* m);
 // displays map
@@ -111,4 +106,11 @@ boolean UsePintuKemanaSaja(Mobita *m);
 boolean UseMesinWaktu(Mobita *m);
 
 boolean UseSenterPengecil(Mobita *m);
+
+/* Mendapatkan input command, dengan menampilkan pesan msg dulu. Return masukan yang valid 0-n */
+int getInputCommand(char msg[], int n);
+
+void updateLocationColor(Mobita* m, Location loc);
+
+void updateTodoFromQueue(Mobita* m);
 #endif

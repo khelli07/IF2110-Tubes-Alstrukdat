@@ -129,22 +129,17 @@ boolean isPesananMasukWaktu(Pesanan p, int waktu)
 
 boolean isPesananExpired(Pesanan p)
 {
-    return TimeoutPerish(p) <= 0;
+    if(JenisItem(p) != PERISHABLE)
+        return false;
+    else
+        return TimeoutPerish(p) <= 0;
 }
 
 boolean isPesananEqual(Pesanan p1, Pesanan p2)
 {
-    if (ABSIS(POINT(LokasiPickUp(p1))) != ABSIS(POINT(LokasiPickUp(p2))))
+    if(!isLocEqual(LokasiPickUp(p1), LokasiPickUp(p2)))
         return false;
-    if (ORDINAT(POINT(LokasiPickUp(p1))) != ORDINAT(POINT(LokasiPickUp(p2))))
-        return false;
-    if (ABSIS(POINT(LokasiDropOff(p1))) != ABSIS(POINT(LokasiDropOff(p2))))
-        return false;
-    if (ORDINAT(POINT(LokasiDropOff(p1))) != ORDINAT(POINT(LokasiDropOff(p2))))
-        return false;
-    if (NAME(LokasiPickUp(p1)) != NAME(LokasiPickUp(p2)))
-        return false;
-    if (NAME(LokasiDropOff(p1)) != NAME(LokasiDropOff(p2)))
+    if(!isLocEqual(LokasiDropOff(p1), LokasiDropOff(p2)));
         return false;
     if (WaktuIn(p1) != WaktuIn(p2) || Price(p1) != Price(p2))
         return false;

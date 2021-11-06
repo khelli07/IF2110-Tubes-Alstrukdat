@@ -16,7 +16,7 @@
 /* VARIABLES */
 
 int globalTime=0;
-int bagCapacity=3;
+// Tas capacity sudah ada di Mobita
 List daftarPesanan;
 
 /* KONSTRUKTOR */
@@ -35,8 +35,6 @@ void CreateMobita(Mobita *m)
 
 /* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
 void CommandMove(Mobita* m){
-	//printf("Waktu: %d\n", SCORETIME(*m));
-	//printf("Current Location: "); displayLoc(LOCATION(*m)); printf("\n");
 	DynamicList accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
 	printf("Posisi yang dapat dicapai:\n");
 	displayLocList(accesibleloc);
@@ -47,26 +45,86 @@ void CommandMove(Mobita* m){
 		printf("Dibatalkan!\n");
 		return;
 	}
-	
+
+	// Mengganti warna accessible location sebelumnya dari hijau ke hitam (tidak mengupdate jika ada pickup/dropoff di sana)
+	for(int i = 0; i < NEFF(accesibleloc); i++){
+		if(COLOR(LOC(accesibleloc, i)) == G )
+			setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), HI);
+	}
+
+	// Menyimpan lokasi sebelumnya dan mengupdate lokasi sekarang
+	Location prevloc = LOCATION(*m);
 	LOCATION(*m) = LOC(accesibleloc, command - 1);
+
+	// Menambahkan waktu berdasarkan jenis item
+	int timeincrement = 0;
 	int itemcounts[JENISITEMCOUNT];
 	countStackByJenisItem(TAS(*m), itemcounts);
 	if(itemcounts[HEAVY] > 0){
-		globalTime += (1 + itemcounts[HEAVY]);
+		timeincrement = 1 + itemcounts[HEAVY];
 		m->speedBoostAbility = -1;
 	} else if(m->speedBoostAbility > 0){
 		if(m->speedBoostAbility % 2 == 1){
-			globalTime += 1;
+			timeincrement = 1;
 		}
 		m->speedBoostAbility -= 1;
 	} else{
-		globalTime += 1;
+		timeincrement = 1;
+	}
+	globalTime += timeincrement;
+
+	// Mengurangi waktu perishable di InProgress, menghapus yang terdepan di InProgress dan teratas di tas jika expired
+	reduceTimeoutPerishInProgress(&INPROGRESS(*m), timeincrement);
+	int i = 0;
+	Pesanan temp;
+	while(isPesananExpired(getPesananInProgress(INPROGRESS(*m), i))){	// isPesananExpired return false jika bukan perishable
+		pop(&TAS(*m), &temp);
+		deleteFirstInProgress(&INPROGRESS(*m), &temp);
+		i++;
+	}
+	updateTodoFromQueue(m);
+
+	// Mengupdate warna sekarang lokasi yang aksesibel menjadi hijau
+	accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
+	for(int i = 0; i < NEFF(accesibleloc); i++){
+		if(COLOR(LOC(accesibleloc, i)) == HI)
+			setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), G);
 	}
 
-	printf("Mobita sekarang berada di titik ");
-	displayLoc(LOCATION(*m));
-	printf("\n");
-	printf("Waktu: %d\n", SCORETIME(*m));
+	// Mengupdate warna lokasi sebelumnya dan sekarang
+	updateLocationColor(m, prevloc);
+	updateLocationColor(m, LOCATION(*m));
+
+	printf("Mobita sekarang berada di titik "); displayLoc(LOCATION(*m)); printf("\n");
+	printf("Waktu: %d\n", globalTime);
+}
+
+void updateLocationColor(Mobita* m, Location loc){
+	if(isLocEqual(loc, LOCATION(*m))){
+		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, O);
+		return;
+	}
+	if(isLocEqual(loc, LokasiDropOff(TOP(TAS(*m))))){
+		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, B);
+		return;
+	}
+	if(isLocationHasToDo(TODO(*m), loc)){
+		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, R);
+	}
+	if(COLOR(loc) == G){
+		return;
+	}
+	setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, HI);
+}
+
+void updateTodoFromQueue(Mobita* m){
+	if(isQueueEmpty(QUEUEPESANAN(*m)))
+		return;
+	while(WaktuIn(HEADQUEUE(QUEUEPESANAN(*m))) <= globalTime){
+		Pesanan pesanan;
+		dequeue(&QUEUEPESANAN(*m), &pesanan);
+		insertLastToDo(&TODO(*m), pesanan);
+	}
 }
 
 int getInputCommand(char msg[], int n){
@@ -84,6 +142,10 @@ int getInputCommand(char msg[], int n){
 }
 
 void CommandPickup(Mobita* m){
+	if(lengthInProgress(INPROGRESS(*m)) >= TASCAPACITY(*m)){
+		printf("Tas sudah penuh! Antarkan dulu pesanan di tas\n");
+		return;
+	}
 	Location currentLoc = LOCATION(*m);
 	int todolength = lengthToDo(TODO(*m));
 	List todoPesanan = TODO(*m);
@@ -116,9 +178,37 @@ void CommandPickup(Mobita* m){
 		push(&TAS(*m), firstPesanan);
 		Pesanan temp;
 		deleteAtToDo(&TODO(*m), i, &temp);
+
 		printf("Pesanan berupa %s Item berhasil diambil!\n", getJenisItemString(firstPesanan));
 		printf("Tujuan Pesanan: %c\n", NAME(LokasiDropOff(firstPesanan)));
 	}
+}
+
+void CommandDropoff(Mobita* m){
+	if(isEmpty(TAS(*m))){
+		printf("Tidak ada pesanan yang dapat diantarkan (Tas kosong)\n");
+		return;
+	}
+	if(!IsLocEqual(LOCATION(*m), LokasiDropoff(TOP(TAS(*m))))){
+		printf("Pesanan teratas tidak diantarkan ke sini!\n");
+		return;
+	}
+
+	Pesanan toppesanan;
+	deleteFirstInProgress(&INPROGRESS(*m), &toppesanan);
+	pop(&TAS(*m), &toppesanan);
+	BALANCE(*m) += Price(toppesanan);
+	switch (JenisItem(toppesanan)){
+	case PERISHABLE:
+		TASCAPACITY(*m) += 1;
+		break;
+	case VIP:
+		m->returnToSenderAbility = true;
+		break;
+	}
+
+	printf("Pesanan %s Item berhasil diantarkan\n", getJenisItemString(toppesanan));
+	printf("Uang yang didapatkan: %d Yen\n", Price(toppesanan));
 }
 
 void CommandToDo(Mobita* m) {
@@ -308,9 +398,9 @@ boolean UseKainWaktu(Mobita *m){
 }
 
 boolean UseSenterPembesar(Mobita *m){
-	bagCapacity*=2;
-	if(bagCapacity>100)bagCapacity=100;
-	printf("Senter Pembesar berhasil digunakan! Kapasitas tas sekarang adalah %d\n",bagCapacity);
+	TASCAPACITY(*m) *= 2;
+	if(TASCAPACITY(*m) > 100) TASCAPACITY(*m) = 100;
+	printf("Senter Pembesar berhasil digunakan! Kapasitas tas sekarang adalah %d\n", TASCAPACITY(*m));
 	printf("Sayangnya, senter tersebut kehabisan baterai, dan anda memutuskan untuk membuangnya\n");
 	return 1;
 }

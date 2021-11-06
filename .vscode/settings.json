@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "location.h": "c",
-        "boolean.h": "c"
+        "boolean.h": "c",
+        "gadgetlist.h": "c"
     }
 }
