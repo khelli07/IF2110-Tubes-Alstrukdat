@@ -17,10 +17,7 @@
 
 int globalTime=0;
 int bagCapacity=3;
-/*int abilityHeavy;
-int abilitySpeed;
-int abilityReturn;
-*/
+List daftarPesanan;
 
 /* KONSTRUKTOR */
 void CreateMobita(Mobita *m)
@@ -296,6 +293,10 @@ void CommandLoad(Mobita *m){
 		fscanf(fp,"%d",&GADGETOWNED(INVENTORY(*m),i));
 	}
 	fclose(fp);
+}
+
+void CommandBalance(Mobita* m){
+	printf("Uang anda sekarang adalah: %d\n",BALANCE(*m));
 }
 
 /* INTERNAL COMMANDS */

@@ -19,6 +19,7 @@
 
 extern int globalTime;
 extern int bagCapacity;
+extern List daftarPesanan;
 
 typedef struct{
 	int balance;
@@ -94,6 +95,9 @@ void CommandSave(Mobita* m);
 
 void CommandLoad(Mobita* m);
 // loads file.mob
+
+void CommandBalance(Mobita* m);
+// displays balance
 
 /* INTERNAL COMMANDS */
 
