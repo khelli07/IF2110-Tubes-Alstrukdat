@@ -48,6 +48,28 @@ Pesanan getPesananToDo(List l, int idx) {
     /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 }
 
+boolean isVIPinToDo(List l) {
+    // KAMUS LOKAL
+    Address p;
+    boolean found;
+
+    // ALGORITMA
+    p = FIRST(l);
+    found = false;
+    if (!isToDoEmpty(l)) {
+        while (p != NULL && !found) {
+            if (JenisItem(INFO(p)) == VIP) {
+                found = true;
+            } else {
+                p = NEXT(p);
+            }
+        }
+    } 
+    return found;
+    
+    /* Mengembalikan true jika terdapat pesanan VIP pada To Do List */
+}
+
 
 void setPesananToDo(List *l, int idx, Pesanan val) {
     // KAMUS LOKAL
@@ -259,7 +281,7 @@ void displayToDoList(List l) {
         } else if (JenisItem(INFO(p)) == HEAVY) {
             printf("(Heavy Item)\n");
         } else if (JenisItem(INFO(p)) == PERISHABLE) {
-            printf("(Perishable Item)\n");
+            printf("(Perishable Item, sisa waktu %d)\n", TimeoutPerish(INFO(p)));
         } else if (JenisItem(INFO(p)) == VIP) {
             printf("(VIP Item)\n");
         }
@@ -272,7 +294,7 @@ void displayToDoList(List l) {
             } else if (JenisItem(INFO(p)) == HEAVY) {
                 printf("(Heavy Item)\n");
             } else if (JenisItem(INFO(p)) == PERISHABLE) {
-                printf("(Perishable Item)\n");
+                printf("(Perishable Item, sisa waktu %d)\n", TimeoutPerish(INFO(p)));
             } else if (JenisItem(INFO(p)) == VIP) {
                 printf("(VIP Item)\n");
             }
