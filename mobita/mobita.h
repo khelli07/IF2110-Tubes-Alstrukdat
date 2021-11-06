@@ -18,9 +18,11 @@
 
 
 extern int globalTime;
+extern int bagCapacity;
 
 typedef struct{
 	int balance;
+    int scoreTime;
     int tasCapacity;
     Location curLoc;
     List toDoList;
@@ -30,7 +32,7 @@ typedef struct{
     GadgetList inventory;
     DynamicList buildingList;
     AdjMatrix adjMatrix;
-    //Map map;
+    Map map;
 
     // Daftar Ability
     int speedBoostAbility;  // Siswa waktu speed boost, -1 atau 0 jika tidak ada, waktu global dievaluasi bertambah jika ganjil
@@ -39,6 +41,7 @@ typedef struct{
 
 /* SELEKTOR */
 #define BALANCE(m) (m).balance
+#define SCORETIME(m) (m).scoreTime
 #define TASCAPACITY(m) (m).tasCapacity
 #define LOCATION(m) (m).curLoc
 #define TODO(m) (m).toDoList
@@ -48,7 +51,7 @@ typedef struct{
 #define INVENTORY(m) (m).inventory
 #define BUILDINGLIST(m) (m).buildingList
 #define ADJMAT(m) (m).adjMatrix
-//#define PETA(m) (m).map //MAP sudah ada di file lain ....
+#define PETA(m) (m).map //MAP sudah ada di file lain ....
 
 /* KONSTRUKTOR */
 void CreateMobita(Mobita* m);

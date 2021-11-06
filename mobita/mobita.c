@@ -15,7 +15,8 @@
 
 /* VARIABLES */
 
-int globalTime;
+int globalTime=0;
+int bagCapacity=3;
 /*int abilityHeavy;
 int abilitySpeed;
 int abilityReturn;
@@ -91,7 +92,8 @@ void CommandPickup(Mobita* m){
 	List todoPesanan = TODO(*m);
 	List pesananInLocation;
 	CreateToDoList(&pesananInLocation);
-	for(int i = 0; i < todolength; i++){
+	int i=0;
+	for(i = 0; i < todolength; i++){
 		if(isLocEqual(currentLoc, LokasiPickUp(getPesananToDo(todoPesanan, i)))){
 			insertFirstToDo(&pesananInLocation, getPesananToDo(todoPesanan, i));
 		}
@@ -102,7 +104,7 @@ void CommandPickup(Mobita* m){
 		// Mencari Pesanan yang masuk paling dulu
 		int inloclength = lengthToDo(pesananInLocation);
 		Pesanan firstPesanan = getPesananToDo(pesananInLocation, 0);
-		for(int i=1; i<inloclength; i++){
+		for(i=1; i<inloclength; i++){
 			if(WaktuIn(getPesananToDo(pesananInLocation, i)) < WaktuIn(firstPesanan))
 				firstPesanan = getPesananToDo(pesananInLocation, i);
 		}
@@ -200,7 +202,7 @@ void CommandSave(Mobita *m){
 	
 	/* Normal Config File */
 	// Map Size
-	fprintf(fp,"%d %d\n",ROWS(MAP(*m)),COLS(MAP(*m)));
+	fprintf(fp,"%d %d\n",ROWS(PETA(*m)),COLS(PETA(*m)));
 	// HQ Coords
 	// TBD
 	// Locations
@@ -286,22 +288,50 @@ void CommandLoad(Mobita *m){
 
 /* INTERNAL COMMANDS */
 boolean UseKainWaktu(Mobita *m){
+	if(!isEmpty(TAS(*m))&&TOP(TAS(*m)).jenisItem==PERISHABLE)TOP(TAS(*m)).timeout=TOP(TAS(*m)).timeoutInitial;
+	printf("Kain Waktu berhasil digunakan!\n");
+	printf("Karena senang deadline delivery diperpanjang, anda melempar kain tersebut dan melupakannya di pinggir jalan\n");
 	return 1;
 }
 
 boolean UseSenterPembesar(Mobita *m){
+	bagCapacity*=2;
+	if(bagCapacity>100)bagCapacity=100;
+	printf("Senter Pembesar berhasil digunakan! Kapasitas tas sekarang adalah %d\n",bagCapacity);
+	printf("Sayangnya, senter tersebut kehabisan baterai, dan anda memutuskan untuk membuangnya\n");
 	return 1;
 }
 
 boolean UsePintuKemanaSaja(Mobita *m){
+	printf("Pilih destinasi Pintu Kemana Saja: ");
+	displayLocList(BUILDINGLIST(*m));
+	pritnf("\nENTER COMMAND: ");
+	int in=0;
+	scanf("%d",&in);
+	while(in<1&&in>countBuilding(BUILDINGLIST(*m))){
+		printf("Masukan tidak valid\n ENTER COMMAND: ");
+		scanf("%d",&in);
+	}
+	LOCATION(*m)=LOC(BUILDINGLIST(*m),in-1);
+	printf("Anda membuka pintu kemana saja, dan mencapai lokasi ");
+	displayLoc(LOCATION(*m));
+	printf("\n");
+	printf("Namun, sesampainya disana pintu anda dicuri Suneo\n");
 	return 1;
 }
 
 boolean UseMesinWaktu(Mobita *m){
+	globalTime-=50;
+	if(globalTime<0)globalTime=0;
+	printf("Mesin Waktu berhasil digunakan! Waktu sekarang adalah %d\n",globalTime);
+	printf("Doraemon kemudian datang dan menggunakan mesin waktu anda untuk kembali ke masa depan\n");
 	return 1;
 }
 
 boolean UseSenterPengecil(Mobita *m){
+	if(!isEmpty(TAS(*m))&&TOP(TAS(*m)).jenisItem==HEAVY)TOP(TAS(*m)).jenisItem=NORMAL;
+	printf("Senter pengecil berhasil digunakan!\n");
+	printf("Senter tersebut juga ikut mengecil sampai tidak dapat digunakan lagi\n");
 	return 1;
 }
 
