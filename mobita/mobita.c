@@ -171,11 +171,10 @@ void CommandPickup(Mobita* m){
 				firstPesanan = getPesananToDo(pesananInLocation, i);
 		}
 		// Menghapus Pesanan dari To Do (sudah dimasukkan ke In Progress dan Tas)
-		int i, n;
-		n = lengthToDo(todoPesanan);
-		for(i=0; i<n; i++){
-			if(isPesananEqual(firstPesanan, getPesananToDo(todoPesanan, i)))
-				break;
+		int i = indexOfPesananToDo(TODO(*m), firstPesanan);
+		if(i == -1){
+			printf("Error tak terduga terjadi\n");
+			return;
 		}
 		insertFirstInProgress(&INPROGRESS(*m), firstPesanan);
 		push(&TAS(*m), firstPesanan);
