@@ -349,22 +349,64 @@ void CommandSave(Mobita *m){
 		fprintf(fp,"\n");
 	}
 	// Pesanan
-	// TBD
-	
+	n=lengthQueue(daftarPesanan);
+	fprintf(fp,"%d\n",n);
+	for(i=0;i<n;i++){
+		int in=daftarPesanan.buffer[i].waktuIn;
+		char start=daftarPesanan.buffer[i].pickUp.buildingName;
+		char end=daftarPesanan.buffer[i].dropOff.buildingName;
+		char type=jenisItemToChar(daftarPesanan.buffer[i].jenisItem);
+		int timer=daftarPesanan.buffer[i].timeoutInitial;
+		fprintf(fp,"%d %c %c %c ",in,start,end,type);
+		if(type=='P')fprintf(fp,"%d",timer);
+		fprintf(fp,"\n");
+	}
 	/* EXTRAS */
 	// Time
-	// TBD
+	fprintf(fp,"%d\n",globalTime);
 	// Ability Status
-	// TBD
+	fprintf(fp,"%d %d\n",(*m).speedBoostAbility,(*m).returnToSenderAbility);
 	// Balance
 	fprintf(fp,"%d\n",BALANCE(*m));
+	// Bag Capacity
+	fprintf(fp,"%d\n",TASCAPACITY(*m));
 	// Location (Building Name, X, Y)
 	Location temp=LOCATION(*m);
 	fprintf(fp,"%c %d %d\n",NAME(temp),POINT(temp).x,POINT(temp).y);
 	// To Do list
-	// TBD
+	n=lengthToDo(TODO(*m));
+	fprintf(fp,"%d\n",n);
+	for(i=0;i<n;i++){
+		int startx=getPesananToDo(TODO(*m),i).pickUp.point.x;
+		int starty=getPesananToDo(TODO(*m),i).pickUp.point.y;
+		char startc=getPesananToDo(TODO(*m),i).pickUp.buildingName;
+		int endx=getPesananToDo(TODO(*m),i).dropOff.point.x;
+		int endy=getPesananToDo(TODO(*m),i).dropOff.point.y;
+		char endc=getPesananToDo(TODO(*m),i).dropOff.buildingName;
+		int in=getPesananToDo(TODO(*m),i).waktuIn;
+		int price=getPesananToDo(TODO(*m),i).price;
+		int timernow=getPesananToDo(TODO(*m),i).timeout;
+		int timerori=getPesananToDo(TODO(*m),i).timeoutInitial;
+		char type=jenisItemToChar(getPesananToDo(TODO(*m),i).jenisItem);
+		fprintf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",startx,starty,startc,endx,endy,endc,in,price,timernow,timerori,type);
+	}
 	// In Progress List
-	// TBD
+	n=lengthInProgress(INPROGRESS(*m));
+	fprintf(fp,"%d\n",n);
+	for(i=0;i<n;i++){
+		int startx=getPesananInProgress(INPROGRESS(*m),i).pickUp.point.x;
+		int starty=getPesananInProgress(INPROGRESS(*m),i).pickUp.point.y;
+		char startc=getPesananInProgress(INPROGRESS(*m),i).pickUp.buildingName;
+		int endx=getPesananInProgress(INPROGRESS(*m),i).dropOff.point.x;
+		int endy=getPesananInProgress(INPROGRESS(*m),i).dropOff.point.y;
+		char endc=getPesananInProgress(INPROGRESS(*m),i).dropOff.buildingName;
+		int in=getPesananInProgress(INPROGRESS(*m),i).waktuIn;
+		int price=getPesananInProgress(INPROGRESS(*m),i).price;
+		int timernow=getPesananInProgress(INPROGRESS(*m),i).timeout;
+		int timerori=getPesananInProgress(INPROGRESS(*m),i).timeoutInitial;
+		char type=jenisItemToChar(getPesananInProgress(INPROGRESS(*m),i).jenisItem);
+		fprintf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",startx,starty,startc,endx,endy,endc,in,price,timernow,timerori,type);
+	}
 	// Inventory
 	for(i=0;i<5;i++){
 		fprintf(fp,"%d ",GADGETOWNED(INVENTORY(*m),i));
@@ -394,19 +436,57 @@ void CommandLoad(Mobita *m){
 	
 	/* Extras */
 	// Time
-	// TBD
+	fscanf(fp,"%d",&globalTime);
 	// Ability Status
-	// TBD
+	fscanf(fp,"%d %d",&(*m).speedBoostAbility,&(*m).returnToSenderAbility);
 	// Balance
 	fscanf(fp,"%d",&BALANCE(*m));
+	// Bag Capacity
+	fscanf(fp,"%d",&TASCAPACITY(*m));
 	// Location (Building Name, X, Y)
 	fscanf(fp,"%c %d %d",&NAME(LOCATION(*m)),&POINT(LOCATION(*m)).x,&POINT(LOCATION(*m)).y);
 	// To Do list
-	// TBD
+	int i,n;
+	fscanf(fp,"%d",&n);
+	for(i=0;i<n;i++){
+		int startx,starty,endx,endy,in,price,timernow,timerori;
+		char startc,endc,type;
+		fscanf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",&startx,&starty,&startc,&endx,&endy,&endc,&in,&price,&timernow,&timerori,&type);
+		Pesanan item;
+		item.pickUp.point.x=startx;
+		item.pickUp.point.y=starty;
+		item.pickUp.buildingName=startc;
+		item.dropOff.point.x=endx;
+		item.dropOff.point.y=endy;
+		item.dropOff.buildingName=endc;
+		item.waktuIn=in;
+		item.price=price;
+		item.timeout=timernow;
+		item.timeoutInitial=timerori;
+		item.jenisItem=charToJenisItem(type);
+		insertLastToDo(&TODO(*m),item);
+	}
 	// In Progress List
-	// TBD
+	fscanf(fp,"%d",&n);
+	for(i=0;i<n;i++){
+		int startx,starty,endx,endy,in,price,timernow,timerori;
+		char startc,endc,type;
+		fscanf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",&startx,&starty,&startc,&endx,&endy,&endc,&in,&price,&timernow,&timerori,&type);
+		Pesanan item;
+		item.pickUp.point.x=startx;
+		item.pickUp.point.y=starty;
+		item.pickUp.buildingName=startc;
+		item.dropOff.point.x=endx;
+		item.dropOff.point.y=endy;
+		item.dropOff.buildingName=endc;
+		item.waktuIn=in;
+		item.price=price;
+		item.timeout=timernow;
+		item.timeoutInitial=timerori;
+		item.jenisItem=charToJenisItem(type);
+		insertLastInProgress(&INPROGRESS(*m),item);
+	}
 	// Inventory
-	int i;
 	for(i=0;i<5;i++){
 		fscanf(fp,"%d",&GADGETOWNED(INVENTORY(*m),i));
 	}
