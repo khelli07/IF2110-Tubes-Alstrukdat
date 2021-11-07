@@ -16,6 +16,9 @@
 //extras
 #include "../pesanan/pesanan.h"
 #include "../pesanan/queuepesanan.h"
+#include "../point/location.h"
+#include "../point/point.h"
+#include "../list_linked/node.h"
 
 
 extern int globalTime;
@@ -66,10 +69,10 @@ void CommandMove(Mobita* m);
 /* moves P from toDoList to inProgressList and tas
  * I.S.: Mobita terdefinisi
  * F.S.: Pesanan berpindah ke inProgressList dan tas jika memenuhi kondisi, pesan kesalahan jika tidak */
-void CommandPickUp(Mobita *m);
+void CommandPickup(Mobita *m);
 
 // deletes P from inProgressList, adds balance
-void CommandDropOff(Mobita *m);
+void CommandDropoff(Mobita *m);
 
 void CommandMap(Mobita* m);
 // displays map
@@ -85,6 +88,9 @@ void CommandBuy(Mobita* m);
 
 void CommandInventory(Mobita* m);
 // displays inventory, may use a gadget
+
+void CommandHelp();
+// displays help
 
 void CommandSave(Mobita* m);
 // saves to file.mob

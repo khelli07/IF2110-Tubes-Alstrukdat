@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "mobita/mobita.h"
+#include <string.h>
 #include "utilities/boolean.h"
+#include "utilities/pcolor.h"
 #include "mesin/charmachine.h"
+#include "mesin/wordmachine.h"
+#include "mesin/locmachine.h"
 #include "point/location.h"
 #include "list_linked/linked_list_to_do.h"
 #include "list_linked/linked_list_in_progress.h"
@@ -14,6 +17,10 @@
 #include "tas/stack.h"
 #include "pesanan/pesanan.h"
 #include "pesanan/queuepesanan.h"
+#include "point/location.h"
+#include "point/point.h"
+#include "mobita/mobita.h"
+#include "list_linked/node.h"
 
 int getCmd(int range){
 	printf("\nEnter Command: ");
@@ -85,7 +92,7 @@ int main(){
 				CommandPickup(&m);
 				break;
 			case 3:
-				CommandDropOff(&m);
+				CommandDropoff(&m);
 				break;
 			case 4:
 				CommandToDo(&m);

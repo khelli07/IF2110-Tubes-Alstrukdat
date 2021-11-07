@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "mobita.h"
 #include "../utilities/boolean.h"
 #include "../mesin/charmachine.h"
@@ -14,6 +15,9 @@
 #include "../tas/stack.h"
 #include "../pesanan/pesanan.h"
 #include "../pesanan/queuepesanan.h"
+#include "../point/location.h"
+#include "../point/point.h"
+#include "../list_linked/node.h"
 
 /* VARIABLES */
 
@@ -193,7 +197,7 @@ void CommandDropoff(Mobita* m){
 		printf("Tidak ada pesanan yang dapat diantarkan (Tas kosong)\n");
 		return;
 	}
-	if(!IsLocEqual(LOCATION(*m), LokasiDropoff(TOP(TAS(*m))))){
+	if(!isLocEqual(LOCATION(*m), LokasiDropOff(TOP(TAS(*m))))){
 		printf("Pesanan teratas tidak diantarkan ke sini!\n");
 		return;
 	}
@@ -516,7 +520,7 @@ boolean UseSenterPembesar(Mobita *m){
 boolean UsePintuKemanaSaja(Mobita *m){
 	printf("Pilih destinasi Pintu Kemana Saja: ");
 	displayLocList(BUILDINGLIST(*m));
-	pritnf("\nENTER COMMAND: ");
+	printf("\nENTER COMMAND: ");
 	int in=0;
 	scanf("%d",&in);
 	while(in<1&&in>countBuilding(BUILDINGLIST(*m))){
