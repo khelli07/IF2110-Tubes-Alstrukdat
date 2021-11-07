@@ -12,12 +12,14 @@
 #include "../matriks/adjmat.h"
 #include "../matriks/map.h"
 #include "../tas/stack.h"
+#include "../pesanan/pesanan.h"
+#include "../pesanan/queuepesanan.h"
 
 /* VARIABLES */
 
 int globalTime=0;
 // Tas capacity sudah ada di Mobita
-List daftarPesanan;
+QueuePesanan daftarPesanan;
 
 /* KONSTRUKTOR */
 void CreateMobita(Mobita *m)
@@ -47,7 +49,8 @@ void CommandMove(Mobita* m){
 	}
 
 	// Mengganti warna accessible location sebelumnya dari hijau ke hitam (tidak mengupdate jika ada pickup/dropoff di sana)
-	for(int i = 0; i < NEFF(accesibleloc); i++){
+	int i;
+	for(i = 0; i < NEFF(accesibleloc); i++){
 		if(COLOR(LOC(accesibleloc, i)) == G )
 			setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), HI);
 	}
@@ -75,7 +78,6 @@ void CommandMove(Mobita* m){
 
 	// Mengurangi waktu perishable di InProgress, menghapus yang terdepan di InProgress dan teratas di tas jika expired
 	reduceTimeoutPerishInProgress(&INPROGRESS(*m), timeincrement);
-	int i = 0;
 	Pesanan temp;
 	while(isPesananExpired(getPesananInProgress(INPROGRESS(*m), i))){	// isPesananExpired return false jika bukan perishable
 		pop(&TAS(*m), &temp);
@@ -88,7 +90,7 @@ void CommandMove(Mobita* m){
 
 	// Mengupdate warna lokasi yang aksesibel menjadi hijau
 	accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
-	for(int i = 0; i < NEFF(accesibleloc); i++){
+	for(i = 0; i < NEFF(accesibleloc); i++){
 		if(COLOR(LOC(accesibleloc, i)) == HI)
 			setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), G);
 	}
@@ -230,6 +232,10 @@ void CommandInProgress(Mobita *m) {
 
 void CommandBuy(Mobita* m){
 	//if not in HQ, return
+	if(LOCATION(*m).buildingName!='8'){
+		printf("Shop hanya dapat diakses di HQ!\n");
+		return;
+	}
 	printf("Uang anda sekarang: %d yen\n",BALANCE(*m));
 	printf("Mobita HQ Shop:\n");
 	DisplayShop(&INVENTORY(*m));
@@ -290,6 +296,23 @@ void CommandInventory(Mobita* m){
 			printf("Command tidak valid\n");
 	}
 	
+}
+
+void CommandHelp(){
+	printf("Command List\n");
+	printf("1. Move\n");
+	printf("2. Pick Up\n");
+	printf("3. Drop Off\n");
+	printf("4. To Do List\n");
+	printf("5. In Progress List\n");
+	printf("6. Map\n");
+	printf("7. Shop\n");
+	printf("8. Inventory\n");
+	printf("9. Balance\n");
+	printf("10. Return\n");
+	printf("11. Help\n");
+	printf("12. Save\n");
+	printf("13. Exit\n");
 }
 
 void CommandSave(Mobita *m){

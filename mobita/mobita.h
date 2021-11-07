@@ -15,11 +15,12 @@
 
 //extras
 #include "../pesanan/pesanan.h"
+#include "../pesanan/queuepesanan.h"
 
 
 extern int globalTime;
 // Tas capacity sudah ada di Mobita
-extern List daftarPesanan;
+extern QueuePesanan daftarPesanan;
 
 typedef struct{
 	int balance;
