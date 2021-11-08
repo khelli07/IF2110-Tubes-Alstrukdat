@@ -356,25 +356,18 @@ List concatToDo(List l1, List l2)  {
 }
 
 boolean isLocationHasToDo(List l, Location loc){
-    int idx;
     Address p;
     boolean found;
 
     // ALGORITMA
     p = FIRST(l);
     found = false;
-    idx = 0;
     while (p != NULL && !found) {
         if (isLocEqual(LokasiPickUp(INFO(p)), loc)) {
             found = true;
         } else {
-            idx ++;
             p = NEXT(p);
         }
     }
-    if (found) {
-        return true;
-    } else {
-        return false;
-    }
+    return found;
 }

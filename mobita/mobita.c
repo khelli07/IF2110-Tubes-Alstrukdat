@@ -68,7 +68,7 @@ void CommandMove(Mobita* m){
 	// Menyimpan lokasi sebelumnya dan mengupdate lokasi sekarang
 	Location prevloc = LOCATION(*m);
 	LOCATION(*m) = LOC(accesibleloc, command - 1);
-
+	
 	// Menambahkan waktu berdasarkan jenis item
 	int timeincrement = 0;
 	int itemcounts[JENISITEMCOUNT];
@@ -89,16 +89,18 @@ void CommandMove(Mobita* m){
 	// Mengurangi waktu perishable di InProgress, menghapus yang terdepan di InProgress dan teratas di tas jika expired
 	reduceTimeoutPerishInProgress(&INPROGRESS(*m), timeincrement);
 	Pesanan temp;
-	while(isPesananExpired(getPesananInProgress(INPROGRESS(*m), i))){	// isPesananExpired return false jika bukan perishable
+	i = 0;
+	while(i < lengthInProgress(INPROGRESS(*m)) && isPesananExpired(getPesananInProgress(INPROGRESS(*m), i))){	// isPesananExpired return false jika bukan perishable
 		pop(&TAS(*m), &temp);
 		deleteFirstInProgress(&INPROGRESS(*m), &temp);
 		i++;
 	}
+
 	if(!isEmpty(TAS(*m)))
 		updateLocationColor(m, LokasiDropOff(TOP(TAS(*m))));	// Update warna lokasi drop off selanjutnya
-	//updateTodoFromQueue(m);
 
 	// Mengupdate warna lokasi yang aksesibel menjadi hijau
+	dealocate(&accesibleloc);
 	accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
 	for(i = 0; i < NEFF(accesibleloc); i++){
 		if(COLOR(LOC(accesibleloc, i)) == HI)
@@ -106,11 +108,12 @@ void CommandMove(Mobita* m){
 	}
 
 	// Mengupdate warna lokasi sebelumnya dan sekarang
+	displayLoc(prevloc); printf("\n"); displayLoc(LOCATION(*m)); printf("\n");
+	printf("%d\n", COLOR(prevloc));
 	updateLocationColor(m, prevloc);
 	updateLocationColor(m, LOCATION(*m));
-
+	dealocate(&accesibleloc);
 	printf("Mobita sekarang berada di titik "); displayLoc(LOCATION(*m)); printf("\n");
-	printf("Waktu: %d\n", globalTime);
 }
 
 void updateLocationColor(Mobita* m, Location loc){
@@ -118,31 +121,21 @@ void updateLocationColor(Mobita* m, Location loc){
 		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, O);
 		return;
 	}
-	if(isLocEqual(loc, LokasiDropOff(TOP(TAS(*m))))){
+	if(!isEmpty(TAS(*m)) && isLocEqual(loc, LokasiDropOff(TOP(TAS(*m))))){
 		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, B);
 		return;
 	}
-	if(isLocationHasToDo(TODO(*m), loc)){
+	if(!isToDoEmpty(TODO(*m)) && isLocationHasToDo(TODO(*m), loc)){
 		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, R);
+		return;
 	}
 	if(COLOR(loc) == G){
+		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, G);
 		return;
 	}
 	setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, HI);
 }
 
-/*
-void updateTodoFromQueue(Mobita* m){
-	if(isQueueEmpty(QUEUEPESANAN(*m)))
-		return;
-	while(WaktuIn(HEADQUEUE(QUEUEPESANAN(*m))) <= globalTime){
-		Pesanan pesanan;
-		dequeue(&QUEUEPESANAN(*m), &pesanan);
-		insertLastToDo(&TODO(*m), pesanan);
-		updateLocationColor(m, LokasiPickUp(pesanan));
-	}
-}
-*/
 
 int getInputCommand(char msg[], int n){
 	printf(msg);
@@ -171,7 +164,7 @@ void CommandPickup(Mobita* m){
 	int i=0;
 	for(i = 0; i < todolength; i++){
 		if(isLocEqual(currentLoc, LokasiPickUp(getPesananToDo(todoPesanan, i)))){
-			insertFirstToDo(&pesananInLocation, getPesananToDo(todoPesanan, i));
+			insertLastToDo(&pesananInLocation, getPesananToDo(todoPesanan, i));
 		}
 	}
 	if(isToDoEmpty(pesananInLocation)){
@@ -191,9 +184,16 @@ void CommandPickup(Mobita* m){
 			return;
 		}
 		insertFirstInProgress(&INPROGRESS(*m), firstPesanan);
-		push(&TAS(*m), firstPesanan);
+		if(!isEmpty(TAS(*m))){
+			Location prev = LokasiDropOff(TOP(TAS(*m)));
+			push(&TAS(*m), firstPesanan);
+			updateLocationColor(m, prev);
+		} else{
+			push(&TAS(*m), firstPesanan);
+		}
 		Pesanan temp;
 		deleteAtToDo(&TODO(*m), i, &temp);
+		updateLocationColor(m, LokasiDropOff(firstPesanan));
 
 		printf("Pesanan berupa %s Item berhasil diambil!\n", getJenisItemString(firstPesanan));
 		printf("Tujuan Pesanan: %c\n", NAME(LokasiDropOff(firstPesanan)));
@@ -240,6 +240,10 @@ void CommandInProgress(Mobita *m) {
 	List l;
 	l = INPROGRESS(*m);
 	displayInProgressList(l);
+}
+
+void CommandMap(Mobita* m){
+	displayMap(PETA(*m));
 }
 
 void CommandBuy(Mobita* m){
@@ -415,9 +419,18 @@ void CommandNewGame(Mobita* m){
     printf("Read file done!\n");
 
     daftarPesanan = qPesanan;
+	CreateToDoList(&TODO(*m));
+	CreateInProgressList(&INPROGRESS(*m));
+	CreateStack(&TAS(*m));
     BUILDINGLIST(*m) = locList;
     ADJMAT(*m) = adjMat;
     PETA(*m) = map;
+	updateLocationColor(m, LOCATION(*m));
+	DynamicList accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
+	for(int i = 0; i < NEFF(accesibleloc); i++){
+		if(COLOR(LOC(accesibleloc, i)) == HI)
+			setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), G);
+	}
 }
 
 

@@ -158,14 +158,18 @@ boolean isPesananExpired(Pesanan p)
 
 boolean isPesananEqual(Pesanan p1, Pesanan p2)
 {
-    if(!isLocEqual(LokasiPickUp(p1), LokasiPickUp(p2)))
+    if(!isLocEqual(LokasiPickUp(p1), LokasiPickUp(p2))){
         return false;
-    if(!isLocEqual(LokasiDropOff(p1), LokasiDropOff(p2)));
+    }
+    if(!isLocEqual(LokasiDropOff(p1), LokasiDropOff(p2))){
         return false;
-    if (WaktuIn(p1) != WaktuIn(p2) || Price(p1) != Price(p2))
+    }
+    if (WaktuIn(p1) != WaktuIn(p2) || Price(p1) != Price(p2)){
         return false;
-    if (TimeoutPerish(p1) != TimeoutPerish(p2) || TimeoutPerishInitial(p1) != TimeoutPerishInitial(p2) || JenisItem(p1) != JenisItem(p2))
+    }
+    if (TimeoutPerish(p1) != TimeoutPerish(p2) || TimeoutPerishInitial(p1) != TimeoutPerishInitial(p2) || JenisItem(p1) != JenisItem(p2)){
         return false;
+    }
 
     return true;
 }

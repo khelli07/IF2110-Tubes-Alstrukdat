@@ -61,6 +61,7 @@ int getLocIndex(DynamicList l, Location loc)
 {
     int i = 0;
     boolean found = false;
+
     while (i < NEFF(l) && !found)
     {
         if (isLocEqual(LOC(l, i), loc))

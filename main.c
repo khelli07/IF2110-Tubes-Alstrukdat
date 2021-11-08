@@ -33,8 +33,9 @@ int getCmd(int range){
 	return ret;
 }
 
-void printCmd(){
-	printf("Waktu sekarang adalah %d\n",globalTime);
+void printCmd(Mobita* m){
+	printf("\nWaktu sekarang adalah %d\n",globalTime);
+	printf("Lokasi: "); displayLoc(LOCATION(*m)); printf("\n");
 	printf("Command List\n");
 	printf("1. Move\n");
 	printf("2. Pick Up\n");
@@ -53,10 +54,11 @@ void printCmd(){
 
 void UpdatePesanan(Mobita *m){
 	int cnt=0;
-	while(!isQueueEmpty(daftarPesanan)&&HEADQUEUE(daftarPesanan).waktuIn<=globalTime){
+	while(!isQueueEmpty(daftarPesanan) && HEADQUEUE(daftarPesanan).waktuIn<=globalTime){
 		Pesanan k;
 		dequeue(&daftarPesanan,&k);
-		insertFirstToDo(&TODO(*m),k);
+		insertLastToDo(&TODO(*m),k);
+		updateLocationColor(m, LokasiPickUp(k));
 		cnt++;
 	}
 	if(cnt>0)printf("Anda mendapatkan %d pesanan baru!\n",cnt);
@@ -93,7 +95,7 @@ int main(){
 		}
 	while(cmd!=13){
 		UpdatePesanan(&m);
-		printCmd();
+		printCmd(&m);
 		cmd=getCmd(13);
 		switch(cmd){
 			case 1:
@@ -112,7 +114,7 @@ int main(){
 				CommandInProgress(&m);
 				break;
 			case 6:
-				//CommandMap(&m);
+				CommandMap(&m);
 				break;
 			case 7:
 				CommandBuy(&m);
