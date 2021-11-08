@@ -527,7 +527,7 @@ void CommandSave(Mobita *m){
 	fclose(fp);
 }
 
-void CommandLoad(Mobita *m){
+int CommandLoad(Mobita *m){
 	/* Get File Name*/
 	char in[50]="";
 	printf("Masukkan nama file: ");
@@ -542,7 +542,7 @@ void CommandLoad(Mobita *m){
     	startReadFile(filename);
 	}else{
     	printf("Savefile doesn't exist\n");
-    	return;
+    	return 0;
 	}
 	/* Normal File */
 	    /* KAMUS LOKAL */
@@ -687,6 +687,7 @@ void CommandLoad(Mobita *m){
 		fscanf(fp,"%d",&GADGETOWNED(INVENTORY(*m),i));
 	}
 	fclose(fp);
+	return 1;
 }
 
 void CommandBalance(Mobita* m){

@@ -83,7 +83,10 @@ int main(){
             // printf("\n");
 			break;
 		case 2:
-			CommandLoad(&m);
+			if(!CommandLoad(&m)){
+				printf("GAME ERROR\n");
+				return 0;
+			}
 			break;
 		case 3:
 			return 0;

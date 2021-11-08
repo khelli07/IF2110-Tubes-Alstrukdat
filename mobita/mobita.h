@@ -97,7 +97,7 @@ void CommandNewGame(Mobita* m);
 void CommandSave(Mobita* m);
 // saves to file.mob
 
-void CommandLoad(Mobita* m);
+int CommandLoad(Mobita* m);
 // loads file.mob
 
 void CommandBalance(Mobita* m);
