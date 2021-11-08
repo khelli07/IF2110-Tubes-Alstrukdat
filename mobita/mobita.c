@@ -336,7 +336,10 @@ void CommandNewGame(Mobita* m){
     Map map;
 
     /* ALGORITMA */
-    startReadFile("input.txt");
+    char input[50] = "";
+    printf("Masukkan nama file kamu: ");
+    scanf("%s", &input);
+    startReadFile(input);
     
     // BACA MAP
     mrow = readInt();
