@@ -8,7 +8,7 @@ char currentChar;
 boolean eot;
 
 static FILE *tape;
-static FILE *file;
+FILE *file;
 static int retval;
 
 void start()

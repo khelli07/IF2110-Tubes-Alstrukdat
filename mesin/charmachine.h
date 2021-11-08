@@ -2,11 +2,14 @@
 #define CHAR_ENGINE_H
 
 #include "../utilities/boolean.h"
+#include <stdio.h>
 
 #define MARK '#'
 /* Char Engine State */
 extern char currentChar;
 extern boolean eot;
+
+extern FILE* file;
 
 void start();
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.

@@ -31,7 +31,6 @@ typedef struct{
     Location curLoc;
     List toDoList;
     List inProgressList;
-    QueuePesanan notYetQueue;
     Stack tas;
     GadgetList inventory;
     DynamicList buildingList;

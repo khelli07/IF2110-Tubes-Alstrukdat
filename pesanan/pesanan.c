@@ -111,6 +111,27 @@ char *getJenisItemString(Pesanan p)
     }
 }
 
+char getJenisItemChar(Pesanan p){
+	switch (JenisItem(p))
+    {
+    case NORMAL:
+        return 'N';
+        break;
+    case HEAVY:
+        return 'H';
+        break;
+    case PERISHABLE:
+        return 'P';
+        break;
+    case VIP:
+        return 'V';
+        break;
+    default:
+        return 'U';
+        break;
+    }
+}
+
 void displayPesanan(Pesanan p)
 {
     printf("%c -> %c (%s ITEM), Price: %d Yen, Entry Time: %d",

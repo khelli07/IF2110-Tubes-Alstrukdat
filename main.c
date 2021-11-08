@@ -25,7 +25,7 @@
 int getCmd(int range){
 	printf("\nEnter Command: ");
 	int ret;
-	scanf("%d",ret);
+	scanf("%d",&ret);
 	if(ret>range||ret<1){
 		printf("Command tidak valid\n");
 		return getCmd(range);

@@ -39,6 +39,10 @@ void CreateMobita(Mobita *m)
     CreateDynamicList(&BUILDINGLIST(*m),30);
     //CreateAdjMat(&adj);
     //CreateMap(&map);
+    
+    TASCAPACITY(*m)=3;
+    (*m).speedBoostAbility=0;
+    (*m).returnToSenderAbility=0;
 }
 
 /* COMMANDS (SPEC SUBJECT TO CHANGE) */ 
@@ -92,7 +96,7 @@ void CommandMove(Mobita* m){
 	}
 	if(!isEmpty(TAS(*m)))
 		updateLocationColor(m, LokasiDropOff(TOP(TAS(*m))));	// Update warna lokasi drop off selanjutnya
-	updateTodoFromQueue(m);
+	//updateTodoFromQueue(m);
 
 	// Mengupdate warna lokasi yang aksesibel menjadi hijau
 	accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
@@ -127,6 +131,7 @@ void updateLocationColor(Mobita* m, Location loc){
 	setLocationColor(&PETA(*m), &BUILDINGLIST(*m), loc, HI);
 }
 
+/*
 void updateTodoFromQueue(Mobita* m){
 	if(isQueueEmpty(QUEUEPESANAN(*m)))
 		return;
@@ -137,11 +142,12 @@ void updateTodoFromQueue(Mobita* m){
 		updateLocationColor(m, LokasiPickUp(pesanan));
 	}
 }
+*/
 
 int getInputCommand(char msg[], int n){
 	printf(msg);
 	printf(" (ketik 0 jika ingin kembali)\n");
-	printf("Enter COMMAND: ");
+	printf("Enter Command: ");
 	int command;
 	scanf("%d", &command);
 	while(command < 0 || command > n){
@@ -246,7 +252,7 @@ void CommandBuy(Mobita* m){
 	printf("Mobita HQ Shop:\n");
 	DisplayShop(&INVENTORY(*m));
 	printf("Gadget mana yang ingin dibeli? (ketik 0 untuk kembali)\n\n");
-	printf("ENTER COMMAND: ");
+	printf("Enter Command: ");
 	int cmd; scanf("%d",&cmd);
 	switch(cmd){
 		case 0:
@@ -276,7 +282,7 @@ void CommandBuy(Mobita* m){
 void CommandInventory(Mobita* m){
 	DisplayInventory(&INVENTORY(*m));
 	printf("Gadget mana yang ingin digunakan? (ketik 0 untuk kembali)\n\n");
-	printf("ENTER COMMAND: ");
+	printf("Enter Command: ");
 	int cmd; scanf("%d",&cmd); //TEMPORARY SCANF
 	//Guards Empty Bag
 	if(cmd>=1&&cmd<=5&&GADGETOWNED(INVENTORY(*m),cmd-1)==0)cmd=6;
@@ -350,6 +356,7 @@ void CommandNewGame(Mobita* m){
     px = readInt();
     py = readInt();
     CreateLocation(&HQ, px, py, '8');
+    LOCATION(*m)=HQ;
     setBuilding(&map, HQ);
 
     startReadLoc();
@@ -372,6 +379,7 @@ void CommandNewGame(Mobita* m){
     N = readInt();
     while (N != 0)
     {
+    	timeoutPerish=0;
         ignoreWhiteSpace();
         timeIn = readInt();
         ignoreWhiteSpace();
@@ -399,13 +407,14 @@ void CommandNewGame(Mobita* m){
             N -= 1;
             enqueue(&qPesanan, currentPesanan);
         }
+        //printf("%c %c %d %d\n",pickUpLoc.buildingName,dropOffLoc.buildingName,timeIn,timeoutPerish);
     }
 
     sortQueue(&qPesanan);
     endReadFile();
     printf("Read file done!\n");
 
-    QUEUEPESANAN(*m) = qPesanan;
+    daftarPesanan = qPesanan;
     BUILDINGLIST(*m) = locList;
     ADJMAT(*m) = adjMat;
     PETA(*m) = map;
@@ -414,10 +423,10 @@ void CommandNewGame(Mobita* m){
 
 void CommandSave(Mobita *m){
 	/* Get File Name*/
-	char* in=malloc(50*sizeof(char));
+	char in[50]="";
 	printf("Masukkan nama file: ");
 	scanf("%s",&in);
-	char* filename=malloc(50*sizeof(char));
+	char filename[50]="";
 	strcpy(filename,"Savefiles/");
 	strcat(filename,in);
 	strcat(filename,".mob");
@@ -428,13 +437,19 @@ void CommandSave(Mobita *m){
 	// Map Size
 	fprintf(fp,"%d %d\n",ROWS(PETA(*m)),COLS(PETA(*m)));
 	// HQ Coords
-	// TBD
-	// Locations
 	int n=NEFF(BUILDINGLIST(*m));
-	fprintf(fp,"%d\n",n);
 	int i;
 	for(i=0;i<n;i++){
 		Location temp=LOC(BUILDINGLIST(*m),i);
+		if(NAME(temp)!='8')continue;
+		fprintf(fp,"%d %d\n",POINT(temp).x,POINT(temp).y);
+	}
+	// Locations
+	n=NEFF(BUILDINGLIST(*m));
+	fprintf(fp,"%d\n",n-1);
+	for(i=0;i<n;i++){
+		Location temp=LOC(BUILDINGLIST(*m),i);
+		if(NAME(temp)=='8')continue;
 		fprintf(fp,"%c %d %d\n",NAME(temp),POINT(temp).x,POINT(temp).y);
 	}
 	// AdjMat
@@ -513,24 +528,106 @@ void CommandSave(Mobita *m){
 }
 
 void CommandLoad(Mobita *m){
-	/* Get File Name */
-	char* in=malloc(50*sizeof(char));
+	/* Get File Name*/
+	char in[50]="";
 	printf("Masukkan nama file: ");
 	scanf("%s",&in);
-	char* filename=malloc(50*sizeof(char));
+	char filename[50]="";
 	strcpy(filename,"Savefiles/");
 	strcat(filename,in);
 	strcat(filename,".mob");
-	FILE* fp;
+	FILE* fp;	
+	
 	if(access(filename,R_OK)==0){
-    	fp=fopen(filename,"r");
+    	startReadFile(filename);
 	}else{
     	printf("Savefile doesn't exist\n");
     	return;
-	}	
+	}
 	/* Normal File */
-	// CommandNewGame(m);
+	    /* KAMUS LOKAL */
+    int mrow, mcol, px, py, N;
+    int timeIn, timeoutPerish;
+    char pickUpCC, dropOffCC;
+
+    JenisItem itemType;
+    Location HQ, pickUpLoc, dropOffLoc;
+    Pesanan currentPesanan;
+    QueuePesanan qPesanan;
+    DynamicList locList;
+    AdjMatrix adjMat;
+    Map map;
+    
+    
+    // BACA MAP
+    mrow = readInt();
+    mcol = readInt();
+    CreateMap(&map, mrow, mcol);
+
+    // BACA HEADQUARTER
+    px = readInt();
+    py = readInt();
+    CreateLocation(&HQ, px, py, '8');
+    LOCATION(*m)=HQ;
+    setBuilding(&map, HQ);
+
+    startReadLoc();
+    CreateDynamicList(&locList, readLocCounter);
+    insertLoc(&locList, HQ);
+    while (!endReadLoc)
+    {
+        insertLoc(&locList, currentLoc);
+        setBuilding(&map, currentLoc);
+        advReadLoc();
+    }
+
+    // READ ADJ MATRIX
+    N = countBuilding(locList);
+    CreateAdjMatrix(&adjMat, N);
+    readAdjMatrix(&adjMat, N);
+
+    CreateQueue(&qPesanan);
+    ignoreWhiteSpace();
+    N = readInt();
+    while (N != 0)
+    {
+        ignoreWhiteSpace();
+        timeIn = readInt();
+        ignoreWhiteSpace();
+        pickUpCC = currentChar;
+        advReadFile();
+        ignoreWhiteSpace();
+        dropOffCC = currentChar;
+        advReadFile();
+        ignoreWhiteSpace();
+        itemType = charToJenisItem(currentChar);
+        advReadFile();
+
+        pickUpLoc = getLoc(locList, pickUpCC);
+        dropOffLoc = getLoc(locList, dropOffCC);
+        if (itemType == PERISHABLE)
+        {
+            timeoutPerish = readInt();
+            CreatePesananPerish(&currentPesanan, itemType, pickUpLoc, dropOffLoc, timeIn, timeoutPerish);
+            N -= 1;
+            enqueue(&qPesanan, currentPesanan);
+        }
+        else
+        {
+            CreatePesanan(&currentPesanan, itemType, pickUpLoc, dropOffLoc, timeIn);
+            N -= 1;
+            enqueue(&qPesanan, currentPesanan);
+        }
+    }
+
+    sortQueue(&qPesanan);
+
+    daftarPesanan = qPesanan;
+    BUILDINGLIST(*m) = locList;
+    ADJMAT(*m) = adjMat;
+    PETA(*m) = map;
 	
+	fp=file;
 	/* Extras */
 	// Time
 	fscanf(fp,"%d",&globalTime);
@@ -541,14 +638,16 @@ void CommandLoad(Mobita *m){
 	// Bag Capacity
 	fscanf(fp,"%d",&TASCAPACITY(*m));
 	// Location (Building Name, X, Y)
-	fscanf(fp,"%c %d %d",&NAME(LOCATION(*m)),&POINT(LOCATION(*m)).x,&POINT(LOCATION(*m)).y);
+	char dump;
+	fscanf(fp,"%c",&dump);
+	fscanf(fp,"%c %d %d",&(NAME(LOCATION(*m))),&(POINT(LOCATION(*m)).x),&(POINT(LOCATION(*m)).y));
 	// To Do list
 	int i,n;
 	fscanf(fp,"%d",&n);
 	for(i=0;i<n;i++){
 		int startx,starty,endx,endy,in,price,timernow,timerori;
 		char startc,endc,type;
-		fscanf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",&startx,&starty,&startc,&endx,&endy,&endc,&in,&price,&timernow,&timerori,&type);
+		fscanf(fp,"%d %d %c %d %d %c %d %d %d %d %c",&startx,&starty,&startc,&endx,&endy,&endc,&in,&price,&timernow,&timerori,&type);
 		Pesanan item;
 		item.pickUp.point.x=startx;
 		item.pickUp.point.y=starty;
@@ -568,7 +667,7 @@ void CommandLoad(Mobita *m){
 	for(i=0;i<n;i++){
 		int startx,starty,endx,endy,in,price,timernow,timerori;
 		char startc,endc,type;
-		fscanf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",&startx,&starty,&startc,&endx,&endy,&endc,&in,&price,&timernow,&timerori,&type);
+		fscanf(fp,"%d %d %c %d %d %c %d %d %d %d %c",&startx,&starty,&startc,&endx,&endy,&endc,&in,&price,&timernow,&timerori,&type);
 		Pesanan item;
 		item.pickUp.point.x=startx;
 		item.pickUp.point.y=starty;
@@ -613,11 +712,11 @@ boolean UseSenterPembesar(Mobita *m){
 boolean UsePintuKemanaSaja(Mobita *m){
 	printf("Pilih destinasi Pintu Kemana Saja: ");
 	displayLocList(BUILDINGLIST(*m));
-	printf("\nENTER COMMAND: ");
+	printf("\nEnter Command: ");
 	int in=0;
 	scanf("%d",&in);
 	while(in<1&&in>countBuilding(BUILDINGLIST(*m))){
-		printf("Masukan tidak valid\n ENTER COMMAND: ");
+		printf("Masukan tidak valid\n Enter Command: ");
 		scanf("%d",&in);
 	}
 	LOCATION(*m)=LOC(BUILDINGLIST(*m),in-1);

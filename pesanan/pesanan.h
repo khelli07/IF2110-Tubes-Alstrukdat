@@ -23,7 +23,7 @@ typedef struct {
 #define Price(p) (p).price
 #define JenisItem(p) (p).jenisItem
 #define TimeoutPerish(p) (p).timeout
-#define TimeoutPerishInitial(p) (p).timeout
+#define TimeoutPerishInitial(p) (p).timeoutInitial
 
 // Create Pesanan, harga item otomatis disimpulkan dari JenisItem
 void CreatePesanan(Pesanan *p, JenisItem jenisItem, Location pickUp, Location dropOff, int waktuIn);
