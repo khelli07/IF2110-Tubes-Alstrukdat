@@ -21,8 +21,6 @@ extern Location currentLoc;
 /* MACHINE PROGRAM */
 void ignoreWhiteSpace();
 /* Mengabaikan BLANK, NEWLINE, dan TAB */
-void ignoreBlank();
-/* Mengabaikan BLANK dan TAB */
 void startReadLoc();
 /* Mulai readloc, inisialisasi readLocCounter dan endReadLoc */
 void advReadLoc();

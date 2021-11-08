@@ -5,6 +5,8 @@
 #include "mobita.h"
 #include "../utilities/boolean.h"
 #include "../mesin/charmachine.h"
+#include "../mesin/locmachine.h"
+#include "../mesin/wordmachine.h"
 #include "../point/location.h"
 #include "../list_linked/linked_list_to_do.h"
 #include "../list_linked/linked_list_in_progress.h"
@@ -319,6 +321,94 @@ void CommandHelp(){
 	printf("13. Exit\n");
 }
 
+void CommandNewGame(Mobita* m){
+    /* KAMUS LOKAL */
+    int mrow, mcol, px, py, N;
+    int timeIn, timeoutPerish;
+    char pickUpCC, dropOffCC;
+
+    JenisItem itemType;
+    Location HQ, pickUpLoc, dropOffLoc;
+    Pesanan currentPesanan;
+    QueuePesanan qPesanan;
+    DynamicList locList;
+    AdjMatrix adjMat;
+    Map map;
+
+    /* ALGORITMA */
+    startReadFile("input.txt");
+    
+    // BACA MAP
+    mrow = readInt();
+    mcol = readInt();
+    CreateMap(&map, mrow, mcol);
+
+    // BACA HEADQUARTER
+    px = readInt();
+    py = readInt();
+    CreateLocation(&HQ, px, py, '8');
+    setBuilding(&map, HQ);
+
+    startReadLoc();
+    CreateDynamicList(&locList, readLocCounter);
+    insertLoc(&locList, HQ);
+    while (!endReadLoc)
+    {
+        insertLoc(&locList, currentLoc);
+        setBuilding(&map, currentLoc);
+        advReadLoc();
+    }
+
+    // READ ADJ MATRIX
+    N = countBuilding(locList);
+    CreateAdjMatrix(&adjMat, N);
+    readAdjMatrix(&adjMat, N);
+
+    CreateQueue(&qPesanan);
+    ignoreWhiteSpace();
+    N = readInt();
+    while (N != 0)
+    {
+        ignoreWhiteSpace();
+        timeIn = readInt();
+        ignoreWhiteSpace();
+        pickUpCC = currentChar;
+        advReadFile();
+        ignoreWhiteSpace();
+        dropOffCC = currentChar;
+        advReadFile();
+        ignoreWhiteSpace();
+        itemType = charToJenisItem(currentChar);
+        advReadFile();
+
+        pickUpLoc = getLoc(locList, pickUpCC);
+        dropOffLoc = getLoc(locList, dropOffCC);
+        if (itemType == PERISHABLE)
+        {
+            timeoutPerish = readInt();
+            CreatePesananPerish(&currentPesanan, itemType, pickUpLoc, dropOffLoc, timeIn, timeoutPerish);
+            N -= 1;
+            enqueue(&qPesanan, currentPesanan);
+        }
+        else
+        {
+            CreatePesanan(&currentPesanan, itemType, pickUpLoc, dropOffLoc, timeIn);
+            N -= 1;
+            enqueue(&qPesanan, currentPesanan);
+        }
+    }
+
+    sortQueue(&qPesanan);
+    endReadFile();
+    printf("Read file done!\n");
+
+    QUEUEPESANAN(*m) = qPesanan;
+    BUILDINGLIST(*m) = locList;
+    ADJMAT(*m) = adjMat;
+    PETA(*m) = map;
+}
+
+
 void CommandSave(Mobita *m){
 	/* Get File Name*/
 	char* in=malloc(50*sizeof(char));
@@ -359,7 +449,7 @@ void CommandSave(Mobita *m){
 		int in=daftarPesanan.buffer[i].waktuIn;
 		char start=daftarPesanan.buffer[i].pickUp.buildingName;
 		char end=daftarPesanan.buffer[i].dropOff.buildingName;
-		char type=jenisItemToChar(daftarPesanan.buffer[i].jenisItem);
+		char type=getJenisItemChar(daftarPesanan.buffer[i]);
 		int timer=daftarPesanan.buffer[i].timeoutInitial;
 		fprintf(fp,"%d %c %c %c ",in,start,end,type);
 		if(type=='P')fprintf(fp,"%d",timer);
@@ -391,7 +481,7 @@ void CommandSave(Mobita *m){
 		int price=getPesananToDo(TODO(*m),i).price;
 		int timernow=getPesananToDo(TODO(*m),i).timeout;
 		int timerori=getPesananToDo(TODO(*m),i).timeoutInitial;
-		char type=jenisItemToChar(getPesananToDo(TODO(*m),i).jenisItem);
+		char type=getJenisItemChar(getPesananToDo(TODO(*m),i));
 		fprintf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",startx,starty,startc,endx,endy,endc,in,price,timernow,timerori,type);
 	}
 	// In Progress List
@@ -408,7 +498,7 @@ void CommandSave(Mobita *m){
 		int price=getPesananInProgress(INPROGRESS(*m),i).price;
 		int timernow=getPesananInProgress(INPROGRESS(*m),i).timeout;
 		int timerori=getPesananInProgress(INPROGRESS(*m),i).timeoutInitial;
-		char type=jenisItemToChar(getPesananInProgress(INPROGRESS(*m),i).jenisItem);
+		char type=getJenisItemChar(getPesananInProgress(INPROGRESS(*m),i));
 		fprintf(fp,"%d %d %c %d %d %c %d %d %d %d %c\n",startx,starty,startc,endx,endy,endc,in,price,timernow,timerori,type);
 	}
 	// Inventory

@@ -3,7 +3,7 @@
 
 #include "../utilities/boolean.h"
 
-#define MARK '.'
+#define MARK '#'
 /* Char Engine State */
 extern char currentChar;
 extern boolean eot;
@@ -23,4 +23,9 @@ void adv();
           currentChar mungkin = MARK
           Jika  currentChar = MARK maka EOP akan menyala (true) */
 void end();
+
+void startReadFile(char *filename);
+void advReadFile();
+void endReadFile();
+
 #endif

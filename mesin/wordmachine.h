@@ -20,6 +20,7 @@ typedef struct
 extern boolean endWord;
 extern Word currentWord;
 
+void ignoreBlank();
 void startWord();
 /* I.S. : currentChar sembarang 
    F.S. : endWord = true, dan currentChar = MARK; 
@@ -41,7 +42,5 @@ void copyWord();
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
 
-Word readLine();
-/* Baca input, behaviour mirip scanf */
 
 #endif

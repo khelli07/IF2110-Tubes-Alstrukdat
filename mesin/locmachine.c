@@ -19,7 +19,7 @@ int readInt()
     {
         value = value * 10 + currentChar - 48;
         i++;
-        adv();
+        advReadFile();
     }
 
     return value;
@@ -29,15 +29,7 @@ void ignoreWhiteSpace()
 {
     while (currentChar == BLANK || currentChar == NEWLINE || currentChar == TAB)
     {
-        adv();
-    }
-}
-
-void ignoreBlank()
-{
-    while (currentChar == BLANK || currentChar == TAB)
-    {
-        adv();
+        advReadFile();
     }
 }
 
@@ -73,7 +65,7 @@ void advReadLoc()
 void copyCurrentLoc()
 {
     char cc = currentChar;
-    adv();
+    advReadFile();
     int x = readInt();
     int y = readInt();
 

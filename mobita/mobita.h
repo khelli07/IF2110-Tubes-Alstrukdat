@@ -92,6 +92,9 @@ void CommandInventory(Mobita* m);
 void CommandHelp();
 // displays help
 
+void CommandNewGame(Mobita* m);
+// Read config for new game
+
 void CommandSave(Mobita* m);
 // saves to file.mob
 

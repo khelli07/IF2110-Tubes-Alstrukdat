@@ -8,9 +8,10 @@ char currentChar;
 boolean eot;
 
 static FILE *tape;
+static FILE *file;
 static int retval;
 
-void start(char *filename)
+void start()
 {
     /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
@@ -20,7 +21,7 @@ void start(char *filename)
           Jika currentChar = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
-    tape = fopen(filename, "r");
+    tape = stdin;
     adv();
 }
 
@@ -34,15 +35,26 @@ void adv()
 
     /* Algoritma */
     retval = fscanf(tape, "%c", &currentChar);
-    // eot = (currentChar == MARK);
-    // if (eot)
-    // {
-    //     fclose(tape);
-    // }
+    eot = (currentChar == MARK);
+    if (eot)
+    {
+        fclose(tape);
+    }
 }
 
-void end()
+void startReadFile(char *filename)
+{
+    file = fopen(filename, "r");
+    advReadFile();
+}
+
+void advReadFile()
+{
+    retval = fscanf(file, "%c", &currentChar);
+}
+
+void endReadFile()
 {
     // close manual
-    fclose(tape);
+    fclose(file);
 }

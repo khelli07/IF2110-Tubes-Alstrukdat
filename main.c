@@ -72,7 +72,7 @@ int main(){
 	int cmd=getCmd(3);
 	switch(cmd){
 		case 1:
-			//New Game
+			CommandNewGame(&m);
 			break;
 		case 2:
 			CommandLoad(&m);
