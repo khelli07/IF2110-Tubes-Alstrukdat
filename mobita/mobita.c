@@ -26,6 +26,7 @@
 int globalTime=0;
 // Tas capacity sudah ada di Mobita
 QueuePesanan daftarPesanan;
+int delivered=0;
 
 /* KONSTRUKTOR */
 void CreateMobita(Mobita *m)
@@ -228,7 +229,7 @@ void CommandDropoff(Mobita* m){
 		m->returnToSenderAbility = true;
 		break;
 	}
-
+	delivered++;
 	printf("Pesanan %s Item berhasil diantarkan\n", getJenisItemString(toppesanan));
 	printf("Uang yang didapatkan: %d Yen\n", Price(toppesanan));
 }

@@ -64,6 +64,10 @@ void UpdatePesanan(Mobita *m){
 	if(cnt>0)printf("\nAnda mendapatkan %d pesanan baru!\n",cnt);
 }
 
+boolean notDone(Mobita m){
+	return isQueueEmpty(daftarPesanan)&&isToDoEmpty(TODO(m))&&isInProgressEmpty(INPROGRESS(m));
+}
+
 int main(){
 	Mobita m;
 	CreateMobita(&m);
@@ -93,7 +97,7 @@ int main(){
 		case 3:
 			return 0;
 		}
-	while(cmd!=13){
+	while(cmd!=13&&notDone(m)){
 		UpdatePesanan(&m);
 		printCmd(&m);
 		cmd=getCmd(13);
@@ -138,6 +142,12 @@ int main(){
 				break;
 			}
 	}
-	printf("Thank You For Playing\n");
+	if(notDone(m))printf("Thank You For Playing\n");
+	else{
+		// end screen
+		printf("Selamat, anda telah menyelesaikan permainan!\n");
+		printf("Orders delivered: %d \n",delivered);
+		printf("Time spent: %d \n",globalTime);
+	}
 	return 0;
 }
