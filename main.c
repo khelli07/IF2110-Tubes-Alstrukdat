@@ -61,7 +61,7 @@ void UpdatePesanan(Mobita *m){
 		updateLocationColor(m, LokasiPickUp(k));
 		cnt++;
 	}
-	if(cnt>0)printf("Anda mendapatkan %d pesanan baru!\n",cnt);
+	if(cnt>0)printf("\nAnda mendapatkan %d pesanan baru!\n",cnt);
 }
 
 int main(){

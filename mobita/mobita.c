@@ -37,6 +37,7 @@ void CreateMobita(Mobita *m)
     CreateInProgressList(&INPROGRESS(*m)); //empty linked list
     CreateGadgetList(&INVENTORY(*m));
     CreateDynamicList(&BUILDINGLIST(*m),30);
+    CreateStack(&TAS(*m)); // empty stack
     //CreateAdjMat(&adj);
     //CreateMap(&map);
     
@@ -108,8 +109,10 @@ void CommandMove(Mobita* m){
 	}
 
 	// Mengupdate warna lokasi sebelumnya dan sekarang
+	/*
 	displayLoc(prevloc); printf("\n"); displayLoc(LOCATION(*m)); printf("\n");
 	printf("%d\n", COLOR(prevloc));
+	*/
 	updateLocationColor(m, prevloc);
 	updateLocationColor(m, LOCATION(*m));
 	dealocate(&accesibleloc);
@@ -243,7 +246,9 @@ void CommandInProgress(Mobita *m) {
 }
 
 void CommandMap(Mobita* m){
+	setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOCATION(*m), O);
 	displayMap(PETA(*m));
+	setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOCATION(*m), HI);
 }
 
 void CommandBuy(Mobita* m){
@@ -476,7 +481,7 @@ void CommandSave(Mobita *m){
 	// Pesanan
 	n=lengthQueue(daftarPesanan);
 	fprintf(fp,"%d\n",n);
-	for(i=0;i<n;i++){
+	if(n>0)for(i=daftarPesanan.idxHead;i<=daftarPesanan.idxTail;i++){
 		int in=daftarPesanan.buffer[i].waktuIn;
 		char start=daftarPesanan.buffer[i].pickUp.buildingName;
 		char end=daftarPesanan.buffer[i].dropOff.buildingName;
@@ -676,6 +681,7 @@ int CommandLoad(Mobita *m){
 		insertLastToDo(&TODO(*m),item);
 	}
 	// In Progress List
+	n=0;
 	fscanf(fp,"%d",&n);
 	for(i=0;i<n;i++){
 		int startx,starty,endx,endy,in,price,timernow,timerori;
@@ -694,12 +700,32 @@ int CommandLoad(Mobita *m){
 		item.timeoutInitial=timerori;
 		item.jenisItem=charToJenisItem(type);
 		insertLastInProgress(&INPROGRESS(*m),item);
+		push(&TAS(*m),item);
 	}
 	// Inventory
 	for(i=0;i<5;i++){
 		fscanf(fp,"%d",&GADGETOWNED(INVENTORY(*m),i));
 	}
 	fclose(fp);
+	
+	// COLORS!!!!
+	
+	// Green
+	DynamicList accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
+	displayLocList(accesibleloc);
+	printf("\n");
+
+	for(i = 0; i < NEFF(accesibleloc); i++){
+		setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), G);
+	}
+	
+	// The Rest
+	for(i=0;i<NEFF(BUILDINGLIST(*m));i++){
+		updateLocationColor(m,LOC(BUILDINGLIST(*m),i));
+	}
+	
+	// Blue da bi da
+	setLocationColor(&PETA(*m), &BUILDINGLIST(*m), TOP(TAS(*m)).dropOff, B);
 	return 1;
 }
 

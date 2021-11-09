@@ -48,7 +48,7 @@ void setBuilding(Map *m, Location loc)
 void setLocationColor(Map *m, DynamicList *locList, Location loc, Color cc)
 {
     int i = getLocIndex(*locList, loc);
-    printf("Ketemu: %d\n", i);
+    // printf("Ketemu: %d\n", i);
     // Ubah yang ada di daftar list bangunan
     LOC(*locList, i).color = cc;
     // Ubah yang ada di map
