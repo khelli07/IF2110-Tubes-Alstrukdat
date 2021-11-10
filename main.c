@@ -70,17 +70,16 @@ int main(){
 	printf("2. Load Game\n");
 	printf("3. Exit\n");
 	int cmd=getCmd(3);
-    // int cmd;
-    // scanf("%d", &cmd);
 	switch(cmd){
 		case 1:
 			CommandNewGame(&m);
-            // displayAdjMatrix(ADJMAT(m));
-            // printf("\n");
-            // displayMap(PETA(m));
-            // printf("\n");
-            // displayLocList(BUILDINGLIST(m));
-            // printf("\n");
+            displayAdjMatrix(ADJMAT(m));
+            printf("\n");
+            displayMap(PETA(m));
+            printf("\n");
+            displayLocList(BUILDINGLIST(m));
+            printf("\n");
+            displayQueue(daftarPesanan);
 			break;
 		case 2:
 			if(!CommandLoad(&m)){
