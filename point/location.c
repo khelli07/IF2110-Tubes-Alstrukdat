@@ -45,6 +45,6 @@ boolean isLocEqual(Location l1, Location l2)
 {
     Point p1 = POINT(l1);
     Point p2 = POINT(l2);
-
-    return ((p1.x == p2.x) && (p1.y == p2.y) && (NAME(l1) == NAME(l2)) && (COLOR(l1) == COLOR(l2)));
+    
+    return ((p1.x == p2.x) && (p1.y == p2.y) && (NAME(l1) == NAME(l2)));
 }

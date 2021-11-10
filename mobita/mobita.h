@@ -24,6 +24,7 @@
 extern int globalTime;
 // Tas capacity sudah ada di Mobita
 extern QueuePesanan daftarPesanan;
+extern int delivered;
 
 typedef struct{
 	int balance;
