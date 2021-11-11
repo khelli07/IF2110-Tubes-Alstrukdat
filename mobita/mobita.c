@@ -835,6 +835,26 @@ void CommandBalance(Mobita *m)
     printf("Uang anda sekarang adalah: %d\n", BALANCE(*m));
 }
 
+void CommandReturn(Mobita* m){
+	if((*m).returnToSenderAbility==0){
+		printf("Anda tidak memiliki ability return!\n");
+		return;
+	}else if(isEmpty(TAS(*m))){
+		printf("Tas anda kosong!\n");
+		return;
+	}
+	(*m).returnToSenderAbility=0;
+	Pesanan x;
+	pop(&TAS(*m),&x);
+	Pesanan y;
+	deleteLastInProgress(&INPROGRESS(*m),&y);
+	insertFirstToDo(&TODO(*m),x);
+	updateLocationColor(m,x.pickUp);
+	updateLocationColor(m,x.dropOff);
+	if(!isPesananEqual(x,y))printf("Unexpected error in CommandReturn\n");
+		
+}
+
 /* INTERNAL COMMANDS */
 boolean UseKainWaktu(Mobita *m)
 {

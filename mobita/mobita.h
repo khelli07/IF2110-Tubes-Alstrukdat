@@ -104,6 +104,9 @@ int CommandLoad(Mobita* m);
 void CommandBalance(Mobita* m);
 // displays balance
 
+void CommandReturn(Mobita* m);
+// Ability return
+
 /* INTERNAL COMMANDS */
 
 /* GADGET USE */
