@@ -133,7 +133,7 @@ int main(){
 				CommandBalance(&m);
 				break;
 			case 10:
-				//CommandReturn(&m);
+				CommandReturn(&m);
 				break;
 			case 11:
 				CommandHelp();
