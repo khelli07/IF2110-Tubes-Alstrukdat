@@ -124,6 +124,4 @@ boolean UseSenterPengecil(Mobita *m);
 int getInputCommand(char msg[], int n);
 
 void updateLocationColor(Mobita* m, Location loc);
-
-void updateTodoFromQueue(Mobita* m);
 #endif
