@@ -283,7 +283,7 @@ void displayToDoList(List l) {
         } else if (JenisItem(INFO(p)) == PERISHABLE) {
             printf("(Perishable Item, sisa waktu %d)\n", TimeoutPerish(INFO(p)));
         } else if (JenisItem(INFO(p)) == VIP) {
-            printf("(VIP Item)\n");
+            printf("%s(VIP Item)", RED); printf("%s\n", DEFAULT);
         }
         while (NEXT(p) != NULL) {
             p = NEXT(p);
@@ -296,7 +296,7 @@ void displayToDoList(List l) {
             } else if (JenisItem(INFO(p)) == PERISHABLE) {
                 printf("(Perishable Item, sisa waktu %d)\n", TimeoutPerish(INFO(p)));
             } else if (JenisItem(INFO(p)) == VIP) {
-                printf("(VIP Item)\n");
+                printf("%s(VIP Item)", RED); printf("%s\n", DEFAULT);
             }
         }
     }
@@ -370,4 +370,16 @@ boolean isLocationHasToDo(List l, Location loc){
         }
     }
     return found;
+}
+
+void countToDoByJenisItem(List todo, int result[JENISITEMCOUNT]){
+    Address p;
+    p = todo;
+
+    for (int i = 0; i < JENISITEMCOUNT; i++)
+        result[i] = 0;
+    while(p != NULL){
+        result[JenisItem(INFO(p))] += 1;
+        p = NEXT(p);
+    }
 }

@@ -113,10 +113,11 @@ void CommandMove(Mobita *m)
 
     // Mengupdate warna lokasi yang aksesibel menjadi hijau
     dealocate(&accesibleloc);
+    updateLocationColor(m, prevloc);
     accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
     for (i = 0; i < NEFF(accesibleloc); i++)
     {
-        if (COLOR(LOC(accesibleloc, i)) == HI)
+        if (COLOR(LOC(accesibleloc, i)) == HI || COLOR(LOC(accesibleloc, i)) == O)
             setLocationColor(&PETA(*m), &BUILDINGLIST(*m), LOC(accesibleloc, i), G);
     }
 
@@ -125,7 +126,7 @@ void CommandMove(Mobita *m)
 	displayLoc(prevloc); printf("\n"); displayLoc(LOCATION(*m)); printf("\n");
 	printf("%d\n", COLOR(prevloc));
 	*/
-    updateLocationColor(m, prevloc);
+
     updateLocationColor(m, LOCATION(*m));
     dealocate(&accesibleloc);
     printf("Mobita sekarang berada di titik ");
@@ -181,58 +182,80 @@ void CommandPickup(Mobita *m)
         printf("Tas sudah penuh! Antarkan dulu pesanan di tas\n");
         return;
     }
-    Location currentLoc = LOCATION(*m);
+
+    int firstInLocVipIdx = -1;
     int todolength = lengthToDo(TODO(*m));
-    List todoPesanan = TODO(*m);
+    Location currentLoc = LOCATION(*m);
+
     List pesananInLocation;
     CreateToDoList(&pesananInLocation);
+
     int i = 0;
+    Pesanan p;
     for (i = 0; i < todolength; i++)
     {
-        if (isLocEqual(currentLoc, LokasiPickUp(getPesananToDo(todoPesanan, i))))
+        p = getPesananToDo(TODO(*m), i);
+        if (isLocEqual(currentLoc, LokasiPickUp(p)))
         {
-            insertLastToDo(&pesananInLocation, getPesananToDo(todoPesanan, i));
+            insertLastToDo(&pesananInLocation, p);
+            if(JenisItem(p) == VIP){
+                if(firstInLocVipIdx == -1)
+                    firstInLocVipIdx = lengthToDo(pesananInLocation) - 1;
+            }
         }
     }
+
     if (isToDoEmpty(pesananInLocation))
     {
         printf("Pesanan tidak ditemukan!\n");
+        return;
     }
-    else
-    {
+
+    Pesanan firstPesanan;
+    int itemcountstodo[JENISITEMCOUNT];
+    int itemcountsinprogress[JENISITEMCOUNT];
+    countToDoByJenisItem(TODO(*m), itemcountstodo);
+    countToDoByJenisItem(INPROGRESS(*m), itemcountsinprogress);
+    if(itemcountstodo[VIP] > 0 || itemcountsinprogress[VIP] > 0){
+        if(firstInLocVipIdx == -1){
+            printf("Tidak Ada Pesanan VIP di sini! Ambil dan antarkan dulu pesanan VIP di tempat lain\n");
+            return;
+        } else{
+            firstPesanan = getPesananToDo(pesananInLocation, firstInLocVipIdx);
+        }
+    } else{
         // Mencari Pesanan yang masuk paling dulu
         int inloclength = lengthToDo(pesananInLocation);
-        Pesanan firstPesanan = getPesananToDo(pesananInLocation, 0);
+        firstPesanan = getPesananToDo(pesananInLocation, 0);
         for (i = 1; i < inloclength; i++)
         {
             if (WaktuIn(getPesananToDo(pesananInLocation, i)) < WaktuIn(firstPesanan))
                 firstPesanan = getPesananToDo(pesananInLocation, i);
         }
-        // Menghapus Pesanan dari To Do (sudah dimasukkan ke In Progress dan Tas)
-        int i = indexOfPesananToDo(TODO(*m), firstPesanan);
-        if (i == -1)
-        {
+    }
+
+    // Menghapus Pesanan dari To Do dan dimasukkan ke In Progress dan Tas
+    i = indexOfPesananToDo(TODO(*m), firstPesanan);
+    if (i == -1){
             printf("Error tak terduga terjadi\n");
             return;
-        }
-        insertFirstInProgress(&INPROGRESS(*m), firstPesanan);
-        if (!isEmpty(TAS(*m)))
-        {
-            Location prev = LokasiDropOff(TOP(TAS(*m)));
-            push(&TAS(*m), firstPesanan);
-            updateLocationColor(m, prev);
-        }
-        else
-        {
-            push(&TAS(*m), firstPesanan);
-        }
-        Pesanan temp;
-        deleteAtToDo(&TODO(*m), i, &temp);
-        updateLocationColor(m, LokasiDropOff(firstPesanan));
-
-        printf("Pesanan berupa %s Item berhasil diambil!\n", getJenisItemString(firstPesanan));
-        printf("Tujuan Pesanan: %c\n", NAME(LokasiDropOff(firstPesanan)));
     }
+
+    insertFirstInProgress(&INPROGRESS(*m), firstPesanan);
+    if (!isEmpty(TAS(*m)))
+    {
+        Location prev = LokasiDropOff(TOP(TAS(*m)));
+        push(&TAS(*m), firstPesanan);
+        updateLocationColor(m, prev);
+    } else {
+        push(&TAS(*m), firstPesanan);
+    }
+    Pesanan temp;
+    deleteAtToDo(&TODO(*m), i, &temp);
+    updateLocationColor(m, LokasiDropOff(firstPesanan));
+
+    printf("Pesanan berupa %s Item berhasil diambil!\n", getJenisItemString(firstPesanan));
+    printf("Tujuan Pesanan: %c\n", NAME(LokasiDropOff(firstPesanan)));
 }
 
 void CommandDropoff(Mobita *m)

@@ -296,7 +296,7 @@ void displayInProgressList(List l)
         }
         else if (JenisItem(INFO(p)) == PERISHABLE)
         {
-            printf("%d. Perishable Item ", ctr);
+            printf("%d. Perishable Item Sisa Waktu %d ", ctr, TimeoutPerish(INFO(p)));
         }
         else if (JenisItem(INFO(p)) == VIP)
         {
@@ -317,7 +317,7 @@ void displayInProgressList(List l)
             }
             else if (JenisItem(INFO(p)) == PERISHABLE)
             {
-                printf("%d. Perishable Item ", ctr);
+                printf("%d. Perishable Item Sisa Waktu %d ", ctr, TimeoutPerish(INFO(p)));
             }
             else if (JenisItem(INFO(p)) == VIP)
             {

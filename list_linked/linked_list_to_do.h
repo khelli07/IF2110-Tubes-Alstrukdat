@@ -98,6 +98,12 @@ List concatToDo(List l1, List l2);
 /* menghasilkan l3 yang baru (dengan elemen list l1 dan l2 secara beurutan). */
 /* Tidak ada alokasi/dealokasi pada prosedur ini */
 
+// Mengecek apakah lokasi loc punya TODO di sana, return true jika ada, false jika tidak
 boolean isLocationHasToDo(List l, Location loc);
+
+/* Menghitung rincian jenis pesanan yang ada di TODO
+ * I.S.: result sembarang, todo terdefinisi
+ * F.S.: result berisi rincian jumlah barang dari tiap JenisItem */
+void countToDoByJenisItem(List todo, int result[JENISITEMCOUNT]);
 
 #endif

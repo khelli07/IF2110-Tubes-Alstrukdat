@@ -54,18 +54,22 @@ void printCmd(Mobita* m){
 
 void UpdatePesanan(Mobita *m){
 	int cnt=0;
+	int vipcnt = 0;
 	while(!isQueueEmpty(daftarPesanan) && HEADQUEUE(daftarPesanan).waktuIn<=globalTime){
 		Pesanan k;
 		dequeue(&daftarPesanan,&k);
 		insertLastToDo(&TODO(*m),k);
 		updateLocationColor(m, LokasiPickUp(k));
 		cnt++;
+		if(JenisItem(k) == VIP) vipcnt++;
 	}
-	if(cnt>0)printf("\nAnda mendapatkan %d pesanan baru!\n",cnt);
+	if(cnt>0) printf("\n%sAnda mendapatkan %d pesanan baru!", BLUE, cnt);
+	if(vipcnt > 0) printf("\n%sAda %d pesanan VIP baru", RED, vipcnt);
+	printf("%s", DEFAULT);
 }
 
 boolean notDone(Mobita m){
-	return isQueueEmpty(daftarPesanan)&&isToDoEmpty(TODO(m))&&isInProgressEmpty(INPROGRESS(m));
+	return !(isQueueEmpty(daftarPesanan)&&isToDoEmpty(TODO(m))&&isInProgressEmpty(INPROGRESS(m)));
 }
 
 int main(){
