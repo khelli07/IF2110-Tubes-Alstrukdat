@@ -5,7 +5,7 @@
 #include "mobita.h"
 #include "../utilities/boolean.h"
 #include "../mesin/charmachine.h"
-#include "../mesin/inputmachine.h"
+#include "../mesin/configmachine.h"
 #include "../mesin/wordmachine.h"
 #include "../point/location.h"
 #include "../list_linked/linked_list_to_do.h"
@@ -198,8 +198,9 @@ void CommandPickup(Mobita *m)
         if (isLocEqual(currentLoc, LokasiPickUp(p)))
         {
             insertLastToDo(&pesananInLocation, p);
-            if(JenisItem(p) == VIP){
-                if(firstInLocVipIdx == -1)
+            if (JenisItem(p) == VIP)
+            {
+                if (firstInLocVipIdx == -1)
                     firstInLocVipIdx = lengthToDo(pesananInLocation) - 1;
             }
         }
@@ -216,14 +217,20 @@ void CommandPickup(Mobita *m)
     int itemcountsinprogress[JENISITEMCOUNT];
     countToDoByJenisItem(TODO(*m), itemcountstodo);
     countToDoByJenisItem(INPROGRESS(*m), itemcountsinprogress);
-    if(itemcountstodo[VIP] > 0 || itemcountsinprogress[VIP] > 0){
-        if(firstInLocVipIdx == -1){
+    if (itemcountstodo[VIP] > 0 || itemcountsinprogress[VIP] > 0)
+    {
+        if (firstInLocVipIdx == -1)
+        {
             printf("Tidak Ada Pesanan VIP di sini! Ambil dan antarkan dulu pesanan VIP di tempat lain\n");
             return;
-        } else{
+        }
+        else
+        {
             firstPesanan = getPesananToDo(pesananInLocation, firstInLocVipIdx);
         }
-    } else{
+    }
+    else
+    {
         // Mencari Pesanan yang masuk paling dulu
         int inloclength = lengthToDo(pesananInLocation);
         firstPesanan = getPesananToDo(pesananInLocation, 0);
@@ -236,9 +243,10 @@ void CommandPickup(Mobita *m)
 
     // Menghapus Pesanan dari To Do dan dimasukkan ke In Progress dan Tas
     i = indexOfPesananToDo(TODO(*m), firstPesanan);
-    if (i == -1){
-            printf("Error tak terduga terjadi\n");
-            return;
+    if (i == -1)
+    {
+        printf("Error tak terduga terjadi\n");
+        return;
     }
 
     insertFirstInProgress(&INPROGRESS(*m), firstPesanan);
@@ -247,7 +255,9 @@ void CommandPickup(Mobita *m)
         Location prev = LokasiDropOff(TOP(TAS(*m)));
         push(&TAS(*m), firstPesanan);
         updateLocationColor(m, prev);
-    } else {
+    }
+    else
+    {
         push(&TAS(*m), firstPesanan);
     }
     Pesanan temp;
@@ -835,24 +845,28 @@ void CommandBalance(Mobita *m)
     printf("Uang anda sekarang adalah: %d\n", BALANCE(*m));
 }
 
-void CommandReturn(Mobita* m){
-	if((*m).returnToSenderAbility==0){
-		printf("Anda tidak memiliki ability return!\n");
-		return;
-	}else if(isEmpty(TAS(*m))){
-		printf("Tas anda kosong!\n");
-		return;
-	}
-	(*m).returnToSenderAbility=0;
-	Pesanan x;
-	pop(&TAS(*m),&x);
-	Pesanan y;
-	deleteLastInProgress(&INPROGRESS(*m),&y);
-	insertFirstToDo(&TODO(*m),x);
-	updateLocationColor(m,x.pickUp);
-	updateLocationColor(m,x.dropOff);
-	if(!isPesananEqual(x,y))printf("Unexpected error in CommandReturn\n");
-		
+void CommandReturn(Mobita *m)
+{
+    if ((*m).returnToSenderAbility == 0)
+    {
+        printf("Anda tidak memiliki ability return!\n");
+        return;
+    }
+    else if (isEmpty(TAS(*m)))
+    {
+        printf("Tas anda kosong!\n");
+        return;
+    }
+    (*m).returnToSenderAbility = 0;
+    Pesanan x;
+    pop(&TAS(*m), &x);
+    Pesanan y;
+    deleteLastInProgress(&INPROGRESS(*m), &y);
+    insertFirstToDo(&TODO(*m), x);
+    updateLocationColor(m, x.pickUp);
+    updateLocationColor(m, x.dropOff);
+    if (!isPesananEqual(x, y))
+        printf("Unexpected error in CommandReturn\n");
 }
 
 /* INTERNAL COMMANDS */

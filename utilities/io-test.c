@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../mesin/inputmachine.h"
+#include "../mesin/configmachine.h"
 #include "../mesin/charmachine.h"
 #include "../list_biasa/dynamiclist.h"
 #include "../matriks/adjmat.h"

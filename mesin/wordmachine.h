@@ -6,7 +6,7 @@
 
 #include "../utilities/boolean.h"
 #include "charmachine.h"
-#include "inputmachine.h"
+#include "configmachine.h"
 
 #define CAPACITY_WORD 50
 
@@ -41,6 +41,5 @@ void copyWord();
           currentChar = BLANK atau currentChar = MARK; 
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
-
 
 #endif

@@ -2,7 +2,7 @@
 #define ADJMAT_H
 
 #include "../utilities/boolean.h"
-#include "../mesin/inputmachine.h"
+#include "../mesin/configmachine.h"
 
 #define ADJ_CAP 100
 

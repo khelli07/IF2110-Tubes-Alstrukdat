@@ -1,6 +1,5 @@
-/* DEFINISI MESIN BACA LOKASI */
-#ifndef INPUT_MACHINE_H
-#define INPUT_MACHINE_H
+#ifndef CONFIG_MACHINE_H
+#define CONFIG_MACHINE_H
 
 #include "../utilities/boolean.h"
 #include "../point/location.h"
