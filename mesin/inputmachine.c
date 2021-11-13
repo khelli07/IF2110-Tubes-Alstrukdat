@@ -1,4 +1,4 @@
-#include "locmachine.h"
+#include "inputmachine.h"
 #include <stdio.h>
 
 int readLocCounter = -1;

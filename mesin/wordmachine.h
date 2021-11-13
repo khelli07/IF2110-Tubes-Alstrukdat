@@ -6,7 +6,7 @@
 
 #include "../utilities/boolean.h"
 #include "charmachine.h"
-#include "locmachine.h"
+#include "inputmachine.h"
 
 #define CAPACITY_WORD 50
 

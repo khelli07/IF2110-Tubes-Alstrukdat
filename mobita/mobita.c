@@ -5,7 +5,7 @@
 #include "mobita.h"
 #include "../utilities/boolean.h"
 #include "../mesin/charmachine.h"
-#include "../mesin/locmachine.h"
+#include "../mesin/inputmachine.h"
 #include "../mesin/wordmachine.h"
 #include "../point/location.h"
 #include "../list_linked/linked_list_to_do.h"
