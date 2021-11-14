@@ -1,9 +1,5 @@
 {
     "files.associations": {
-        "inputmachine.h": "c",
-        "linked_list_in_progress.h": "c",
-        "boolean.h": "c",
-        "queuepesanan.h": "c",
-        "configmachine.h": "c"
+        "adjmat.h": "c"
     }
 }

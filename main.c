@@ -96,13 +96,6 @@ int main()
     {
     case 1:
         CommandNewGame(&m);
-        displayAdjMatrix(ADJMAT(m));
-        printf("\n");
-        displayMap(PETA(m));
-        printf("\n");
-        displayLocList(BUILDINGLIST(m));
-        printf("\n");
-        displayQueue(daftarPesanan);
         break;
     case 2:
         if (!CommandLoad(&m))
