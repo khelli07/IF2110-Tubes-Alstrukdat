@@ -536,7 +536,7 @@ void CommandSave(Mobita *m)
     printf("Masukkan nama file: ");
     scanf("%s", &in);
     char filename[50] = "";
-    strcpy(filename, "Savefiles/");
+    strcpy(filename, "saved_files/");
     strcat(filename, in);
     strcat(filename, ".mob");
     FILE *fp;
@@ -655,7 +655,7 @@ int CommandLoad(Mobita *m)
     printf("Masukkan nama file: ");
     scanf("%s", &in);
     char filename[50] = "";
-    strcpy(filename, "Savefiles/");
+    strcpy(filename, "saved_files/");
     strcat(filename, in);
     strcat(filename, ".mob");
     FILE *fp;
