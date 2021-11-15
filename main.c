@@ -26,8 +26,13 @@ int getCmd(int range)
 {
     printf("\nEnter Command: ");
     int ret;
-    scanf("%d", &ret);
-    if (ret > range || ret < 1)
+    int res = scanf("%d", &ret);
+    if(res == 0){
+        char inputstr[1024];
+        scanf("%1023[^\n]", inputstr);  // Membuang input string yang tidak valid
+        printf("Command tidak valid\n");
+        return getCmd(range);
+    } else if (ret > range || ret < 1)
     {
         printf("Command tidak valid\n");
         return getCmd(range);
