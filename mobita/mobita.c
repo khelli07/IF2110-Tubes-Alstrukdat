@@ -81,7 +81,7 @@ void CommandMove(Mobita *m)
     if (itemcounts[HEAVY] > 0)
     {
         timeincrement = 1 + itemcounts[HEAVY];
-        m->speedBoostAbility = -1;
+        m->speedBoostAbility = 0;
     }
     else if (m->speedBoostAbility > 0)
     {
@@ -90,9 +90,7 @@ void CommandMove(Mobita *m)
             timeincrement = 1;
         }
         m->speedBoostAbility -= 1;
-    }
-    else
-    {
+    } else {
         timeincrement = 1;
     }
     globalTime += timeincrement;
@@ -100,12 +98,24 @@ void CommandMove(Mobita *m)
     // Mengurangi waktu perishable di InProgress, menghapus yang terdepan di InProgress dan teratas di tas jika expired
     reduceTimeoutPerishInProgress(&INPROGRESS(*m), timeincrement);
     Pesanan temp;
+    Stack temptas;
+    CreateStack(&temptas);
     i = 0;
-    while (i < lengthInProgress(INPROGRESS(*m)) && isPesananExpired(getPesananInProgress(INPROGRESS(*m), i)))
-    { // isPesananExpired return false jika bukan perishable
-        pop(&TAS(*m), &temp);
-        deleteFirstInProgress(&INPROGRESS(*m), &temp);
+    while (i < lengthInProgress(INPROGRESS(*m))){
+        // isPesananExpired return false jika bukan perishable
+        if(isPesananExpired(getPesananInProgress(INPROGRESS(*m), i))){
+            pop(&TAS(*m), &temp);
+            deleteAtInProgress(&INPROGRESS(*m), i, &temp);
+        } else{
+            pop(&TAS(*m), &temp);
+            push(&temptas, temp);
+        }
         i++;
+    }
+    i = 0;
+    while(i < sizeStack(temptas)){
+        pop(&temptas, &temp);
+        push(&TAS(*m), temp);
     }
 
     if (!isEmpty(TAS(*m)))
@@ -228,8 +238,7 @@ void CommandPickup(Mobita *m)
         {
             firstPesanan = getPesananToDo(pesananInLocation, firstInLocVipIdx);
         }
-    }
-    else
+    } else
     {
         // Mencari Pesanan yang masuk paling dulu
         int inloclength = lengthToDo(pesananInLocation);
@@ -290,6 +299,9 @@ void CommandDropoff(Mobita *m)
 
     switch (JenisItem(toppesanan))
     {
+    case HEAVY:
+        m->speedBoostAbility = 10;
+        break;
     case PERISHABLE:
         TASCAPACITY(*m) += 1;
         break;
@@ -861,8 +873,8 @@ void CommandReturn(Mobita *m)
     Pesanan x;
     pop(&TAS(*m), &x);
     Pesanan y;
-    deleteLastInProgress(&INPROGRESS(*m), &y);
-    insertFirstToDo(&TODO(*m), x);
+    deleteFirstInProgress(&INPROGRESS(*m), &y);
+    insertLastToDo(&TODO(*m), x);
     updateLocationColor(m, x.pickUp);
     updateLocationColor(m, x.dropOff);
     if (!isPesananEqual(x, y))
