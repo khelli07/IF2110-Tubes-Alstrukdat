@@ -48,10 +48,10 @@ void DisplayShop(GadgetList *g){
 	}
 }
 
-void DisplayInventory(GadgetList *g){
+int DisplayInventory(GadgetList *g){
 	if(InventorySize(g)==0){
 		printf("Inventory Kosong\n");
-		return;
+		return 0;
 	}
 	int i=0;
 	int cnt=0;
@@ -60,6 +60,7 @@ void DisplayInventory(GadgetList *g){
 		else printf("%d. -\n",i+1);
 		i++;
 	}
+	return 1;
 }
 
 void UpdateItem(GadgetList *g, int idx, int change){

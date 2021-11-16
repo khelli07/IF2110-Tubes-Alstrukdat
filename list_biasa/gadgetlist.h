@@ -23,7 +23,7 @@ int InventorySize(GadgetList *g);
 /* OPERANDS */
 void DisplayShop(GadgetList *g);
 
-void DisplayInventory(GadgetList *g);
+int DisplayInventory(GadgetList *g);
 
 void UpdateItem(GadgetList *g, int idx, int change); //change= +1 or -1
 

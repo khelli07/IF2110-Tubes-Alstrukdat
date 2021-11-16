@@ -382,7 +382,10 @@ void CommandBuy(Mobita *m)
 
 void CommandInventory(Mobita *m)
 {
-    DisplayInventory(&INVENTORY(*m));
+    if(!DisplayInventory(&INVENTORY(*m))){
+    	printf("Silahkan membeli gadget di HQ!\n");
+    	return;
+	};
     printf("Gadget mana yang ingin digunakan? (ketik 0 untuk kembali)\n\n");
     printf("Enter Command: ");
     int cmd;
