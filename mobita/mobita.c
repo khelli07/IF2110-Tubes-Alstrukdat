@@ -757,7 +757,6 @@ int CommandLoad(Mobita *m)
     }
 
     sortQueue(&qPesanan);
-
     daftarPesanan = qPesanan;
     BUILDINGLIST(*m) = locList;
     ADJMAT(*m) = adjMat;
@@ -828,13 +827,10 @@ int CommandLoad(Mobita *m)
         fscanf(fp, "%d", &GADGETOWNED(INVENTORY(*m), i));
     }
     fclose(fp);
-
     // COLORS!!!!
 
     // Green
     DynamicList accesibleloc = getAccLoc(ADJMAT(*m), BUILDINGLIST(*m), LOCATION(*m));
-    displayLocList(accesibleloc);
-    printf("\n");
 
     for (i = 0; i < NEFF(accesibleloc); i++)
     {
@@ -848,7 +844,7 @@ int CommandLoad(Mobita *m)
     }
 
     // Blue da bi da
-    setLocationColor(&PETA(*m), &BUILDINGLIST(*m), TOP(TAS(*m)).dropOff, B);
+    if(!isEmpty(TAS(*m)))setLocationColor(&PETA(*m), &BUILDINGLIST(*m), TOP(TAS(*m)).dropOff, B);
     return 1;
 }
 
@@ -877,6 +873,7 @@ void CommandReturn(Mobita *m)
     insertLastToDo(&TODO(*m), x);
     updateLocationColor(m, x.pickUp);
     updateLocationColor(m, x.dropOff);
+    printf("Pesanan berhasil dikembalikan!\n");
     if (!isPesananEqual(x, y))
         printf("Unexpected error in CommandReturn\n");
 }
