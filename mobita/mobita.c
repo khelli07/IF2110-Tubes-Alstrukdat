@@ -432,7 +432,7 @@ void CommandHelp()
     printf("5. In Progress List -> Daftar yang sedang kamu kerjakan sekarang. \n");
     printf("6. Map -> Mau liat kamu di mana? Nggak bisa pakai Google Maps. Ayo lihat di sini saja. \n");
     printf("7. Buy -> Beli barang AJAIB, tetapi cuma bisa dibeli di HQ! \n");
-    printf("8. Inventory -> Barang yang kamu beli dan masih tersedia. \n");
+    printf("8. Inventory -> Barang yang kamu beli dan untuk menggunakan consumable.\n");
     printf("9. Balance -> Uangmu sekarang. Ayo kerja lebih giat!1  \n");
     printf("10. Return -> Balik ke checkpoint *hanya berlaku pada item tertentu*. \n");
     printf("11. Help -> Uh.. \n");
