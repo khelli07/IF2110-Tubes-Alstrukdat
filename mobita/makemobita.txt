@@ -1,1 +1,0 @@
-gcc -o driver mobita/mobita_driver.c mobita/mobita.c mesin/charmachine.c point/location.c point/point.c list_biasa/gadgetlist.c utilities/pcolor.c

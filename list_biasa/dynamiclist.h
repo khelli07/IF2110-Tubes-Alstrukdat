@@ -10,8 +10,8 @@ typedef int IdxType;
 typedef struct
 {
     Location *buffer; /* memori tempat penyimpan elemen (container) */
-    int nEff;       /* >=0, banyaknya elemen efektif */
-    int capacity;   /* ukuran elemen */
+    int nEff;         /* >=0, banyaknya elemen efektif */
+    int capacity;     /* ukuran elemen */
 } DynamicList;
 
 /* ********** SELEKTOR ********** */
@@ -40,17 +40,11 @@ void displayLocList(DynamicList l);
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
 void insertLoc(DynamicList *l, Location loc);
-/* Proses: Menambahkan val sebagai elemen terakhir list */
-/* I.S. List l boleh kosong, tetapi tidak penuh */
-/* F.S. loc adalah elemen terakhir l yang baru */
+/* Menambahkan loc sebagai elemen terakhir list */
 
 /* ********** MENGHAPUS ELEMEN ********** */
 void deleteLoc(DynamicList *l, Location *loc);
-/* Proses : Menghapus elemen terakhir list */
-/* I.S. List tidak kosong */
-/* F.S. loc adalah nilai elemen terakhir l sebelum penghapusan, 
-        Banyaknya elemen list berkurang satu 
-        List l mungkin menjadi kosong */
+/* Menghapus elemen terakhir list */
 
 /* ********** GETTER ********** */
 int getLocIndex(DynamicList l, Location loc);

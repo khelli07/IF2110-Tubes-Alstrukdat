@@ -7,8 +7,8 @@
 #include "../pesanan/pesanan.h"
 #include "../pesanan/queuepesanan.h"
 
-// kalo mau test -> ubah main_test ke main(), pastikan tidak ada main() lain
-int main_test()
+// basically command newgame
+int main()
 {
     /* KAMUS LOKAL */
     int mrow, mcol, px, py, N;
@@ -24,9 +24,8 @@ int main_test()
     Map map;
 
     /* ALGORITMA */
-    char filename[] = "input.txt";
-    start(filename);
-    // configFile = fopen("input.txt", "r+");
+    // HARUS 1 FOLDER DENGAN CONFIG.TXT
+    start("config.txt");
 
     // BACA MAP
     mrow = readInt();
