@@ -21,6 +21,7 @@
 #include "../point/point.h"
 #include "../list_linked/node.h"
 
+/* Mengetes pembuatan objek Mobita dan pengecekan inventory */
 int main(){
 	globalTime = 0;
 	Mobita m;
