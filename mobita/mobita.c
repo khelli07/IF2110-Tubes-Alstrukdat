@@ -877,8 +877,6 @@ void CommandReturn(Mobita *m)
     updateLocationColor(m, x.pickUp);
     updateLocationColor(m, x.dropOff);
     printf("Pesanan berhasil dikembalikan!\n");
-    if (!isPesananEqual(x, y))
-        printf("Unexpected error in CommandReturn\n");
 }
 
 /* INTERNAL COMMANDS */
