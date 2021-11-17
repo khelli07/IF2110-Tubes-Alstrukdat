@@ -23,7 +23,7 @@ Cara kompilasi program adalah dengan memanggil ”make” pada command prompt. P
 
 Pada repository ini, sudah ada main.exe. Disarankan untuk langsung menjalankan saja (tidak perlu merepotkan diri untuk kompilasi ulang).
 
-## Pembagian tugas
+## Pembagian Tugas
 
 <hr>
 
@@ -34,7 +34,7 @@ Pada repository ini, sudah ada main.exe. Disarankan untuk langsung menjalankan s
 | Bryan Amirul Husna          | ADT Pesanan, ADT Item, ADT Queue, Command Move, Command Pick Up, Command Drop Off, VIP Item (bonus)                                                                            |
 | Frederik Imanuel Louis      | ADT Mobita, ADT Point, ADT List Statis, Command Buy, Command Inventory (+ Senter, bonus), Command Save Game, Command Load Game, Command Return to Sender (BONUS), Main Program |
 
-## Daftar fitur
+## Daftar Fitur
 
 - [x] Program utama
 - [x] Move
